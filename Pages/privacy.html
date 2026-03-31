@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PunnyCart | Privacy Policy</title>
+  <meta name="description" content="Read PunnyCart's privacy policy to understand how we collect, use, and protect your personal information.">
+  <meta name="keywords" content="privacy, privacy policy, data protection, punnycart">
+  <meta name="author" content="PunnyCart">
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#4f46e5', secondary: '#7c3aed' }, fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] } } } }</script>
+  <link rel="stylesheet" href="../Css/style.css">
+  <style>
+    * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
+    .dark ::-webkit-scrollbar-track { background: #1f2937; }
+    .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dark .nav-link::after {
+      background: #818cf8;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+          <button onclick="window.location.href='cart.html'" class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+          <button id="darkToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+          <button id="mobileMenuToggle" class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <nav class="flex flex-col space-y-4" id="mobileNav">
+          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+          <a href="./shop.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+          <div id="mobileAuthSection"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Your privacy matters. Learn how we protect your information.</p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 space-y-6">
+      <p class="text-gray-600 dark:text-gray-400">Last Updated: March 25, 2026</p>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Information We Collect</h2><p class="text-gray-600 dark:text-gray-400">We collect information you provide directly to us, such as when you create an account, place an order, or contact customer support. This includes your name, email address, phone number, shipping address, and payment information.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">How We Use Your Information</h2><ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 ml-4"><li>Process and fulfill your orders</li><li>Communicate about your orders and account</li><li>Improve our products and services</li><li>Send promotional offers (with your consent)</li><li>Protect against fraudulent transactions</li></ul></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Information Sharing</h2><p class="text-gray-600 dark:text-gray-400">We do not sell your personal information. We may share information with trusted partners who assist in operating our website, processing payments, and delivering orders. All partners are contractually obligated to keep your information secure.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Data Security</h2><p class="text-gray-600 dark:text-gray-400">We implement industry-standard security measures to protect your personal information, including SSL encryption for all transactions. However, no method of transmission over the Internet is 100% secure.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Your Rights</h2><p class="text-gray-600 dark:text-gray-400">You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at <a href="mailto:privacy@punnycart.com" class="text-indigo-600 hover:underline">privacy@punnycart.com</a>.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Cookies</h2><p class="text-gray-600 dark:text-gray-400">We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. You can disable cookies in your browser settings.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Children's Privacy</h2><p class="text-gray-600 dark:text-gray-400">Our services are not directed to children under 13. We do not knowingly collect personal information from children.</p></div>
+      
+      <div><h2 class="text-2xl font-bold mb-3">Changes to This Policy</h2><p class="text-gray-600 dark:text-gray-400">We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.</p></div>
+      
+      <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-6"><h2 class="text-xl font-bold mb-2">Questions?</h2><p class="text-gray-600 dark:text-gray-400">Contact our privacy team at <a href="mailto:privacy@punnycart.com" class="text-indigo-600 hover:underline">privacy@punnycart.com</a></p></div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div class="space-y-4">
+          <a href="../index.html" class="flex items-center flex-shrink-0 group">
+            <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">Punny<span class="text-purple-600 dark:text-purple-400">Cart</span></span>
+          </a>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Your premier destination for online shopping. Quality products, unbeatable prices, and exceptional service.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a></li>
+            <li><a href="./shop.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shop</a></li>
+            <li><a href="./about.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</a></li>
+            <li><a href="./contact.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact</a></li>
+            <li><a href="./faq.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</a></li>
+            <li><a href="./blog-landing.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="shipping.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shipping Policy</a></li>
+            <li><a href="returns.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Returns & Exchanges</a></li>
+            <li><a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Connect With Us</h3>
+          <a href="https://wa.me/2347074024165?text=Hi%21%20I%27d%20like%20to%20connect%20with%20PunnyCart" target="_blank" class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.346.223-.643.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 2.25.75 4.36 2.01 6.04L3 22l4.03-1.03C8.76 21.58 10.33 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.6-.57-5.03-1.55l-.36-.23-2.68.7.72-2.6-.23-.37C4.19 15.15 4 13.6 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">© 2026 PunnyCart. All rights reserved. | <a href="privacy.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy</a> | <a href="terms.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms</a> | <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sitemap</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../Javascript/policies.js"></script>
+  <script type="module" src="../Javascript/auth.js"></script>
+</body>
+</html>

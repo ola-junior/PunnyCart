@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PunnyCart | Sign In</title>
+
+  <meta name="description"
+    content="Sign in to your PunnyCart account to access your orders, wishlist, and personalized recommendations.">
+  <meta name="keywords" content="login, sign in, punnycart, account">
+  <meta name="author" content="PunnyCart">
+
+  <meta property="og:title" content="PunnyCart | Sign In">
+  <meta property="og:description" content="Sign in to your PunnyCart account.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format">
+  <meta property="og:url" content="https://PunnyCart.com/Pages/login.html">
+  <meta property="og:type" content="website">
+
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+          },
+          keyframes: {
+            fadeSlideUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            floatY: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            driftOrb: {
+              '0%': { transform: 'translate(0,0) scale(1)' },
+              '100%': { transform: 'translate(30px,40px) scale(1.12)' },
+            },
+          },
+          animation: {
+            'fade-1': 'fadeSlideUp 0.7s ease forwards 0.1s',
+            'fade-2': 'fadeSlideUp 0.7s ease forwards 0.25s',
+            'fade-3': 'fadeSlideUp 0.7s ease forwards 0.4s',
+            'fade-4': 'fadeSlideUp 0.7s ease forwards 0.55s',
+            'fade-5': 'fadeSlideUp 0.7s ease forwards 0.7s',
+            'float-a': 'floatY 5s ease-in-out infinite',
+            'float-b': 'floatY 6s ease-in-out infinite 2.5s',
+            'orb-1': 'driftOrb 14s ease-in-out infinite alternate',
+            'orb-2': 'driftOrb 10s ease-in-out infinite alternate-reverse',
+            'orb-3': 'driftOrb 8s ease-in-out infinite alternate 2s',
+          },
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="../Css/style.css">
+
+  <style>
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 6px;
+    }
+
+    .dark ::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563;
+    }
+
+    .split-container {
+      display: flex;
+      min-height: calc(100vh - 80px);
+      width: 100%;
+    }
+
+    .split-left {
+      flex: 1;
+      background: #07070f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .split-right {
+      flex: 1;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+
+    .dark .split-right {
+      background: #111827;
+    }
+
+    .form-card {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bg-grid {
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+
+    .stagger {
+      opacity: 0;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dark .nav-link::after {
+      background: #818cf8;
+    }
+
+    @media (max-width: 768px) {
+      .split-container {
+        flex-direction: column;
+      }
+
+      .split-left {
+        min-height: 500px;
+      }
+    }
+
+    /* Role badge animation */
+    .role-badge {
+      transition: all 0.3s ease;
+    }
+    
+    .role-badge:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-gray-900 antialiased">
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+          <button onclick="window.location.href='cart.html'" class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+          <button id="darkToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+          <button id="mobileMenuToggle" class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <nav class="flex flex-col space-y-4" id="mobileNav">
+          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+          <a href="./shop.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+          <div id="mobileAuthSection"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="split-container">
+    <div class="split-left">
+      <div class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 80% 60% at 15% 10%, rgba(99,60,255,0.38) 0%, transparent 60%), radial-gradient(ellipse 60% 70% at 85% 95%, rgba(236,72,153,0.28) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 65% 45%, rgba(14,165,233,0.14) 0%, transparent 50%);">
+      </div>
+      <div class="absolute inset-0 bg-grid pointer-events-none opacity-100"></div>
+      <div class="animate-orb-1 absolute -top-24 -left-24 w-80 h-80 rounded-full opacity-50 pointer-events-none blur-3xl" style="background:rgba(99,60,255,0.65);"></div>
+      <div class="animate-orb-2 absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-45 pointer-events-none blur-3xl" style="background:rgba(236,72,153,0.6);"></div>
+      <div class="animate-orb-3 absolute top-1/2 left-2/3 w-40 h-40 rounded-full opacity-35 pointer-events-none blur-2xl" style="background:rgba(14,165,233,0.55);"></div>
+      <div class="animate-float-a glass absolute top-[11%] right-[6%] rounded-2xl px-4 py-3 flex items-center gap-3 z-20 hidden lg:flex">
+        <span class="text-2xl">⚡</span>
+        <div>
+          <p class="text-white text-xs font-medium leading-tight">Flash Sale Live</p>
+          <p class="text-white/40 text-[10.5px]">Ends in 2h 14m</p>
+        </div>
+      </div>
+      <div class="animate-float-b glass absolute bottom-[13%] right-[6%] rounded-2xl px-4 py-3 flex items-center gap-3 z-20 hidden lg:flex">
+        <span class="text-2xl">📦</span>
+        <div>
+          <p class="text-white text-xs font-medium leading-tight">Free Delivery</p>
+          <p class="text-white/40 text-[10.5px]">Orders over ₦5,000</p>
+        </div>
+      </div>
+      <div class="relative z-10 max-w-[480px] w-full px-10 py-14 text-white">
+        <div class="stagger animate-fade-1 inline-flex items-center gap-2.5 glass rounded-full pl-1.5 pr-4 py-1.5 mb-10">
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs" style="background: linear-gradient(135deg,#6b3fff,#ec4899);">✦</div>
+          <span class="text-xs font-medium tracking-wide text-white/80">PunnyCart — Est. 2026</span>
+        </div>
+        <h1 class="stagger animate-fade-2 font-display font-black leading-[1.1] mb-5" style="font-size: clamp(2.3rem, 3.5vw, 3.3rem);">
+          Welcome Back.<br>
+          <span class="text-gradient">Continue shopping.</span>
+        </h1>
+        <p class="stagger animate-fade-3 text-white/55 font-light leading-relaxed mb-10 text-base">
+          Sign in to access your orders, wishlist, and personalized recommendations.
+        </p>
+        <div class="stagger animate-fade-4 flex flex-col gap-3 mb-10">
+          <div class="group glass rounded-xl px-4 py-3 flex items-center gap-3 cursor-default transition-all duration-300 hover:translate-x-1" style="border-color: rgba(255,255,255,0.09);">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center text-[15px] flex-shrink-0" style="background:rgba(99,60,255,0.25);">📋</div>
+            <div>
+              <p class="text-white/90 text-sm font-medium leading-tight">Order History</p>
+              <p class="text-white/40 text-xs mt-0.5">Track your past purchases</p>
+            </div>
+          </div>
+          <div class="group glass rounded-xl px-4 py-3 flex items-center gap-3 cursor-default transition-all duration-300 hover:translate-x-1" style="border-color: rgba(255,255,255,0.09);">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center text-[15px] flex-shrink-0" style="background:rgba(236,72,153,0.22);">❤️</div>
+            <div>
+              <p class="text-white/90 text-sm font-medium leading-tight">Wishlist</p>
+              <p class="text-white/40 text-xs mt-0.5">Items you've saved</p>
+            </div>
+          </div>
+          <div class="group glass rounded-xl px-4 py-3 flex items-center gap-3 cursor-default transition-all duration-300 hover:translate-x-1" style="border-color: rgba(255,255,255,0.09);">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center text-[15px] flex-shrink-0" style="background:rgba(14,165,233,0.2);;">⚡</div>
+            <div>
+              <p class="text-white/90 text-sm font-medium leading-tight">Quick Checkout</p>
+              <p class="text-white/40 text-xs mt-0.5">Save your payment details</p>
+            </div>
+          </div>
+        </div>
+        <div class="stagger animate-fade-5 flex items-center gap-4">
+          <div class="flex">
+            <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full border-2 border-white/15 object-cover" alt="">
+            <img src="https://i.pravatar.cc/100?img=32" class="w-8 h-8 rounded-full border-2 border-white/15 object-cover -ml-2" alt="">
+            <img src="https://i.pravatar.cc/100?img=54" class="w-8 h-8 rounded-full border-2 border-white/15 object-cover -ml-2" alt="">
+            <img src="https://i.pravatar.cc/100?img=9" class="w-8 h-8 rounded-full border-2 border-white/15 object-cover -ml-2" alt="">
+          </div>
+          <div>
+            <div class="text-yellow-400 text-[11px] tracking-widest">★★★★★</div>
+            <p class="text-white/45 text-xs leading-snug mt-0.5"><span class="text-white/80 font-medium">Join 10,000+</span> returning customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <div class="form-card">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome Back!</h1>
+          <p class="text-gray-600 dark:text-gray-400">
+            Don't have an account?
+            <a href="signup.html" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">Sign up</a>
+          </p>
+        </div>
+        <form id="loginForm" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <i class="fas fa-envelope mr-2 text-indigo-500"></i>Email Address
+            </label>
+            <input type="email" id="email" required
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition placeholder-gray-400 dark:placeholder-gray-500"
+              placeholder="Enter your email">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <i class="fas fa-lock mr-2 text-indigo-500"></i>Password
+            </label>
+            <div class="relative">
+              <input type="password" id="password" required
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition placeholder-gray-400 dark:placeholder-gray-500"
+                placeholder="Enter your password">
+              <button type="button" onclick="togglePasswordVisibility('password')"
+                class="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input type="checkbox" id="remember" class="rounded text-indigo-600 focus:ring-indigo-500">
+              <label for="remember" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</label>
+            </div>
+            <a href="#" onclick="forgotPassword()" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+              Forgot Password?
+            </a>
+          </div>
+          <button type="submit" id="loginBtn"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800">
+            <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+          </button>
+        </form>
+        <div class="relative my-8">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">Or continue with</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <button onclick="googleSignIn()"
+            class="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+            <i class="fab fa-google text-red-500 mr-2"></i>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Google</span>
+          </button>
+          <button onclick="facebookSignIn()"
+            class="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+            <i class="fab fa-facebook text-blue-600 mr-2"></i>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Facebook</span>
+          </button>
+        </div>
+        <div class="mt-6 text-center">
+          <div class="inline-flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+            <i class="fas fa-shield-alt text-indigo-500"></i>
+            <span>Secure login with 256-bit encryption</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../Javascript/auth.js"></script>
+  <script>
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      const icon = event.currentTarget.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+    
+    // Add a small animation for the form on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const formCard = document.querySelector('.form-card');
+      if (formCard) {
+        formCard.style.opacity = '0';
+        formCard.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          formCard.style.transition = 'all 0.5s ease';
+          formCard.style.opacity = '1';
+          formCard.style.transform = 'translateY(0)';
+        }, 100);
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>PunnyCart | Reviews Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet" />
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] }, colors: { primary: '#4f46e5', secondary: '#7c3aed' } } } }</script>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 256px;
+            transform: translateX(0);
+            z-index: 40;
+            transition: transform .3s ease
+        }
+
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 39
+        }
+
+        @media(max-width:1023px) {
+            #sidebar {
+                transform: translateX(-100%)
+            }
+
+            #sidebar.open {
+                transform: translateX(0)
+            }
+
+            #sidebar.open+#sidebar-overlay {
+                display: block
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c4b5fd;
+            border-radius: 99px
+        }
+
+        .nav-link {
+            transition: background .15s, color .15s
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            color: #fff !important
+        }
+
+        .nav-link:not(.active):hover {
+            background: rgba(255, 255, 255, .07)
+        }
+
+        .badge-pulse {
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .6
+            }
+        }
+
+        .review-card {
+            transition: all .2s
+        }
+
+        .review-card:hover {
+            box-shadow: 0 8px 20px rgba(79, 70, 229, .08)
+        }
+
+        .star-rating {
+            display: inline-flex;
+            gap: 2px
+        }
+
+        .star-rating i {
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 min-h-screen">
+
+    <aside id="sidebar" class="w-64 bg-gray-900 flex flex-col select-none shadow-xl">
+        <div class="px-6 py-5 border-b border-white/5">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <i class="fas fa-star text-white text-sm"></i>
+                </div>
+                <div>
+                    <a href="../index.html">
+                        <h1 class="font-display text-lg font-bold text-white leading-none">Punny<span
+                                class="text-purple-400">Cart</span></h1>
+                    </a>
+                    <p class="text-[10px] text-gray-500 mt-0.5 tracking-widest uppercase">Admin Panel</p>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-4 border-b border-white/5 mx-3 mt-3 rounded-xl bg-white/5">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-white text-xs"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-sm font-semibold text-white truncate" id="adminName">Admin User</p>
+                    <p class="text-[11px] text-gray-400 truncate" id="adminEmail">admin@punnycart.com</p>
+                </div><span class="ml-auto w-2 h-2 rounded-full bg-green-400 badge-pulse flex-shrink-0"></span>
+            </div>
+        </div>
+        <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mb-2">Main</p>
+            <a href="./Dashboard.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-chart-pie w-4 text-center"></i><span>Dashboard</span></a>
+            <a href="./admin-orders.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-shopping-bag w-4 text-center"></i><span>Orders</span></a>
+            <a href="./products.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-box w-4 text-center"></i><span>Products</span></a>
+            <a href="./customers.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-users w-4 text-center"></i><span>Customers</span></a>
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Content</p>
+            <a href="./blog.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-newspaper w-4"></i><span>Blog</span></a>
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Promotions</p>
+            <a href="./admin-coupons.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-tag w-4 text-center"></i><span>Coupons</span></a>
+            <a href="./admin-reviews.html"
+                class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300"><i
+                    class="fas fa-star w-4 text-center"></i><span>Reviews</span></a>
+            <a href="./admin-announcement.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-bullhorn w-4"></i><span>Announcement</span></a>
+            <a href="./Newsletter.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-envelope-open-text w-4"></i><span>Newsletter</span></a>
+            <a href="./Banners.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-image w-4"></i><span>Banners</span></a>
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Support</p>
+            <a href="./message.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400">
+                <i class="fas fa-envelope w-4 text-center"></i><span>Messages</span>
+                <span id="unreadBadge"
+                    class="ml-auto text-[10px] font-bold bg-red-500 text-white rounded-full px-1.5 py-0.5 hidden">0</span>
+            </a>
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Reports</p>
+            <a href="./analytics.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-chart-line w-4 text-center"></i><span>Analytics</span></a>
+            <a href="./admin-settings.html"
+                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+                    class="fas fa-cog w-4 text-center"></i><span>Settings</span></a>
+        </nav>
+        <div class="px-3 pb-5 pt-2 border-t border-white/5"><button id="logoutBtn"
+                class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10"><i
+                    class="fas fa-sign-out-alt w-4 text-center"></i><span>Log Out</span></button></div>
+    </aside>
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <div class="lg:ml-64 flex flex-col min-h-screen">
+        <header
+            class="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-4 sm:px-6 py-3 flex items-center gap-3">
+            <button onclick="openSidebar()"
+                class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"><i
+                    class="fas fa-bars"></i></button>
+            <div class="min-w-0">
+                <h1 class="font-display text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight">
+                    Reviews Management</h1>
+                <p class="text-xs text-gray-500 hidden sm:block">Manage customer reviews and ratings</p>
+            </div>
+            <div class="ml-auto flex items-center gap-2">
+                <button id="darkToggle"
+                    class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"><i
+                        id="themeIcon" class="fas fa-moon text-sm"></i></button>
+            </div>
+        </header>
+
+        <main class="flex-1 p-4 sm:p-6">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div
+                    class="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-star text-indigo-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Total Reviews</p>
+                            <p id="totalReviews" class="text-xl font-bold text-gray-900 dark:text-white">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-yellow-50 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-clock text-yellow-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Pending</p>
+                            <p id="pendingReviews" class="text-xl font-bold text-yellow-500">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-green-50 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-check-circle text-green-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Approved</p>
+                            <p id="approvedReviews" class="text-xl font-bold text-green-500">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-purple-50 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-purple-500 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Avg Rating</p>
+                            <p id="avgRating" class="text-xl font-bold text-gray-900 dark:text-white">0.0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter & Search -->
+            <div
+                class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 mb-6">
+                <div
+                    class="px-4 sm:px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                    <div class="relative flex-1 w-full sm:max-w-xs">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                        <input id="searchInput" type="text" placeholder="Search by product or customer..."
+                            class="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div class="flex gap-2">
+                        <select id="statusFilter"
+                            class="px-3 py-2 text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <select id="ratingFilter"
+                            class="px-3 py-2 text-sm rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                            <option value="all">All Ratings</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars & Up</option>
+                            <option value="3">3 Stars & Up</option>
+                            <option value="2">2 Stars & Up</option>
+                            <option value="1">1 Star & Up</option>
+                        </select>
+                    </div>
+                    <p class="text-xs text-gray-500 sm:ml-auto"><span id="reviewCount">0</span> reviews</p>
+                </div>
+            </div>
+
+            <!-- Reviews List -->
+            <div id="reviewsList" class="space-y-4">
+                <!-- Reviews will be loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../Javascript/admin-reviews.js"></script>
+</body>
+
+</html>

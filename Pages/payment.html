@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PunnyCart | Payment</title>
+
+  <meta name="description"
+    content="Complete your purchase securely at PunnyCart. Enter your payment details to finalize your order.">
+  <meta name="keywords" content="payment, checkout, secure payment, punnycart">
+  <meta name="author" content="PunnyCart">
+
+  <meta property="og:title" content="PunnyCart | Payment">
+  <meta property="og:description" content="Complete your purchase securely at PunnyCart.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format">
+  <meta property="og:url" content="https://PunnyCart.com/Pages/payment.html">
+  <meta property="og:type" content="website">
+
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce-slow 3s infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="../Css/style.css">
+
+  <style>
+    @media (max-width: 380px) {
+      .xs\:inline { display: none; }
+      .h-8 { height: 1.75rem; }
+    }
+
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-bounce-slow {
+      animation: bounce-slow 4s infinite;
+    }
+
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #1f2937 !important;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563 !important;
+      border-radius: 5px;
+    }
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280 !important;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dark .nav-link::after {
+      background: #818cf8;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+
+          <button onclick="window.location.href='cart.html'"
+            class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+
+          <button id="darkToggle"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+
+          <button id="mobileMenuToggle"
+            class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <nav class="flex flex-col space-y-4" id="mobileNav">
+          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+          <a href="./shop.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+          <div id="mobileAuthSection"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <div class="lg:w-2/3">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
+          <h1 class="text-2xl md:text-3xl font-bold mb-8">Payment Details</h1>
+
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+              <span class="ml-2 font-semibold text-indigo-600">Shipping</span>
+            </div>
+            <div class="flex-1 h-0.5 mx-4 bg-indigo-600"></div>
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+              <span class="ml-2 font-semibold text-indigo-600">Payment</span>
+            </div>
+            <div class="flex-1 h-0.5 mx-4 bg-indigo-600"></div>
+          </div>
+
+          <div id="shippingAddressDisplay" class="mb-8"></div>
+          <div id="shippingMethodDisplay" class="mb-8"></div>
+
+          <form id="paymentForm">
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold mb-4">Payment Method</h2>
+              <div class="space-y-3">
+                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
+                  <input type="radio" name="payment" value="Credit Card" class="mr-3" checked>
+                  <div class="flex-1 flex items-center gap-3">
+                    <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6-2.28 0-2.56 3.5-4.72 6-4.72s6 2.16 6 4.72c-1.57 1.46-3.97 2.28-6 2.28z" />
+                    </svg>
+                    <span class="font-semibold">Credit / Debit Card</span>
+                  </div>
+                </label>
+                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
+                  <input type="radio" name="payment" value="PayPal" class="mr-3">
+                  <div class="flex-1 flex items-center gap-3">
+                    <svg class="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    <span class="font-semibold">PayPal</span>
+                  </div>
+                </label>
+                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
+                  <input type="radio" name="payment" value="Google Pay" class="mr-3">
+                  <div class="flex-1 flex items-center gap-3">
+                    <svg class="w-8 h-8 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 14c-2.67 0-5.01-1.19-6.68-3.07.07-2.25 3.01-3.93 6.68-3.93s6.61 1.68 6.68 3.93C17.01 18.81 14.67 20 12 20z" />
+                    </svg>
+                    <span class="font-semibold">Google Pay</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold mb-4">Card Details</h2>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Card Number</label>
+                  <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium mb-2">Expiration Date</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" required
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium mb-2">CVV</label>
+                    <input type="text" id="cardCvv" placeholder="123" required
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Cardholder Name</label>
+                  <input type="text" id="cardName" placeholder="John Doe" required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="billingSame" class="rounded text-indigo-600" checked>
+                <span class="text-sm">Billing address is the same as shipping address</span>
+              </label>
+            </div>
+
+            <button type="submit" id="placeOrderBtn"
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+              Complete Order
+            </button>
+
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
+              By completing your order, you agree to our Terms of Service and Privacy Policy
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div class="lg:w-1/3">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sticky top-24">
+          <h2 class="text-xl font-bold mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">Order Summary</h2>
+
+          <div id="paymentItems" class="space-y-4 mb-6 max-h-96 overflow-y-auto"></div>
+
+          <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between text-gray-600 dark:text-gray-400">
+              <span>Subtotal</span>
+              <span id="paymentSubtotal">$0.00</span>
+            </div>
+            <div class="flex justify-between text-gray-600 dark:text-gray-400">
+              <span>Shipping</span>
+              <span id="paymentShipping">$5.99</span>
+            </div>
+            <div class="flex justify-between text-gray-600 dark:text-gray-400">
+              <span>Tax (10%)</span>
+              <span id="paymentTax">$0.00</span>
+            </div>
+            <div class="flex justify-between font-bold text-lg pt-3 border-t border-gray-200 dark:border-gray-700">
+              <span>Total</span>
+              <span id="paymentTotal">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div class="space-y-4">
+          <a href="../index.html" class="flex items-center flex-shrink-0 group">
+            <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">Punny<span class="text-purple-600 dark:text-purple-400">Cart</span></span>
+          </a>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Your premier destination for online shopping. Quality products, unbeatable prices, and exceptional service.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a></li>
+            <li><a href="./shop.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shop</a></li>
+            <li><a href="./about.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</a></li>
+            <li><a href="./contact.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact</a></li>
+            <li><a href="./faq.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</a></li>
+            <li><a href="./blog-landing.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="shipping.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shipping Policy</a></li>
+            <li><a href="returns.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Returns & Exchanges</a></li>
+            <li><a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Connect With Us</h3>
+          <a href="https://wa.me/2347074024165?text=Hi%21%20I%27d%20like%20to%20connect%20with%20PunnyCart" target="_blank" class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.346.223-.643.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 2.25.75 4.36 2.01 6.04L3 22l4.03-1.03C8.76 21.58 10.33 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.6-.57-5.03-1.55l-.36-.23-2.68.7.72-2.6-.23-.37C4.19 15.15 4 13.6 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">© 2026 PunnyCart. All rights reserved. | <a href="privacy.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy</a> | <a href="terms.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms</a> | <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sitemap</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop"
+    class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700 hover:scale-110 focus:ring-4 focus:ring-indigo-300 z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script type="module" src="../Javascript/payment.js"></script>
+  <script type="module" src="../Javascript/auth.js"></script>
+</body>
+</html>

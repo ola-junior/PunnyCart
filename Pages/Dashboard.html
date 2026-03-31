@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PunnyCart | Modern E-Commerce Experience</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+            accent: '#06b6d4',
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Sidebar fixed on desktop */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 256px;
+      transform: translateX(0);
+      z-index: 40;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    #sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      z-index: 39;
+    }
+
+    @media (max-width: 1023px) {
+      #sidebar {
+        transform: translateX(-100%);
+      }
+
+      #sidebar.open {
+        transform: translateX(0);
+      }
+
+      #sidebar.open+#sidebar-overlay {
+        display: block;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c4b5fd;
+      border-radius: 99px;
+    }
+
+    .stat-card {
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -4px rgba(79, 70, 229, .18);
+    }
+
+    .nav-link {
+      transition: background .15s, color .15s;
+    }
+
+    .nav-link.active {
+      background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+      color: #fff !important;
+    }
+
+    .nav-link:not(.active):hover {
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .badge-pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .6
+      }
+    }
+
+    .trow {
+      transition: background .15s;
+    }
+
+    .trow:hover {
+      background: rgba(79, 70, 229, .04);
+    }
+
+    .dark .trow:hover {
+      background: rgba(79, 70, 229, .12);
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px;
+    }
+
+    .dark .skeleton {
+      background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+      background-size: 200% 100%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0
+      }
+
+      100% {
+        background-position: -200% 0
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 min-h-screen">
+
+  <!-- ════════════════════ SIDEBAR ════════════════════ -->
+  <aside id="sidebar" class="w-64 bg-gray-900 flex flex-col select-none shadow-xl">
+    <div class="px-6 py-5 border-b border-white/5">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+          <i class="fas fa-shopping-cart text-white text-sm"></i>
+        </div>
+        <div>
+          <a href="../index.html">
+            <h1 class="font-display text-lg font-bold text-white leading-none">Punny<span
+                class="text-purple-400">Cart</span></h1>
+          </a>
+          <p class="text-[10px] text-gray-500 mt-0.5 tracking-widest uppercase">Admin Panel</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 py-4 border-b border-white/5 mx-3 mt-3 rounded-xl bg-white/5">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+          <i class="fas fa-user text-white text-xs"></i>
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-white truncate" id="adminName">Admin User</p>
+          <p class="text-[11px] text-gray-400 truncate" id="adminEmail">admin@punnycart.com</p>
+        </div>
+        <span class="ml-auto w-2 h-2 rounded-full bg-green-400 badge-pulse flex-shrink-0"></span>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mb-2">Main</p>
+      <a href="./Dashboard.html"
+        class="nav-link active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300"><i
+          class="fas fa-chart-pie w-4 text-center"></i><span>Dashboard</span></a>
+      <a href="./admin-orders.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-shopping-bag w-4 text-center"></i><span>Orders</span></a>
+      <a href="./products.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-box w-4 text-center"></i><span>Products</span></a>
+      <a href="./customers.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-users w-4 text-center"></i><span>Customers</span></a>
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Content</p>
+      <a href="./blog.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-newspaper w-4"></i><span>Blog</span></a>
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Promotions</p>
+      <a href="./admin-coupons.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-ticket-alt w-4 text-center"></i><span>Coupons</span></a>
+      <a href="./admin-reviews.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-star w-4 text-center"></i><span>Reviews</span></a>
+      <a href="./admin-announcement.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-bullhorn w-4"></i><span>Announcement</span></a>
+      <a href="./Newsletter.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-envelope-open-text w-4"></i><span>Newsletter</span></a>
+      <a href="./Banners.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-image w-4"></i><span>Banners</span></a>
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Support</p>
+      <a href="./message.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-envelope w-4 text-center"></i><span>Messages</span><span id="unreadBadge"
+          class="ml-auto text-[10px] font-bold bg-red-500 text-white rounded-full px-1.5 py-0.5 hidden">0</span></a>
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-3 mt-5 mb-2">Reports</p>
+      <a href="./analytics.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-chart-line w-4 text-center"></i><span>Analytics</span></a>
+      <a href="./admin-settings.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400"><i
+          class="fas fa-cog w-4 text-center"></i><span>Settings</span></a>
+    </nav>
+
+    <div class="px-3 pb-5 pt-2 border-t border-white/5">
+      <button id="logoutBtn"
+        class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10">
+        <i class="fas fa-sign-out-alt w-4 text-center"></i><span>Log Out</span>
+      </button>
+    </div>
+  </aside>
+  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- ════════════════════ MAIN ════════════════════ -->
+  <div id="main-wrapper" class="lg:ml-64 flex flex-col min-h-screen">
+
+    <header
+      class="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-4 sm:px-6 py-3 flex items-center gap-3">
+      <button onclick="openSidebar()"
+        class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300">
+        <i class="fas fa-bars text-base"></i>
+      </button>
+
+      <div class="min-w-0">
+        <h1 class="font-display text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight">Dashboard
+          Overview</h1>
+        <p class="text-xs text-gray-500 hidden sm:block" id="todayDate"></p>
+      </div>
+
+      <div class="ml-auto flex items-center gap-2">
+        <button id="darkToggle"
+          class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <i id="themeIcon" class="fas fa-moon text-sm"></i>
+        </button>
+        <button onclick="loadDashboardData()"
+          class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-sync-alt text-sm"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 sm:p-6 space-y-6">
+
+      <div
+        class="rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 p-5 sm:p-6 text-white shadow-xl shadow-indigo-200 dark:shadow-indigo-950 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+          style="background:radial-gradient(circle at 80% 50%,#fff 0%,transparent 60%)"></div>
+        <div class="relative z-10">
+          <p class="text-indigo-200 text-sm font-medium">Good day,</p>
+          <h2 class="font-display text-xl sm:text-2xl font-bold mt-0.5" id="welcomeName">Admin User</h2>
+          <p class="text-indigo-200 text-xs sm:text-sm mt-1">Here's what's happening in your store today.</p>
+        </div>
+        <div class="absolute right-4 top-4 opacity-20 text-6xl sm:text-8xl">
+          <i class="fas fa-store"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div
+          class="stat-card col-span-2 sm:col-span-1 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+          <div class="flex items-start justify-between">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center">
+              <i class="fas fa-dollar-sign text-indigo-500 text-base"></i>
+            </div>
+            <span
+              class="text-xs font-semibold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full"><i
+                class="fas fa-arrow-up mr-1"></i>12%</span>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Total Revenue</p>
+          <p id="totalRevenue" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-0.5">$0</p>
+        </div>
+        <div
+          class="stat-card bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
+            <i class="fas fa-shopping-bag text-purple-500 text-base"></i>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Total Orders</p>
+          <p id="totalOrders" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-0.5">0</p>
+        </div>
+        <div
+          class="stat-card bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+          <div class="w-10 h-10 rounded-xl bg-yellow-50 dark:bg-yellow-900/30 flex items-center justify-center">
+            <i class="fas fa-clock text-yellow-500 text-base"></i>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Pending</p>
+          <p id="pendingOrders" class="text-xl sm:text-2xl font-bold text-yellow-500 mt-0.5">0</p>
+        </div>
+        <div
+          class="stat-card bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+          <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center">
+            <i class="fas fa-times-circle text-red-500 text-base"></i>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Cancelled</p>
+          <p id="cancelledOrders" class="text-xl sm:text-2xl font-bold text-red-500 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div
+          class="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display font-bold text-gray-800 dark:text-white">Sales Overview</h3>
+            <div class="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 text-xs">
+              <button
+                class="px-2 py-1 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium shadow-sm">Week</button>
+              <button class="px-2 py-1 rounded-md text-gray-500 font-medium">Month</button>
+              <button class="px-2 py-1 rounded-md text-gray-500 font-medium">Year</button>
+            </div>
+          </div>
+          <div class="relative" style="height:220px">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <div
+          class="bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+          <h3 class="font-display font-bold text-gray-800 dark:text-white mb-4">Order Status</h3>
+          <div class="relative mx-auto" style="height:160px;max-width:160px">
+            <canvas id="statusChart"></canvas>
+          </div>
+          <div id="statusLegend" class="mt-4 space-y-2"></div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <div class="px-4 sm:px-6 py-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
+          <h3 class="font-display font-bold text-gray-800 dark:text-white">Recent Orders</h3>
+          <a href="./admin-orders.html"
+            class="text-xs font-semibold text-indigo-500 hover:text-indigo-700 transition-colors">View all <i
+              class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[560px]">
+            <thead>
+              <tr class="text-left text-[11px] text-gray-400 uppercase tracking-wider bg-gray-50 dark:bg-gray-800/60">
+                <th class="px-4 sm:px-6 py-3 font-semibold">Order ID</th>
+                <th class="px-4 sm:px-6 py-3 font-semibold">Customer</th>
+                <th class="px-4 sm:px-6 py-3 font-semibold">Date</th>
+                <th class="px-4 sm:px-6 py-3 font-semibold">Status</th>
+                <th class="px-4 sm:px-6 py-3 font-semibold text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="recentOrdersTable" class="divide-y divide-gray-100 dark:divide-gray-800">
+              <tr class="trow">
+                <td colspan="5" class="px-6 py-4">
+                  <div class="skeleton h-4 w-full"></div>
+                </td>
+              </tr>
+              <tr class="trow">
+                <td colspan="5" class="px-6 py-4">
+                  <div class="skeleton h-4 w-full"></div>
+                </td>
+              </tr>
+              <tr class="trow">
+                <td colspan="5" class="px-6 py-4">
+                  <div class="skeleton h-4 w-full"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script type="module" src="../Javascript/Dashboard.js"></script>
+</body>
+
+</html>

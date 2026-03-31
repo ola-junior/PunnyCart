@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Verification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10 max-w-md w-full text-center">
+    <div id="loading">
+      <div class="animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent mx-auto mb-4"></div>
+      <p class="text-gray-600 dark:text-gray-400">Verifying your email...</p>
+    </div>
+
+    <div id="success" class="hidden">
+      <div class="text-green-500 text-6xl mb-4">✓</div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Email Verified!</h1>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Your email has been successfully verified. You can now sign in.</p>
+      <a href="login.html"
+         class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
+        Go to Login
+      </a>
+    </div>
+
+    <div id="error" class="hidden">
+      <div class="text-red-500 text-6xl mb-4">✗</div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Verification Failed</h1>
+      <p id="errorMsg" class="text-gray-600 dark:text-gray-400 mb-6">The verification link is invalid or has expired.</p>
+      <a href="login.html"
+         class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
+        Back to Login
+      </a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
+      authDomain: "e-commerce-29a73.firebaseapp.com",
+      projectId: "e-commerce-29a73",
+      storageBucket: "e-commerce-29a73.firebasestorage.app",
+      messagingSenderId: "870933397259",
+      appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function show(id) {
+      ['loading', 'success', 'error'].forEach(s => {
+        document.getElementById(s).classList.toggle('hidden', s !== id);
+      });
+    }
+
+    async function handleVerification() {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode');
+      const oobCode = params.get('oobCode');
+
+      // If no oobCode or wrong mode, show error immediately
+      if (mode !== 'verifyEmail' || !oobCode) {
+        document.getElementById('errorMsg').textContent =
+          'Invalid or missing verification link. Please request a new one.';
+        show('error');
+        return;
+      }
+
+      try {
+        // THIS is the one and only place applyActionCode is called
+        await applyActionCode(auth, oobCode);
+
+        // Update Firestore so your app reflects verified status immediately
+        // (auth.currentUser may be null here since the user isn't logged in)
+        // We rely on updateEmailVerificationStatus in auth.js when they next log in.
+        // But if user IS signed in (e.g. opened in same browser), update now:
+        const user = auth.currentUser;
+        if (user) {
+          await user.reload();
+          try {
+            const userRef = doc(db, 'users', user.uid);
+            await updateDoc(userRef, { emailVerified: true });
+          } catch (_) {
+            // Not critical — will sync on next login
+          }
+        }
+
+        show('success');
+
+      } catch (error) {
+        console.error('Verification error:', error);
+
+        let msg = 'Something went wrong. Please try again.';
+        if (error.code === 'auth/invalid-action-code') {
+          msg = 'This link has already been used or has expired. Please request a new verification email.';
+        } else if (error.code === 'auth/expired-action-code') {
+          msg = 'This link has expired. Please request a new verification email.';
+        } else if (error.code === 'auth/user-disabled') {
+          msg = 'This account has been disabled. Please contact support.';
+        }
+
+        document.getElementById('errorMsg').textContent = msg;
+        show('error');
+      }
+    }
+
+    handleVerification();
+  </script>
+</body>
+</html>

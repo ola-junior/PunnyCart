@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PunnyCart | My Messages</title>
+
+  <meta name="description" content="View your message history and replies from PunnyCart support">
+  <meta name="keywords" content="messages, support, punnycart, customer service">
+  <meta name="author" content="PunnyCart">
+
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce-slow 3s infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media (max-width: 380px) {
+      .xs\:inline { display: none; }
+      .h-8 { height: 1.75rem; }
+    }
+
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-bounce-slow {
+      animation: bounce-slow 4s infinite;
+    }
+
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #1f2937 !important;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563 !important;
+      border-radius: 5px;
+    }
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280 !important;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dark .nav-link::after {
+      background: #818cf8;
+    }
+
+    .message-card {
+      transition: all 0.2s;
+    }
+    
+    .message-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.08);
+    }
+    
+    .message-unread {
+      border-left: 4px solid #4f46e5;
+      background: rgba(79, 70, 229, 0.02);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white overflow-x-hidden">
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="flex justify-between items-center h-16 md:h-20 w-full">
+
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300 whitespace-nowrap">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+
+        <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+
+          <button onclick="window.location.href='cart.html'"
+            class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+
+          <button id="darkToggle"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+
+          <button id="mobileMenuToggle"
+            class="md:hidden bg-gray-200 dark:bg-gray-700 p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 flex-shrink-0">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700 w-full">
+        <nav class="flex flex-col space-y-4 w-full" id="mobileNav">
+          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">Home</a>
+          <a href="./shop.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">Shop</a>
+          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">About</a>
+          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">Blog</a>
+          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">FAQ</a>
+          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all w-full">Contact</a>
+          <div id="mobileAuthSection" class="w-full"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
+      <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 w-full">
+
+        <div class="lg:w-1/4 w-full">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
+             <div class="text-center mb-6">
+              <img id="profileAvatar" src="" alt="Profile"
+                class="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-4 border-4 border-indigo-600">
+              <h2 id="profileName" class="text-lg sm:text-xl font-bold truncate">Loading...</h2>
+              <p id="profileEmail" class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm truncate">Loading...</p>
+            </div>
+
+
+            <nav class="space-y-2">
+              <a href="profile.html"
+                class="flex items-center px-3 sm:px-4 py-2 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors text-sm sm:text-base">
+                <i class="fas fa-user mr-3 w-4"></i><span class="truncate">My Profile</span>
+              </a>
+              <a href="orders.html"
+                class="flex items-center px-3 sm:px-4 py-2 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors text-sm sm:text-base">
+                <i class="fas fa-shopping-bag mr-3 w-4"></i><span class="truncate">My Orders</span>
+              </a>
+              <a href="messages.html"
+                class="flex items-center px-3 sm:px-4 py-2 sm:py-3 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium text-sm sm:text-base">
+                <i class="fas fa-envelope mr-3 w-4"></i><span class="truncate">My Messages</span>
+                <span id="sidebarUnreadBadge" class="ml-auto text-xs bg-red-500 text-white rounded-full px-2 py-0.5 hidden">0</span>
+              </a>
+              <a href="wishlist.html"
+                class="flex items-center px-3 sm:px-4 py-2 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors text-sm sm:text-base">
+                <i class="fas fa-heart mr-3 w-4"></i><span class="truncate">Wishlist</span>
+              </a>
+              <a href="settings.html"
+                class="flex items-center px-3 sm:px-4 py-2 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors text-sm sm:text-base">
+                <i class="fas fa-cog mr-3 w-4"></i><span class="truncate">Settings</span>
+              </a>
+              <button onclick="window.logout()"
+                class="flex items-center w-full px-3 sm:px-4 py-2 sm:py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm sm:text-base">
+                <i class="fas fa-sign-out-alt mr-3 w-4"></i><span class="truncate">Sign Out</span>
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <div class="lg:w-3/4 w-full">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 w-full">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+              <div>
+                <h1 class="text-xl sm:text-2xl font-bold">My Messages</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">View your conversations with support</p>
+              </div>
+              <button onclick="openNewMessageModal()"
+                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span>New Message</span>
+              </button>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
+              <button onclick="filterMessages('all')" id="filterAll" class="px-4 py-2 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 transition-all">All Messages</button>
+              <button onclick="filterMessages('unread')" id="filterUnread" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-all">Unread</button>
+              <button onclick="filterMessages('replied')" id="filterReplied" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-all">Replied</button>
+            </div>
+
+            <div id="messagesList" class="space-y-4">
+              <!-- Messages will be loaded here -->
+              <div class="text-center py-16">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                <p class="mt-4 text-gray-500">Loading messages...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- New Message Modal -->
+  <div id="newMessageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+      <button onclick="closeNewMessageModal()"
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl z-10">&times;</button>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-4">Send New Message</h3>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Subject</label>
+          <select id="messageSubject" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <option value="general">General Inquiry</option>
+            <option value="order">Order Status</option>
+            <option value="returns">Returns & Exchanges</option>
+            <option value="shipping">Shipping Information</option>
+            <option value="product">Product Question</option>
+            <option value="feedback">Feedback</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Your Message</label>
+          <textarea id="messageContent" rows="6" placeholder="Please describe your issue or question in detail..."
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+        </div>
+        
+        <div class="flex gap-3">
+          <button onclick="sendNewMessage()"
+            class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition-all">Send Message</button>
+          <button onclick="closeNewMessageModal()"
+            class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 rounded-lg transition-all">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="backToTop"
+    class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700 hover:scale-110 focus:ring-4 focus:ring-indigo-300 z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs, addDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
+      authDomain: "e-commerce-29a73.firebaseapp.com",
+      projectId: "e-commerce-29a73",
+      storageBucket: "e-commerce-29a73.firebasestorage.app",
+      messagingSenderId: "870933397259",
+      appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    let currentUser = null;
+    let allMessages = [];
+    let currentFilter = 'all';
+
+    function formatDate(dateString) {
+      if (!dateString) return 'N/A';
+      const date = dateString.toDate ? dateString.toDate() : new Date(dateString);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getSubjectDisplay(subjectKey) {
+      const subjects = {
+        'general': 'General Inquiry',
+        'order': 'Order Status',
+        'returns': 'Returns & Exchanges',
+        'shipping': 'Shipping Information',
+        'product': 'Product Question',
+        'feedback': 'Feedback'
+      };
+      return subjects[subjectKey] || subjectKey;
+    }
+
+    function getSubjectBadge(subject) {
+      const colors = {
+        'general': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+        'order': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+        'returns': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+        'shipping': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+        'product': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400',
+        'feedback': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400'
+      };
+      return colors[subject] || 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    async function loadMessages() {
+      if (!currentUser) return;
+      
+      try {
+        const messagesQuery = query(
+          collection(db, 'messages'),
+          where('email', '==', currentUser.email)
+        );
+        
+        const snapshot = await getDocs(messagesQuery);
+        allMessages = [];
+        snapshot.forEach(docSnap => {
+          const data = docSnap.data();
+          allMessages.push({
+            id: docSnap.id,
+            ...data,
+            createdAt: data.createdAt || new Date()
+          });
+        });
+        
+        // Sort client-side by createdAt descending
+        allMessages.sort((a, b) => {
+          const dateA = a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt);
+          const dateB = b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+          return dateB - dateA;
+        });
+        
+        renderMessages();
+        updateUnreadBadge();
+      } catch (error) {
+        console.error('Error loading messages:', error);
+        Swal.fire('Error', 'Failed to load messages. Please try again.', 'error');
+      }
+    }
+
+    function filterMessages(filter) {
+      currentFilter = filter;
+      
+      ['all', 'unread', 'replied'].forEach(f => {
+        const btn = document.getElementById(`filter${f.charAt(0).toUpperCase() + f.slice(1)}`);
+        if (btn) {
+          if (f === filter) {
+            btn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 transition-all';
+          } else {
+            btn.className = 'px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-all';
+          }
+        }
+      });
+      
+      renderMessages();
+    }
+
+    function renderMessages() {
+      const container = document.getElementById('messagesList');
+      
+      let filteredMessages = [...allMessages];
+      
+      if (currentFilter === 'unread') {
+        filteredMessages = filteredMessages.filter(m => m.status === 'unread');
+      } else if (currentFilter === 'replied') {
+        filteredMessages = filteredMessages.filter(m => m.replied === true);
+      }
+      
+      if (filteredMessages.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16">
+            <i class="fas fa-inbox text-6xl text-gray-400 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No messages found</h3>
+            <p class="text-gray-500 dark:text-gray-400">Click "New Message" to contact support</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = filteredMessages.map(message => {
+        const subjectColor = getSubjectBadge(message.subject);
+        const isUnread = message.status === 'unread';
+        const createdAt = formatDate(message.createdAt);
+        const subjectDisplay = getSubjectDisplay(message.subject);
+        
+        return `
+          <div class="message-card bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-lg transition-all ${isUnread ? 'message-unread' : ''}">
+            <div class="p-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                    <i class="fas fa-envelope text-indigo-500 text-sm"></i>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-900 dark:text-white">${escapeHtml(subjectDisplay)}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">${createdAt}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-1 rounded-lg text-xs font-medium ${subjectColor}">${escapeHtml(subjectDisplay)}</span>
+                  ${isUnread ? '<span class="px-2 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"><i class="fas fa-circle text-[8px] mr-1"></i>Unread</span>' : ''}
+                  ${message.replied ? '<span class="px-2 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><i class="fas fa-check-circle text-xs mr-1"></i>Replied</span>' : ''}
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">${escapeHtml(message.message || 'No message content')}</p>
+              </div>
+              
+              ${message.replyMessage ? `
+                <div class="mb-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4 border-l-4 border-indigo-500">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-reply text-indigo-500 text-sm"></i>
+                    <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Support Team Reply</span>
+                    <span class="text-xs text-gray-500">${formatDate(message.repliedAt)}</span>
+                  </div>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">${escapeHtml(message.replyMessage)}</p>
+                  <p class="text-xs text-gray-500 mt-2">Replied by: ${escapeHtml(message.repliedBy || 'Support Team')}</p>
+                </div>
+              ` : ''}
+              
+              <div class="flex justify-end gap-2 pt-2">
+                ${isUnread ? `
+                  <button onclick="markAsRead('${message.id}')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-check mr-1"></i> Mark as Read
+                  </button>
+                ` : ''}
+                <button onclick="viewMessageDetails('${message.id}')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-100 text-indigo-600 hover:bg-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50 transition-colors">
+                  <i class="fas fa-eye mr-1"></i> View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.viewMessageDetails = async (messageId) => {
+      const message = allMessages.find(m => m.id === messageId);
+      if (!message) return;
+      
+      if (message.status === 'unread') {
+        await markAsRead(messageId);
+      }
+      
+      const subjectDisplay = getSubjectDisplay(message.subject);
+      const createdAt = formatDate(message.createdAt);
+      
+      Swal.fire({
+        title: 'Message Details',
+        html: `
+          <div class="text-left">
+            <div class="mb-4">
+              <p class="text-sm text-gray-500 mb-1">Subject</p>
+              <p class="font-semibold text-gray-800 dark:text-gray-200">${escapeHtml(subjectDisplay)}</p>
+            </div>
+            <div class="mb-4">
+              <p class="text-sm text-gray-500 mb-1">Date Sent</p>
+              <p class="text-gray-800 dark:text-gray-200">${createdAt}</p>
+            </div>
+            <div class="mb-4">
+              <p class="text-sm text-gray-500 mb-1">Status</p>
+              <p class="text-gray-800 dark:text-gray-200">${message.status === 'unread' ? 'Unread' : 'Read'} ${message.replied ? '· Replied' : ''}</p>
+            </div>
+            <div class="mb-4">
+              <p class="text-sm text-gray-500 mb-1">Your Message</p>
+              <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-xl text-gray-700 dark:text-gray-300 text-sm whitespace-pre-wrap">${escapeHtml(message.message)}</div>
+            </div>
+            ${message.replyMessage ? `
+              <div class="mb-4">
+                <p class="text-sm text-gray-500 mb-1">Support Reply</p>
+                <div class="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-xl text-gray-700 dark:text-gray-300 text-sm whitespace-pre-wrap">
+                  ${escapeHtml(message.replyMessage)}
+                  <p class="text-xs text-gray-500 mt-2">Replied on ${formatDate(message.repliedAt)}</p>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `,
+        confirmButtonText: 'Close',
+        confirmButtonColor: '#4f46e5'
+      });
+    };
+
+    window.markAsRead = async (messageId) => {
+      try {
+        await updateDoc(doc(db, 'messages', messageId), { status: 'read' });
+        const message = allMessages.find(m => m.id === messageId);
+        if (message) message.status = 'read';
+        renderMessages();
+        updateUnreadBadge();
+      } catch (error) {
+        console.error('Error marking as read:', error);
+      }
+    };
+
+    window.openNewMessageModal = () => {
+      document.getElementById('newMessageModal').classList.remove('hidden');
+      document.getElementById('newMessageModal').classList.add('flex');
+    };
+
+    window.closeNewMessageModal = () => {
+      document.getElementById('newMessageModal').classList.add('hidden');
+      document.getElementById('newMessageModal').classList.remove('flex');
+      document.getElementById('messageSubject').value = 'general';
+      document.getElementById('messageContent').value = '';
+    };
+
+    window.sendNewMessage = async () => {
+      const subject = document.getElementById('messageSubject').value;
+      const message = document.getElementById('messageContent').value.trim();
+      
+      if (!message) {
+        Swal.fire('Error', 'Please enter a message', 'error');
+        return;
+      }
+      
+      try {
+        await addDoc(collection(db, 'messages'), {
+          fullName: currentUser.displayName || currentUser.email.split('@')[0],
+          email: currentUser.email,
+          subject: subject,
+          message: message,
+          status: 'unread',
+          replied: false,
+          createdAt: new Date(),
+          userId: currentUser.uid
+        });
+        
+        closeNewMessageModal();
+        Swal.fire('Success', 'Your message has been sent. Our support team will respond shortly.', 'success');
+        loadMessages();
+      } catch (error) {
+        console.error('Error sending message:', error);
+        Swal.fire('Error', 'Failed to send message. Please try again.', 'error');
+      }
+    };
+
+    function updateUnreadBadge() {
+      const unreadCount = allMessages.filter(m => m.status === 'unread').length;
+      const sidebarBadge = document.getElementById('sidebarUnreadBadge');
+      if (sidebarBadge) {
+        if (unreadCount > 0) {
+          sidebarBadge.textContent = unreadCount;
+          sidebarBadge.classList.remove('hidden');
+        } else {
+          sidebarBadge.classList.add('hidden');
+        }
+      }
+    }
+
+    async function updateProfileUI(user) {
+      const nameElement = document.getElementById('profileName');
+      const emailElement = document.getElementById('profileEmail');
+      const avatarElement = document.getElementById('profileAvatar');
+      
+      if (nameElement) {
+        nameElement.textContent = user.displayName || user.email.split('@')[0];
+      }
+      if (emailElement) {
+        emailElement.textContent = user.email;
+      }
+      
+      // Try to get profile picture from localStorage or user data
+      if (avatarElement) {
+        const savedAvatar = localStorage.getItem(`avatar_${user.uid}`);
+        if (savedAvatar) {
+          avatarElement.src = savedAvatar;
+        } else {
+          // Use initial avatar like orders page
+          const initial = (user.displayName || user.email)[0].toUpperCase();
+          avatarElement.src = `https://ui-avatars.com/api/?name=${initial}&background=4f46e5&color=fff&bold=true&size=96&length=1`;
+        }
+      }
+    }
+
+    window.logout = async () => {
+      await signOut(auth);
+      window.location.href = '../index.html';
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user;
+        updateProfileUI(user);
+        loadMessages();
+      } else {
+        window.location.href = '../index.html';
+      }
+    });
+
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    if (backToTop) {
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    window.filterMessages = filterMessages;
+    window.markAsRead = markAsRead;
+    window.viewMessageDetails = viewMessageDetails;
+    window.openNewMessageModal = openNewMessageModal;
+    window.closeNewMessageModal = closeNewMessageModal;
+    window.sendNewMessage = sendNewMessage;
+  </script>
+</body>
+<script type="module" src="../Javascript/auth.js"></script>
+<script type="module" src="../Javascript/wishlist.js"></script>
+</html>

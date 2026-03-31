@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PunnyCart | Shop All Products</title>
+
+  <meta name="description"
+    content="Shop the best products at PunnyCart - electronics, fashion, home items, accessories and more. Great prices and fast delivery.">
+
+  <meta name="keywords" content="PunnyCart, online shopping, buy electronics, fashion, home decor, accessories">
+
+  <meta name="author" content="PunnyCart">
+
+  <meta property="og:title" content="PunnyCart | Shop All Products">
+  <meta property="og:description"
+    content="Discover amazing products at great prices. Shop electronics, fashion, home items and more.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format">
+  <meta property="og:url" content="https://PunnyCart.com/Pages/shop.html">
+  <meta property="og:type" content="website">
+
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+          },
+          animation: {
+            'bounce-slow': 'bounce-slow 3s infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="../Css/style.css">
+
+  <style>
+    @media (max-width: 380px) {
+      .xs\:inline {
+        display: none;
+      }
+      .h-8 {
+        height: 1.75rem;
+      }
+    }
+
+    @keyframes bounce-slow {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-bounce-slow {
+      animation: bounce-slow 4s infinite;
+    }
+
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .dark ::-webkit-scrollbar-track {
+      background: #1f2937 !important;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563 !important;
+      border-radius: 5px;
+    }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280 !important;
+    }
+
+    .dark {
+      scrollbar-color: #4b5563 #1f2937;
+      scrollbar-width: thin;
+    }
+
+    :root {
+      scrollbar-color: #888 #f1f1f1;
+      scrollbar-width: thin;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4f46e5;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      color: #4f46e5 !important;
+    }
+
+    .dark .nav-link.active {
+      color: #818cf8 !important;
+    }
+
+    .dark .nav-link::after {
+      background: #818cf8;
+    }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white transition duration-300 font-sans antialiased">
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html" class="nav-link active text-indigo-600 dark:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+
+          <button onclick="window.location.href='cart.html'"
+            class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+
+          <button id="darkToggle"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+
+          <button id="mobileMenuToggle"
+            class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <nav class="flex flex-col space-y-4" id="mobileNav">
+          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+          <a href="./shop.html" class="mobile-nav-link text-indigo-600 dark:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+          <div id="mobileAuthSection"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop All Products</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Browse our complete collection of 150+ premium products</p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Search and Filter Section -->
+    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+      <div class="flex flex-wrap gap-2">
+        <button id="filterAll"
+          class="filter-btn px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">All</button>
+        <button id="filterElectronics"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Electronics</button>
+        <button id="filterFashion"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Fashion</button>
+        <button id="filterHome"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Home</button>
+        <button id="filterAccessories"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Accessories</button>
+        <button id="filterAudio"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Audio</button>
+        <button id="filterBeauty"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Beauty</button>
+        <button id="filterSports"
+          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Sports</button>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+        <!-- Search Input -->
+        <div class="relative w-full sm:w-64">
+          <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input type="text" id="searchInput" 
+                 placeholder="Search products..." 
+                 class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+        </div>
+        
+        <!-- Sort Dropdown -->
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Sort by:</span>
+          <select id="sortSelect"
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="default">Default</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Results Count -->
+    <div class="mt-4 text-right">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Showing <span id="resultsCount">0</span> products
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+    </div>
+  </section>
+
+  <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <a href="../index.html" class="flex items-center flex-shrink-0 group">
+              <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+                Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+              </span>
+            </a>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Your premier destination for online shopping. Quality products, unbeatable prices, and exceptional service.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a></li>
+            <li><a href="./shop.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shop</a></li>
+            <li><a href="./about.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</a></li>
+            <li><a href="./contact.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact</a></li>
+            <li><a href="./faq.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</a></li>
+            <li><a href="./blog-landing.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="shipping.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shipping Policy</a></li>
+            <li><a href="returns.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Returns & Exchanges</a></li>
+            <li><a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Connect With Us</h3>
+          <a href="https://wa.me/2347074024165?text=Hi%21%20I%27d%20like%20to%20connect%20with%20PunnyCart"
+            target="_blank"
+            class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.346.223-.643.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 2.25.75 4.36 2.01 6.04L3 22l4.03-1.03C8.76 21.58 10.33 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.6-.57-5.03-1.55l-.36-.23-2.68.7.72-2.6-.23-.37C4.19 15.15 4 13.6 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          © 2026 PunnyCart. All rights reserved. |
+          <a href="privacy.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy</a> |
+          <a href="terms.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms</a> |
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sitemap</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop"
+    class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700 hover:scale-110 focus:ring-4 focus:ring-indigo-300 z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
+      <button onclick="window.closeModal()"
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl z-10">&times;</button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+        <div class="relative">
+          <img id="modalImage" src="" alt="" class="w-full h-64 md:h-96 object-cover rounded-lg">
+          <div id="modalDiscountBadge"
+            class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded hidden">-12%</div>
+          <div id="modalBestSellerBadge"
+            class="absolute top-4 right-4 bg-yellow-400 text-gray-900 text-xs font-bold px-2 py-1 rounded hidden">Best Seller</div>
+        </div>
+
+        <div class="space-y-4">
+          <p id="modalCategory" class="text-sm text-indigo-600 dark:text-indigo-400 font-semibold"></p>
+          <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-white"></h3>
+
+          <div class="flex items-center gap-2">
+            <div id="modalRating" class="flex text-yellow-400 text-lg"></div>
+            <span id="modalReviewCount" class="text-sm text-gray-500 dark:text-gray-400"></span>
+          </div>
+
+          <p id="modalDescription" class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed"></p>
+
+          <div class="flex items-center gap-3">
+            <span id="modalPrice" class="text-3xl font-bold text-gray-900 dark:text-white"></span>
+            <span id="modalOriginalPrice" class="text-lg text-gray-500 line-through hidden"></span>
+            <span id="modalDiscountPercent" class="text-sm text-green-600 dark:text-green-400 font-semibold hidden"></span>
+          </div>
+
+          <div id="modalStock" class="text-sm text-green-600 dark:text-green-400 font-semibold">In Stock</div>
+
+          <div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Colors:</span>
+            <div id="modalColors" class="flex flex-wrap gap-2 mt-2"></div>
+          </div>
+
+          <div>
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Features:</span>
+            <ul id="modalFeatures" class="mt-2 space-y-1"></ul>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Quantity:</span>
+            <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg">
+              <button onclick="window.decrementQuantity()"
+                class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">-</button>
+              <span id="quantity"
+                class="px-4 py-1 text-gray-900 dark:text-white border-x border-gray-300 dark:border-gray-600">1</span>
+              <button onclick="window.incrementQuantity()"
+                class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">+</button>
+            </div>
+          </div>
+
+          <button onclick="window.addToCartFromModal()"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../Javascript/shop.js"></script>
+  <script type="module" src="../Javascript/auth.js"></script>
+
+</body>
+
+</html>

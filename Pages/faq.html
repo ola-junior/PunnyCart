@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PunnyCart | FAQ - Frequently Asked Questions</title>
+  <meta name="description"
+    content="Find answers to frequently asked questions about ordering, shipping, returns, and more at PunnyCart.">
+  <meta name="keywords" content="faq, questions, help, support, punnycart">
+  <meta name="author" content="PunnyCart">
+
+  <meta property="og:title" content="PunnyCart | FAQ">
+  <meta property="og:description"
+    content="Find answers to frequently asked questions about ordering, shipping, returns, and more.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format">
+  <meta property="og:url" content="https://PunnyCart.com/Pages/faq.html">
+  <meta property="og:type" content="website">
+
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5',
+            secondary: '#7c3aed',
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce-slow 3s infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="../Css/style.css">
+
+  <style>
+    @keyframes bounce-slow {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-bounce-slow {
+      animation: bounce-slow 4s infinite;
+    }
+
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .dark ::-webkit-scrollbar-track {
+      background: #1f2937 !important;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #4b5563 !important;
+      border-radius: 5px;
+    }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280 !important;
+    }
+
+    .faq-item {
+      transition: all 0.3s ease;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background-color: rgba(79, 70, 229, 0.05);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-answer.active {
+      max-height: 500px;
+      transition: max-height 0.6s ease-in;
+    }
+
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active i {
+      transform: rotate(180deg);
+    }
+
+    .category-btn.active {
+      background-color: #4f46e5;
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white transition duration-300 font-sans antialiased">
+
+
+  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+
+        <a href="../index.html" class="flex items-center flex-shrink-0 group">
+          <span
+            class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+          </span>
+        </a>
+
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <nav class="hidden md:flex items-center space-x-8 mr-4">
+            <a href="../index.html"
+              class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+            <a href="./shop.html"
+              class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+            <a href="./about.html"
+              class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+            <a href="./blog-landing.html"
+              class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+            <a href="./faq.html" class="nav-link active text-indigo-600 dark:text-indigo-400 font-medium">FAQ</a>
+            <a href="./contact.html"
+              class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+            <div id="authSection" class="inline-block"></div>
+          </nav>
+
+          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+
+          <button onclick="window.location.href='cart.html'"
+            class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span
+              class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+          </button>
+
+          <button id="darkToggle"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="themeIcon" class="fas fa-moon text-sm"></i>
+          </button>
+
+          <button id="mobileMenuToggle"
+            class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <nav class="flex flex-col space-y-4" id="mobileNav">
+          <a href="../index.html"
+            class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+          <a href="./shop.html"
+            class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+          <a href="./about.html"
+            class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+          <a href="./blog-landing.html"
+            class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+          <a href="./faq.html"
+            class="mobile-nav-link text-indigo-600 dark:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+          <a href="./contact.html"
+            class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+          <div id="mobileAuthSection"></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Frequently Asked Questions</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">
+        Find quick answers to common questions. Can't find what you're looking for? Contact our support team.
+      </p>
+    </div>
+  </section>
+
+  <!-- Search Bar -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="relative max-w-2xl mx-auto">
+      <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      <input type="text" id="faqSearch" placeholder="Search for answers..."
+        class="w-full pl-12 pr-4 py-4 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg">
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div class="flex flex-wrap justify-center gap-3">
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="all">All Questions</button>
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="orders">Orders & Shipping</button>
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="payments">Payments & Billing</button>
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="returns">Returns & Refunds</button>
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="account">Account & Security</button>
+      <button
+        class="category-btn px-5 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all font-medium"
+        data-category="products">Products</button>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div id="faqContainer" class="space-y-4 max-w-4xl mx-auto">
+      <!-- Orders & Shipping Section -->
+      <div class="faq-section" data-category="orders">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Orders & Shipping</h2>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How long does shipping take?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Standard shipping typically takes 5-7 business days. Express shipping takes 2-3 business days. Next-day
+              delivery is available for orders placed before 2 PM EST. You'll receive a tracking number via email once
+              your order ships.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Do you ship internationally?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Yes! We ship to over 50 countries worldwide. International shipping times vary by location, typically
+              7-14 business days. Shipping costs and customs fees will be calculated at checkout.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How can I track my order?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Once your order ships, you'll receive a confirmation email with a tracking number. You can also track
+              your order by logging into your account and visiting the "My Orders" section.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Can I change my shipping address after
+              ordering?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>If your order hasn't been processed yet, contact our support team immediately to update your address.
+              Once shipped, we cannot change the delivery address.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payments & Billing Section -->
+      <div class="faq-section" data-category="payments">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Payments & Billing</h2>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and
+              bank transfers. All payments are securely processed.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Is my payment information secure?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Absolutely! We use industry-standard SSL encryption to protect your payment information. We never store
+              your full credit card details on our servers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">When will I be charged for my order?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Your payment method will be charged immediately after you place your order. You'll receive a confirmation
+              email once the transaction is complete.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Do you offer coupons or discount codes?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Yes! Sign up for our newsletter to receive exclusive discount codes and be the first to know about sales
+              and promotions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Returns & Refunds Section -->
+      <div class="faq-section" data-category="returns">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Returns & Refunds</h2>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">What is your return policy?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>We offer a 30-day return policy for most items. Products must be unused, in original packaging, and in
+              the same condition as received. Some restrictions apply to electronics and personal care items.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How do I initiate a return?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Log into your account, go to "My Orders," select the order, and click "Return Item." Follow the
+              instructions to print a return label. You can also contact our support team for assistance.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How long does it take to get a refund?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Once we receive and inspect your return, refunds are processed within 5-7 business days. The refund will
+              be credited back to your original payment method.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Who pays for return shipping?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>If the return is due to our error (wrong or defective item), we'll cover the return shipping costs. For
+              other returns, the customer is responsible for return shipping fees.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account & Security Section -->
+      <div class="faq-section" data-category="account">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Account & Security</h2>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How do I create an account?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Click the "Sign Up" button in the top right corner, fill in your details, and verify your email address.
+              It's quick, free, and gives you access to order tracking, wishlists, and exclusive offers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">I forgot my password. What should I do?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Click "Forgot Password" on the login page and enter your email address. You'll receive a password reset
+              link. Follow the instructions to create a new password.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How do I update my account information?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Log into your account and go to "My Profile." You can update your name, email, password, shipping
+              address, and other preferences there.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">How do I delete my account?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Contact our support team to request account deletion. Please note that this action is permanent and
+              cannot be undone.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div class="faq-section" data-category="products">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Products</h2>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Are the products authentic?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Yes! We source all products directly from authorized distributors and manufacturers. Every item is 100%
+              authentic and covered by manufacturer warranties.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Can I see product reviews before buying?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Absolutely! Each product page features customer reviews and ratings. You can also sort reviews by most
+              helpful or most recent to make an informed decision.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">What if an item is out of stock?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>You can sign up for "Notify Me" on out-of-stock products. We'll email you as soon as the item is back in
+              stock.</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-4">
+          <div
+            class="faq-question p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
+            <span class="font-semibold text-gray-900 dark:text-white">Do you offer product warranties?</span>
+            <i class="fas fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="faq-answer px-5 pb-5 text-gray-600 dark:text-gray-400">
+            <p>Most products come with manufacturer warranties. Warranty details are listed on each product page.
+              Extended warranty options are available for select items.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Still Have Questions Section -->
+  <section class="bg-indigo-50 dark:bg-indigo-900/20 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Still Have Questions?</h2>
+      <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+        Our support team is here to help. Get in touch with us and we'll respond within 24 hours.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="contact.html"
+          class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+          <i class="fas fa-envelope"></i>
+          Contact Support
+        </a>
+        <a href="https://wa.me/2347074024165?text=Hi%21%20I%20have%20a%20question%20about%20PunnyCart" target="_blank"
+          class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+          <i class="fab fa-whatsapp"></i>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div class="space-y-4">
+          <a href="../index.html" class="flex items-center flex-shrink-0 group">
+            <span
+              class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+              Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+            </span>
+          </a>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Your premier destination for online shopping. Quality products, unbeatable prices, and exceptional service.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="../index.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a>
+            </li>
+            <li><a href="shop.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shop</a>
+            </li>
+            <li><a href="faq.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</a>
+            </li>
+            <li><a href="contact.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="shipping.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Shipping
+                Policy</a></li>
+            <li><a href="returns.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Returns
+                & Exchanges</a></li>
+            <li><a href="privacy.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy
+                Policy</a></li>
+            <li><a href="terms.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms
+                of Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Connect With Us</h3>
+          <a href="https://wa.me/2347074024165?text=Hi%21%20I%27d%20like%20to%20connect%20with%20PunnyCart"
+            target="_blank"
+            class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.346.223-.643.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12c0 2.25.75 4.36 2.01 6.04L3 22l4.03-1.03C8.76 21.58 10.33 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.85 0-3.6-.57-5.03-1.55l-.36-.23-2.68.7.72-2.6-.23-.37C4.19 15.15 4 13.6 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          © 2026 PunnyCart. All rights reserved. |
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy</a> |
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms</a> |
+          <a href="#" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Sitemap</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop"
+    class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700 hover:scale-110 focus:ring-4 focus:ring-indigo-300 z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script type="module" src="../Javascript/faq.js"></script>
+  <script type="module" src="../Javascript/auth.js"></script>
+</body>
+
+</html>

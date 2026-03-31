@@ -3,39 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Email Verification</title>
+  <title>PunnyCart | Email Action</title>
+  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' }
-  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { transition: background-color 0.3s ease, color 0.3s ease; }
+    body { font-family: 'DM Sans', sans-serif; }
+  </style>
 </head>
-<body class="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
 
   <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10 max-w-md w-full text-center">
+
+    <!-- Loading -->
     <div id="loading">
       <div class="animate-spin rounded-full h-12 w-12 border-4 border-indigo-600 border-t-transparent mx-auto mb-4"></div>
-      <p class="text-gray-600 dark:text-gray-400">Verifying your email...</p>
+      <p class="text-gray-500 dark:text-gray-400">Please wait...</p>
     </div>
 
+    <!-- Success (email verified) -->
     <div id="success" class="hidden">
-      <div class="text-green-500 text-6xl mb-4">✓</div>
+      <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-check text-2xl text-green-600 dark:text-green-400"></i>
+      </div>
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Email Verified!</h1>
       <p class="text-gray-600 dark:text-gray-400 mb-6">Your email has been successfully verified. You can now sign in.</p>
       <a href="login.html"
-         class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
-        Go to Login
+        class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+        <i class="fas fa-sign-in-alt mr-2"></i>Go to Login
       </a>
     </div>
 
+    <!-- Redirecting (password reset) -->
+    <div id="redirecting" class="hidden">
+      <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-key text-2xl text-indigo-600 dark:text-indigo-400"></i>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Redirecting...</h1>
+      <p class="text-gray-600 dark:text-gray-400">Taking you to the password reset page.</p>
+    </div>
+
+    <!-- Error -->
     <div id="error" class="hidden">
-      <div class="text-red-500 text-6xl mb-4">✗</div>
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Verification Failed</h1>
-      <p id="errorMsg" class="text-gray-600 dark:text-gray-400 mb-6">The verification link is invalid or has expired.</p>
+      <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-times text-2xl text-red-600 dark:text-red-400"></i>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Something went wrong</h1>
+      <p id="errorMsg" class="text-gray-600 dark:text-gray-400 mb-6">The link is invalid or has expired.</p>
       <a href="login.html"
-         class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
-        Back to Login
+        class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Login
       </a>
     </div>
+
   </div>
 
   <script type="module">
@@ -57,63 +79,72 @@
     const db = getFirestore(app);
 
     function show(id) {
-      ['loading', 'success', 'error'].forEach(s => {
+      ['loading', 'success', 'redirecting', 'error'].forEach(s => {
         document.getElementById(s).classList.toggle('hidden', s !== id);
       });
     }
 
-    async function handleVerification() {
+    async function handleAction() {
       const params = new URLSearchParams(window.location.search);
       const mode = params.get('mode');
       const oobCode = params.get('oobCode');
 
-      // If no oobCode or wrong mode, show error immediately
-      if (mode !== 'verifyEmail' || !oobCode) {
-        document.getElementById('errorMsg').textContent =
-          'Invalid or missing verification link. Please request a new one.';
+      // No mode or code — invalid link
+      if (!mode || !oobCode) {
+        document.getElementById('errorMsg').textContent = 'Invalid or missing link. Please request a new one.';
         show('error');
         return;
       }
 
       try {
-        // THIS is the one and only place applyActionCode is called
-        await applyActionCode(auth, oobCode);
 
-        // Update Firestore so your app reflects verified status immediately
-        // (auth.currentUser may be null here since the user isn't logged in)
-        // We rely on updateEmailVerificationStatus in auth.js when they next log in.
-        // But if user IS signed in (e.g. opened in same browser), update now:
-        const user = auth.currentUser;
-        if (user) {
-          await user.reload();
-          try {
-            const userRef = doc(db, 'users', user.uid);
-            await updateDoc(userRef, { emailVerified: true });
-          } catch (_) {
-            // Not critical — will sync on next login
+        if (mode === 'verifyEmail') {
+          await applyActionCode(auth, oobCode);
+
+          // If user is signed in, sync Firestore immediately
+          const user = auth.currentUser;
+          if (user) {
+            await user.reload();
+            try {
+              await updateDoc(doc(db, 'users', user.uid), { emailVerified: true });
+            } catch (_) {
+              // Not critical — syncs automatically on next login
+            }
           }
-        }
 
-        show('success');
+          show('success');
+
+        } else if (mode === 'resetPassword') {
+          // Hand off the oobCode to reset-password.html — it does the rest
+          show('redirecting');
+          window.location.href = `reset-password.html?mode=resetPassword&oobCode=${encodeURIComponent(oobCode)}`;
+
+        } else if (mode === 'recoverEmail') {
+          await applyActionCode(auth, oobCode);
+          document.getElementById('errorMsg').textContent = 'Your email has been recovered. Please log in.';
+          show('error');
+          setTimeout(() => window.location.href = 'login.html', 3000);
+
+        } else {
+          document.getElementById('errorMsg').textContent = 'Unknown action. Please try again.';
+          show('error');
+        }
 
       } catch (error) {
-        console.error('Verification error:', error);
+        console.error('Action error:', error);
 
-        let msg = 'Something went wrong. Please try again.';
-        if (error.code === 'auth/invalid-action-code') {
-          msg = 'This link has already been used or has expired. Please request a new verification email.';
-        } else if (error.code === 'auth/expired-action-code') {
-          msg = 'This link has expired. Please request a new verification email.';
-        } else if (error.code === 'auth/user-disabled') {
-          msg = 'This account has been disabled. Please contact support.';
-        }
+        let msg = 'Something went wrong. Please request a new link.';
+        if (error.code === 'auth/invalid-action-code') msg = 'This link has already been used or has expired.';
+        else if (error.code === 'auth/expired-action-code') msg = 'This link has expired. Please request a new one.';
+        else if (error.code === 'auth/user-disabled') msg = 'This account has been disabled.';
 
         document.getElementById('errorMsg').textContent = msg;
         show('error');
       }
     }
 
-    handleVerification();
+    handleAction();
   </script>
+
 </body>
 </html>

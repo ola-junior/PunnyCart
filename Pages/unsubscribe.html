@@ -1,229 +1,310 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PunnyCart | Unsubscribe from Newsletter</title>
-  <meta name="description" content="Manage your email preferences and unsubscribe from PunnyCart newsletter">
-  <meta name="keywords" content="unsubscribe, newsletter, email preferences, punnycart">
-  <meta name="author" content="PunnyCart">
-  <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] },
-          colors: { primary: '#4f46e5', secondary: '#7c3aed' }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PunnyCart | Unsubscribe from Newsletter</title>
+    <meta name="description" content="Manage your email preferences and unsubscribe from PunnyCart newsletter">
+    <meta name="keywords" content="unsubscribe, newsletter, email preferences, punnycart">
+    <meta name="author" content="PunnyCart">
+    <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] },
+                    colors: { primary: '#4f46e5', secondary: '#7c3aed' }
+                }
+            }
         }
-      }
-    }
-  </script>
-  <style>
-    * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
-    body { font-family: 'DM Sans', sans-serif; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #f1f1f1; }
-    ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 6px; }
-    .dark ::-webkit-scrollbar-track { background: #1f2937; }
-    .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
-    .nav-link { position: relative; }
-    .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #4f46e5; transition: width 0.3s ease; }
-    .nav-link:hover::after { width: 100%; }
-    .dark .nav-link::after { background: #818cf8; }
-  </style>
+    </script>
+    <style>
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 6px;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4f46e5;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dark .nav-link::after {
+            background: #818cf8;
+        }
+    </style>
 </head>
+
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white antialiased">
 
-  <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16 md:h-20">
-        <a href="../index.html" class="flex items-center flex-shrink-0 group">
-          <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
-            Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
-          </span>
-        </a>
-        <div class="flex items-center space-x-2 sm:space-x-4">
-          <nav class="hidden md:flex items-center space-x-8 mr-4">
-            <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
-            <a href="./shop.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
-            <a href="./about.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
-            <a href="./blog-landing.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
-            <a href="./faq.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
-            <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
-            <div id="authSection" class="inline-block"></div>
-          </nav>
-          <div id="mobileProfileIcon" class="md:hidden hidden"></div>
-          <button onclick="window.location.href='cart.html'" class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
-          </button>
-          <button id="darkToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-            <i id="themeIcon" class="fas fa-moon text-sm"></i>
-          </button>
-          <button id="mobileMenuToggle" class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
-        <nav class="flex flex-col space-y-4" id="mobileNav">
-          <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
-          <a href="./shop.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
-          <a href="./about.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
-          <a href="./blog-landing.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
-          <a href="./faq.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
-          <a href="./contact.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
-          <div id="mobileAuthSection"></div>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-    <div class="max-w-2xl mx-auto">
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-center">
-          <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-envelope-open-text text-3xl text-white"></i>
-          </div>
-          <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Manage Email Preferences</h1>
-          <p class="text-indigo-200">Update your subscription status</p>
-        </div>
-        
-        <div class="p-6 md:p-8">
-          <div id="unsubscribeForm" class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <i class="fas fa-envelope mr-2 text-indigo-500"></i>Email Address
-              </label>
-              <input type="email" id="emailInput" placeholder="Enter your email address" 
-                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+    <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <a href="../index.html" class="flex items-center flex-shrink-0 group">
+                    <span
+                        class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
+                        Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
+                    </span>
+                </a>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <nav class="hidden md:flex items-center space-x-8 mr-4">
+                        <a href="../index.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
+                        <a href="./shop.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Shop</a>
+                        <a href="./about.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">About</a>
+                        <a href="./blog-landing.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Blog</a>
+                        <a href="./faq.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">FAQ</a>
+                        <a href="./contact.html"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
+                        <div id="authSection" class="inline-block"></div>
+                    </nav>
+                    <div id="mobileProfileIcon" class="md:hidden hidden"></div>
+                    <button onclick="window.location.href='cart.html'"
+                        class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span
+                            class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
+                    </button>
+                    <button id="darkToggle"
+                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i id="themeIcon" class="fas fa-moon text-sm"></i>
+                    </button>
+                    <button id="mobileMenuToggle"
+                        class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            
-            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Select your preference:</p>
-              <div class="space-y-3">
-                <label class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
-                  <input type="radio" name="preference" value="unsubscribe" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
-                  <div class="ml-3 flex-1">
-                    <p class="text-sm font-medium text-gray-900 dark:text-white">Unsubscribe from all emails</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">You will no longer receive any newsletter or promotional emails</p>
-                  </div>
-                </label>
-                <label class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
-                  <input type="radio" name="preference" value="weekly" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
-                  <div class="ml-3 flex-1">
-                    <p class="text-sm font-medium text-gray-900 dark:text-white">Weekly digest only</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Receive one email per week with top deals</p>
-                  </div>
-                </label>
-                <label class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
-                  <input type="radio" name="preference" value="monthly" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
-                  <div class="ml-3 flex-1">
-                    <p class="text-sm font-medium text-gray-900 dark:text-white">Monthly newsletter</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Get the best deals once a month</p>
-                  </div>
-                </label>
-              </div>
+            <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
+                <nav class="flex flex-col space-y-4" id="mobileNav">
+                    <a href="../index.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
+                    <a href="./shop.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Shop</a>
+                    <a href="./about.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">About</a>
+                    <a href="./blog-landing.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Blog</a>
+                    <a href="./faq.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">FAQ</a>
+                    <a href="./contact.html"
+                        class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Contact</a>
+                    <div id="mobileAuthSection"></div>
+                </nav>
             </div>
-            
-            <button onclick="updatePreferences()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-105">
-              <i class="fas fa-save mr-2"></i>Update Preferences
-            </button>
-          </div>
-          
-          <div id="successMessage" class="hidden text-center py-8">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-check-circle text-3xl text-green-600 dark:text-green-400"></i>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Preferences Updated!</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-6">Your email preferences have been successfully updated.</p>
-            <a href="../index.html" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline">
-              <i class="fas fa-arrow-left"></i>Return to Homepage
-            </a>
-          </div>
         </div>
-      </div>
-    </div>
-  </main>
+    </header>
 
-  <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-      <p class="text-sm text-gray-600 dark:text-gray-400">© 2026 PunnyCart. All rights reserved.</p>
-    </div>
-  </footer>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-center">
+                    <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope-open-text text-3xl text-white"></i>
+                    </div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Manage Email Preferences</h1>
+                    <p class="text-indigo-200">Update your subscription status</p>
+                </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+                <div class="p-6 md:p-8">
+                    <div id="unsubscribeForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <i class="fas fa-envelope mr-2 text-indigo-500"></i>Email Address
+                            </label>
+                            <input type="email" id="emailInput" placeholder="Enter your email address"
+                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                        </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
-      authDomain: "e-commerce-29a73.firebaseapp.com",
-      projectId: "e-commerce-29a73",
-      storageBucket: "e-commerce-29a73.firebasestorage.app",
-      messagingSenderId: "870933397259",
-      appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
-    };
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+                        <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Select your preference:</p>
+                            <div class="space-y-3">
+                                <label
+                                    class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                                    <input type="radio" name="preference" value="unsubscribe"
+                                        class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                    <div class="ml-3 flex-1">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Unsubscribe from
+                                            all emails</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">You will no longer receive
+                                            any newsletter or promotional emails</p>
+                                    </div>
+                                </label>
+                                <label
+                                    class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                                    <input type="radio" name="preference" value="weekly"
+                                        class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                    <div class="ml-3 flex-1">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Weekly digest only
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Receive one email per week
+                                            with top deals</p>
+                                    </div>
+                                </label>
+                                <label
+                                    class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                                    <input type="radio" name="preference" value="monthly"
+                                        class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                    <div class="ml-3 flex-1">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">Monthly newsletter
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Get the best deals once a
+                                            month</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const emailParam = urlParams.get('email');
+                        <button onclick="updatePreferences()"
+                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-105">
+                            <i class="fas fa-save mr-2"></i>Update Preferences
+                        </button>
+                    </div>
 
-    if (emailParam) {
-      document.getElementById('emailInput').value = decodeURIComponent(emailParam);
-    }
+                    <div id="successMessage" class="hidden text-center py-8">
+                        <div
+                            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check-circle text-3xl text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Preferences Updated!</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Your email preferences have been successfully
+                            updated.</p>
+                        <a href="../index.html"
+                            class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <i class="fas fa-arrow-left"></i>Return to Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    window.updatePreferences = async () => {
-      const email = document.getElementById('emailInput').value.trim();
-      const preference = document.querySelector('input[name="preference"]:checked');
-      
-      if (!email) {
-        Swal.fire('Error', 'Please enter your email address', 'error');
-        return;
-      }
-      
-      if (!preference) {
-        Swal.fire('Error', 'Please select a preference', 'error');
-        return;
-      }
-      
-      Swal.fire({ title: 'Updating...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-      
-      try {
-        const q = query(collection(db, 'newsletter'), where('email', '==', email));
-        const snapshot = await getDocs(q);
-        
-        if (snapshot.empty) {
-          Swal.fire('Not Found', 'No subscription found for this email', 'info');
-          return;
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">© 2026 PunnyCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
+            authDomain: "e-commerce-29a73.firebaseapp.com",
+            projectId: "e-commerce-29a73",
+            storageBucket: "e-commerce-29a73.firebasestorage.app",
+            messagingSenderId: "870933397259",
+            appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+
+        if (emailParam) {
+            document.getElementById('emailInput').value = decodeURIComponent(emailParam);
         }
-        
-        const docRef = doc(db, 'newsletter', snapshot.docs[0].id);
-        const status = preference.value === 'unsubscribe' ? 'unsubscribed' : 'active';
-        const frequency = preference.value === 'unsubscribe' ? null : preference.value;
-        
-        await updateDoc(docRef, { status, frequency, updatedAt: new Date() });
-        
-        document.getElementById('unsubscribeForm').classList.add('hidden');
-        document.getElementById('successMessage').classList.remove('hidden');
-        
-      } catch (error) {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Failed to update preferences', 'error');
-      }
-    };
-  </script>
-  <script type="module" src="../Javascript/auth.js"></script>
+
+        window.updatePreferences = async () => {
+            const email = document.getElementById('emailInput').value.trim();
+            const preference = document.querySelector('input[name="preference"]:checked');
+
+            if (!email) {
+                Swal.fire('Error', 'Please enter your email address', 'error');
+                return;
+            }
+
+            if (!preference) {
+                Swal.fire('Error', 'Please select a preference', 'error');
+                return;
+            }
+
+            Swal.fire({ title: 'Updating...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            try {
+                const q = query(collection(db, 'newsletter'), where('email', '==', email));
+                const snapshot = await getDocs(q);
+
+                if (snapshot.empty) {
+                    Swal.fire('Not Found', 'No subscription found for this email', 'info');
+                    return;
+                }
+
+                const docRef = doc(db, 'newsletter', snapshot.docs[0].id);
+                const status = preference.value === 'unsubscribe' ? 'unsubscribed' : 'active';
+                const frequency = preference.value === 'unsubscribe' ? null : preference.value;
+
+                await updateDoc(docRef, { status, frequency, updatedAt: new Date() });
+
+                Swal.close();
+                document.getElementById('unsubscribeForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire('Error', 'Failed to update preferences', 'error');
+            }
+        };
+    </script>
+    <script type="module" src="../Javascript/auth.js"></script>
 </body>
+
 </html>

@@ -4,22 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>PunnyCart | Shipping Method</title>
-
-  <meta name="description"
-    content="Choose your shipping method at PunnyCart. Fast and reliable delivery options for your order.">
-  <meta name="keywords" content="shipping, delivery, shipping method, punnycart">
+  <title>PunnyCart | Shipping Policy</title>
+  <meta name="description" content="Learn about PunnyCart shipping policy, delivery times, shipping costs, and international shipping information.">
+  <meta name="keywords" content="shipping, delivery, shipping policy, punnycart">
   <meta name="author" content="PunnyCart">
 
-  <meta property="og:title" content="PunnyCart | Shipping Method">
-  <meta property="og:description" content="Choose your shipping method at PunnyCart.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&auto=format">
-  <meta property="og:url" content="https://PunnyCart.com/Pages/shipping.html">
-  <meta property="og:type" content="website">
-
   <link rel="shortcut icon" href="../Css/favicon.png" type="image/x-icon">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,66 +20,20 @@
       darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            primary: '#4f46e5',
-            secondary: '#7c3aed',
-          },
-          fontFamily: {
-            sans: ['DM Sans', 'sans-serif'],
-            display: ['Syne', 'sans-serif'],
-          },
-          animation: {
-            'bounce-slow': 'bounce-slow 3s infinite',
-          }
+          colors: { primary: '#4f46e5', secondary: '#7c3aed' },
+          fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] }
         }
       }
     }
   </script>
-
   <link rel="stylesheet" href="../Css/style.css">
-
   <style>
-    @media (max-width: 380px) {
-      .xs\:inline { display: none; }
-      .h-8 { height: 1.75rem; }
-    }
-
-    @keyframes bounce-slow {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .animate-bounce-slow {
-      animation: bounce-slow 4s infinite;
-    }
-
-    * {
-      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    }
-
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 5px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-    .dark ::-webkit-scrollbar-track {
-      background: #1f2937 !important;
-    }
-    .dark ::-webkit-scrollbar-thumb {
-      background: #4b5563 !important;
-      border-radius: 5px;
-    }
-    .dark ::-webkit-scrollbar-thumb:hover {
-      background: #6b7280 !important;
-    }
+    * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
+    .dark ::-webkit-scrollbar-track { background: #1f2937; }
+    .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
 
     .nav-link {
       position: relative;
@@ -107,17 +51,8 @@
       transition: width 0.3s ease;
     }
 
-    .nav-link:hover::after,
-    .nav-link.active::after {
+    .nav-link:hover::after {
       width: 100%;
-    }
-
-    .nav-link.active {
-      color: #4f46e5 !important;
-    }
-
-    .dark .nav-link.active {
-      color: #818cf8 !important;
     }
 
     .dark .nav-link::after {
@@ -131,13 +66,11 @@
   <header class="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16 md:h-20">
-
         <a href="../index.html" class="flex items-center flex-shrink-0 group">
           <span class="text-xl md:text-2xl font-bold text-indigo-600 dark:text-indigo-400 group-hover:scale-105 transition-transform duration-300">
             Punny<span class="text-purple-600 dark:text-purple-400">Cart</span>
           </span>
         </a>
-
         <div class="flex items-center space-x-2 sm:space-x-4">
           <nav class="hidden md:flex items-center space-x-8 mr-4">
             <a href="../index.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Home</a>
@@ -148,32 +81,23 @@
             <a href="./contact.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium">Contact</a>
             <div id="authSection" class="inline-block"></div>
           </nav>
-
           <div id="mobileProfileIcon" class="md:hidden hidden"></div>
-
-          <button onclick="window.location.href='cart.html'"
-            class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <button onclick="window.location.href='cart.html'" class="cart-button relative p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             <span class="cart-badge absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center text-[10px] sm:text-xs hidden">0</span>
           </button>
-
-          <button id="darkToggle"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <button id="darkToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <i id="themeIcon" class="fas fa-moon text-sm"></i>
           </button>
-
-          <button id="mobileMenuToggle"
-            class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+          <button id="mobileMenuToggle" class="md:hidden bg-gray-200 dark:bg-gray-700 p-1.5 sm:p-2.5 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </div>
-
       <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-gray-200 dark:border-gray-700">
         <nav class="flex flex-col space-y-4" id="mobileNav">
           <a href="../index.html" class="mobile-nav-link text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all">Home</a>
@@ -188,92 +112,60 @@
     </div>
   </header>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="flex flex-col lg:flex-row gap-8">
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Shipping Policy</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Fast, reliable delivery to your doorstep</p>
+    </div>
+  </section>
 
-      <div class="lg:w-2/3">
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
-          <h1 class="text-2xl md:text-3xl font-bold mb-8">Select Shipping Method</h1>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 space-y-8">
+      
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-truck text-indigo-600"></i>Processing Time</h2>
+        <p class="text-gray-600 dark:text-gray-400">Orders are processed within 1-2 business days (excluding weekends and holidays). You will receive a confirmation email once your order has been shipped.</p>
+      </div>
 
-          <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center">
-              <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
-              <span class="ml-2 font-semibold text-indigo-600">Shipping</span>
-            </div>
-            <div class="flex-1 h-0.5 mx-4 bg-indigo-600"></div>
-            <div class="flex items-center">
-              <div class="w-8 h-8 bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 rounded-full flex items-center justify-center font-bold">2</div>
-              <span class="ml-2 text-gray-500 dark:text-gray-400">Payment</span>
-            </div>
-            <div class="flex-1 h-0.5 mx-4 bg-gray-300 dark:bg-gray-600"></div>
-          </div>
-
-          <div id="shippingAddressDisplay" class="mb-8"></div>
-
-          <form id="shippingForm">
-            <div class="mb-8">
-              <h2 class="text-xl font-semibold mb-4">Choose Shipping Method</h2>
-              <div class="space-y-3">
-                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
-                  <input type="radio" name="shipping" value="5.99" class="mr-3" checked>
-                  <div class="flex-1">
-                    <p class="font-semibold">Standard Shipping</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">5-7 business days</p>
-                  </div>
-                  <span class="font-semibold">$5.99</span>
-                </label>
-                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
-                  <input type="radio" name="shipping" value="12.99" class="mr-3">
-                  <div class="flex-1">
-                    <p class="font-semibold">Express Shipping</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">2-3 business days</p>
-                  </div>
-                  <span class="font-semibold">$12.99</span>
-                </label>
-                <label class="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors">
-                  <input type="radio" name="shipping" value="24.99" class="mr-3">
-                  <div class="flex-1">
-                    <p class="font-semibold">Next Day Delivery</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">1 business day</p>
-                  </div>
-                  <span class="font-semibold">$24.99</span>
-                </label>
-              </div>
-            </div>
-
-            <button type="submit"
-              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
-              Continue to Payment
-            </button>
-          </form>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-clock text-indigo-600"></i>Shipping Times</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-gray-100 dark:bg-gray-700">\\
+              <th class="p-3">Shipping Method</th>
+              <th class="p-3">Delivery Time</th>
+              <th class="p-3">Cost</th>
+            \\
+            </thead>
+            <tbody class="divide-y">
+              <tr><td class="p-3">Standard Shipping</td><td class="p-3">5-7 business days</td><td class="p-3">$5.99</td></tr>
+              <tr><td class="p-3">Express Shipping</td><td class="p-3">2-3 business days</td><td class="p-3">$14.99</td></tr>
+              <tr><td class="p-3">Next Day Delivery</td><td class="p-3">1 business day</td><td class="p-3">$24.99</td></tr>
+              <tr><td class="p-3">Free Shipping</td><td class="p-3">5-7 business days</td><td class="p-3">Free on orders $50+</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div class="lg:w-1/3">
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sticky top-24">
-          <h2 class="text-xl font-bold mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">Order Summary</h2>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-globe text-indigo-600"></i>International Shipping</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">We ship to over 50 countries worldwide. International delivery typically takes 7-14 business days. Shipping costs and customs fees are calculated at checkout.</p>
+        <p class="text-gray-600 dark:text-gray-400">Please note: International customers are responsible for any customs duties or import taxes.</p>
+      </div>
 
-          <div id="shippingItems" class="space-y-4 mb-6 max-h-96 overflow-y-auto"></div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-map-marker-alt text-indigo-600"></i>Order Tracking</h2>
+        <p class="text-gray-600 dark:text-gray-400">Once your order ships, you'll receive a tracking number via email. You can also track your order by logging into your account and visiting "My Orders".</p>
+      </div>
 
-          <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <div class="flex justify-between text-gray-600 dark:text-gray-400">
-              <span>Subtotal</span>
-              <span id="shippingSubtotal">$0.00</span>
-            </div>
-            <div class="flex justify-between text-gray-600 dark:text-gray-400">
-              <span>Shipping</span>
-              <span id="shippingCost">$5.99</span>
-            </div>
-            <div class="flex justify-between text-gray-600 dark:text-gray-400">
-              <span>Tax (10%)</span>
-              <span id="shippingTax">$0.00</span>
-            </div>
-            <div class="flex justify-between font-bold text-lg pt-3 border-t border-gray-200 dark:border-gray-700">
-              <span>Total</span>
-              <span id="finalTotal">$0.00</span>
-            </div>
-          </div>
-        </div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-box text-indigo-600"></i>Shipping Restrictions</h2>
+        <p class="text-gray-600 dark:text-gray-400">Some items may have shipping restrictions due to size, weight, or hazardous materials. These restrictions will be noted on the product page.</p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-envelope text-indigo-600"></i>Questions?</h2>
+        <p class="text-gray-600 dark:text-gray-400">Contact our support team at <a href="mailto:support@punnycart.com" class="text-indigo-600 hover:underline">support@punnycart.com</a></p>
       </div>
     </div>
   </div>
@@ -328,15 +220,7 @@
     </div>
   </footer>
 
-  <button id="backToTop"
-    class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-indigo-700 hover:scale-110 focus:ring-4 focus:ring-indigo-300 z-50">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-    </svg>
-  </button>
-
-  <script type="module" src="../Javascript/shipping.js"></script>
+  <script type="module" src="../Javascript/policies.js"></script>
   <script type="module" src="../Javascript/auth.js"></script>
 </body>
-
 </html>

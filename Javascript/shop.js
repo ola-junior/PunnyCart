@@ -1,4 +1,4 @@
-import { openModal, closeModal, addToCart, updateCartCount, toggleWishlist, isInWishlist } from './main.js';
+import { openModal, closeModal, addToCart, updateCartCount, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -14,12 +14,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 const productsGrid = document.getElementById('productsGrid');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
-const darkToggle = document.getElementById('darkToggle');
-const themeIcon = document.getElementById('themeIcon');
 const backToTop = document.getElementById('backToTop');
 const sortSelect = document.getElementById('sortSelect');
 const searchInput = document.getElementById('searchInput');
@@ -36,6 +35,7 @@ let filteredProducts = [];
 let currentFilter = 'All';
 let currentSort = 'default';
 let currentSearch = '';
+let currentUser = null;
 
 // Helper function to show toast messages
 function showToastMessage(message, type = 'error') {
@@ -54,12 +54,14 @@ function showToastMessage(message, type = 'error') {
   }, 3000);
 }
 
+// Mobile menu handlers
 if (mobileMenuToggle && mobileMenu) {
   mobileMenuToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
   });
 }
 
+// Back to top button
 if (backToTop) {
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
@@ -146,7 +148,8 @@ async function handleWishlistClick(e, product) {
     return;
   }
   
-  const heartIcon = e.currentTarget.querySelector('.heart-icon');
+  const btn = e.currentTarget;
+  const heartIcon = btn.querySelector('.heart-icon');
   const wasInWishlist = isInWishlist(product.id);
 
   await toggleWishlist(product);
@@ -154,11 +157,11 @@ async function handleWishlistClick(e, product) {
   if (heartIcon) {
     if (!wasInWishlist) {
       heartIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
-      heartIcon.classList.add('text-red-500', 'fill-current');
+      heartIcon.classList.add('text-red-500');
       heartIcon.innerHTML = '❤️';
     } else {
       heartIcon.classList.add('text-gray-400', 'dark:text-gray-500');
-      heartIcon.classList.remove('text-red-500', 'fill-current');
+      heartIcon.classList.remove('text-red-500');
       heartIcon.innerHTML = '🤍';
     }
   }
@@ -167,7 +170,6 @@ async function handleWishlistClick(e, product) {
 async function handleAddToCartClick(e, product) {
   e.stopPropagation();
   
-  // Validate product
   if (!product || !product.id) {
     console.error('Invalid product for cart:', product);
     showToastMessage('Product data is invalid', 'error');
@@ -185,7 +187,6 @@ async function handleAddToCartClick(e, product) {
   `;
   btn.disabled = true;
 
-  // Create a clean product object for the cart
   const cartProduct = {
     id: product.id,
     title: product.name || product.title || 'Product',
@@ -197,7 +198,6 @@ async function handleAddToCartClick(e, product) {
     stock: product.stock || 0
   };
   
-  console.log('Adding to cart:', cartProduct);
   const result = await addToCart(cartProduct, 1);
 
   if (result) {
@@ -249,6 +249,7 @@ function displayProducts() {
                         productBadge === 'Premium' ? 'bg-indigo-500 text-white' :
                         'bg-gray-500 text-white';
 
+    // Check if product is in wishlist (this will reflect after reload)
     const inWishlist = isInWishlist(product.id);
     const heartIcon = inWishlist ? '❤️' : '🤍';
     const heartColor = inWishlist ? 'text-red-500' : 'text-gray-400 dark:text-gray-500';
@@ -345,12 +346,14 @@ function displayProducts() {
 }
 
 async function loadProductsFromFirebase() {
-  productsGrid.innerHTML = `
-    <div class="col-span-full text-center py-16">
-      <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
-      <p class="mt-4 text-gray-600 dark:text-gray-400">Loading products...</p>
-    </div>
-  `;
+  if (productsGrid) {
+    productsGrid.innerHTML = `
+      <div class="col-span-full text-center py-16">
+        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
+        <p class="mt-4 text-gray-600 dark:text-gray-400">Loading products...</p>
+      </div>
+    `;
+  }
   
   try {
     const productsRef = collection(db, 'products');
@@ -359,7 +362,6 @@ async function loadProductsFromFirebase() {
     allProducts = [];
     querySnapshot.forEach(doc => {
       const data = doc.data();
-      // Normalize product data to ensure all required fields exist
       allProducts.push({ 
         id: doc.id, 
         ...data,
@@ -380,14 +382,25 @@ async function loadProductsFromFirebase() {
     
   } catch (error) {
     console.error('Error loading products:', error);
-    productsGrid.innerHTML = `
-      <div class="col-span-full text-center py-16">
-        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
-        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Error loading products</h3>
-        <p class="text-gray-500 dark:text-gray-400">Please try again later</p>
-      </div>
-    `;
+    if (productsGrid) {
+      productsGrid.innerHTML = `
+        <div class="col-span-full text-center py-16">
+          <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Error loading products</h3>
+          <p class="text-gray-500 dark:text-gray-400">Please try again later</p>
+        </div>
+      `;
+    }
   }
+}
+
+// Function to refresh wishlist and re-render products
+async function refreshWishlistAndProducts() {
+  if (currentUser) {
+    await loadUserWishlist(currentUser.uid);
+  }
+  // Re-display products with updated wishlist status
+  displayProducts();
 }
 
 // Filter button event listeners
@@ -470,10 +483,39 @@ function getCategoryFromUrl() {
   return params.get('category');
 }
 
-// Initialize shop
+// Initialize shop - THIS IS THE KEY FIX
 document.addEventListener('DOMContentLoaded', async () => {
+  // Show loading state
+  if (productsGrid) {
+    productsGrid.innerHTML = `
+      <div class="col-span-full text-center py-16">
+        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
+        <p class="mt-4 text-gray-600 dark:text-gray-400">Loading products...</p>
+      </div>
+    `;
+  }
+  
+  // First, load products from Firebase
   await loadProductsFromFirebase();
-  updateCartCount();
+  
+  // Then, set up auth state to load wishlist
+  onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+    
+    if (user) {
+      console.log('User logged in, loading wishlist...');
+      await loadUserWishlist(user.uid);
+      console.log('Wishlist loaded, refreshing products...');
+      // Refresh the display to show correct heart colors
+      displayProducts();
+    } else {
+      console.log('No user logged in');
+      // Clear wishlist and refresh
+      refreshWishlistAndProducts();
+    }
+    
+    updateCartCount();
+  });
   
   const category = getCategoryFromUrl();
   if (category) {

@@ -1,6 +1,19 @@
-import { db } from './firebase-config.js';
-import { collection, addDoc, getDocs, query, limit, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, where, doc, getDoc, setDoc, updateDoc, addDoc, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
+  authDomain: "e-commerce-29a73.firebaseapp.com",
+  projectId: "e-commerce-29a73",
+  storageBucket: "e-commerce-29a73.firebasestorage.app",
+  messagingSenderId: "870933397259",
+  appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
 // YOUR PRODUCTS ARRAY HERE (you will add your products)
 export const products = [
@@ -81,7 +94,7 @@ export const products = [
     colors: ["Space Gray", "Silver"],
     features: ["M2 Chip", "Liquid Retina XDR", "5G", "Face ID"]
   },
-  
+
   // Row 2 - Fashion & Accessories (4 products)
   {
     id: 5,
@@ -159,7 +172,7 @@ export const products = [
     colors: ["Black", "White", "Red"],
     features: ["Shock Resistant", "200m Water Resistant", "Stopwatch", "World Time"]
   },
-  
+
   // Row 3 - Home & Lifestyle (4 products)
   {
     id: 9,
@@ -237,7 +250,7 @@ export const products = [
     colors: ["Black", "Agave Green"],
     features: ["Waterproof", "Adjustable Warm Light", "Weeks Battery", "32GB Storage"]
   },
-  
+
   // Row 4 - More Electronics (4 products)
   {
     id: 13,
@@ -315,7 +328,7 @@ export const products = [
     colors: ["Black"],
     features: ["5.3K Video", "Waterproof", "HyperSmooth", "Voice Control"]
   },
-  
+
   // Row 5 - Fashion (4 products)
   {
     id: 17,
@@ -393,7 +406,7 @@ export const products = [
     colors: ["Black/White", "Blue", "Grey", "Green"],
     features: ["Boost Cushioning", "Primeknit Upper", "Stretch Web Outsole", "Continental Rubber"]
   },
-  
+
   // Row 6 - More Accessories (4 products)
   {
     id: 21,
@@ -471,7 +484,7 @@ export const products = [
     colors: ["Black", "Brown", "Navy"],
     features: ["Premium Leather", "Padded Laptop Sleeve", "Multiple Pockets", "Quick Access"]
   },
-  
+
   // Row 7 - Home & Kitchen (4 products)
   {
     id: 25,
@@ -549,7 +562,7 @@ export const products = [
     colors: ["Stainless Steel", "Black"],
     features: ["Pressure Cooker", "Air Fryer", "TenderCrisp Technology", "8-in-1 Functions"]
   },
-  
+
   // Row 8 - Fitness & Outdoors (4 products)
   {
     id: 29,
@@ -627,7 +640,7 @@ export const products = [
     colors: ["Black", "Navy", "Purple", "Teal"],
     features: ["Polyurethane Surface", "Natural Rubber Base", "5mm Thickness", "Moisture-Wicking"]
   },
-  
+
   // Row 9 - Beauty & Personal Care (4 products)
   {
     id: 33,
@@ -705,7 +718,7 @@ export const products = [
     colors: ["Black", "White"],
     features: ["Predictive Technology", "Ultra-Zone Technology", "Universal Voltage", "Auto Sleep Mode"]
   },
-  
+
   // Row 10 - Gaming & Entertainment (4 products)
   {
     id: 37,
@@ -783,7 +796,7 @@ export const products = [
     colors: ["Black", "White"],
     features: ["LIGHTFORCE Switches", "LIGHTSYNC RGB", "HERO 25K Sensor", "Wireless"]
   },
-  
+
   // Row 11 - Books & Media (4 products)
   {
     id: 41,
@@ -861,7 +874,7 @@ export const products = [
     colors: ["Phantom Black", "Green", "Lavender", "Cream"],
     features: ["200MP Camera", "S Pen", "Snapdragon 8 Gen 2", "5000mAh Battery"]
   },
-  
+
   // Row 12 - More Products (6 products to reach 50 total)
   {
     id: 45,
@@ -978,1208 +991,1199 @@ export const products = [
     features: ["PostureFit SL", "8Z Pellicle", "Adjustable Arms", "Tilt Limiter"]
   },
   // Row 13 - Smart Home & Security (6 products)
-{
-  id: 51,
-  title: "Google Nest Hub Max",
-  price: 229.99,
-  originalPrice: 249.99,
-  discountPercentage: 8,
-  category: "Smart Home",
-  subCategory: "Smart Displays",
-  description: "10-inch smart display with Google Assistant, video calling, and motion sense. Control your smart home and stream content.",
-  rating: 4.7,
-  reviews: 3456,
-  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgF_BNu7rgi0FMvhIVurRuwZvBUMyCT-D-BA&s",
-  thumbnail: "https://images.unsplash.com/photo-1558088458-b84d5b9f5b8f?w=300&auto=format",
-  badge: "Smart Choice",
-  stock: 34,
-  brand: "Google",
-  colors: ["Chalk", "Charcoal"],
-  features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
-},
-{
-  id: 52,
-  title: "Ring Video Doorbell Pro 2",
-  price: 249.99,
-  originalPrice: 279.99,
-  discountPercentage: 11,
-  category: "Smart Home",
-  subCategory: "Security",
-  description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings. Enhanced security for your home.",
-  rating: 4.8,
-  reviews: 2876,
-  image: "https://i.pinimg.com/736x/16/04/97/1604971a615098d269e4e60bf34b88ee.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
-  badge: "Top Security",
-  stock: 23,
-  brand: "Ring",
-  colors: ["Satin Nickel", "Venetian Bronze"],
-  features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
-},
-{
-  id: 53,
-  title: "Philips Hue White & Color Ambiance",
-  price: 79.99,
-  originalPrice: 99.99,
-  discountPercentage: 20,
-  category: "Smart Home",
-  subCategory: "Lighting",
-  description: "Smart LED light bulb with 16 million colors and white light. Control with voice or app, set schedules and routines.",
-  rating: 4.8,
-  reviews: 5678,
-  image: "https://i.pinimg.com/1200x/41/47/b2/4147b2087c60a5545a848a2b543b508f.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1573060220290-5a7c5d9b7c7b?w=300&auto=format",
-  badge: "Best Value",
-  stock: 156,
-  brand: "Philips Hue",
-  colors: ["White"],
-  features: ["16 Million Colors", "Voice Control", "Schedules", "Bluetooth & Bridge"]
-},
-{
-  id: 54,
-  title: "August Wi-Fi Smart Lock",
-  price: 199.99,
-  originalPrice: 229.99,
-  discountPercentage: 13,
-  category: "Smart Home",
-  subCategory: "Security",
-  description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control. Grant access to guests remotely.",
-  rating: 4.6,
-  reviews: 1987,
-  image: "https://i.pinimg.com/1200x/1d/ed/4c/1ded4c7b227be583ccc12b722fb512bb.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
-  badge: "Smart Security",
-  stock: 34,
-  brand: "August",
-  colors: ["Silver", "Dark Gray"],
-  features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
-},
-{
-  id: 55,
-  title: "Arlo Pro 4 Spotlight Camera",
-  price: 199.99,
-  originalPrice: 229.99,
-  discountPercentage: 13,
-  category: "Smart Home",
-  subCategory: "Security",
-  description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight. No hub required.",
-  rating: 4.8,
-  reviews: 3245,
-  image: "https://i.pinimg.com/1200x/27/91/51/279151a060a33db2f92f97a77dc048a8.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
-  badge: "Top Rated",
-  stock: 28,
-  brand: "Arlo",
-  colors: ["White"],
-  features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
-},
-{
-  id: 56,
-  title: "Ecobee SmartThermostat",
-  price: 249.99,
-  originalPrice: 279.99,
-  discountPercentage: 11,
-  category: "Smart Home",
-  subCategory: "Climate",
-  description: "Smart thermostat with built-in Alexa, voice control, and room sensors. Save energy and stay comfortable.",
-  rating: 4.8,
-  reviews: 4321,
-  image: "https://i.pinimg.com/1200x/37/b6/f0/37b6f06643ed080592a7c80f229a0ee9.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format",
-  badge: "Energy Saver",
-  stock: 31,
-  brand: "Ecobee",
-  colors: ["Black"],
-  features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
-},
+  {
+    id: 51,
+    title: "Google Nest Hub Max",
+    price: 229.99,
+    originalPrice: 249.99,
+    discountPercentage: 8,
+    category: "Smart Home",
+    subCategory: "Smart Displays",
+    description: "10-inch smart display with Google Assistant, video calling, and motion sense. Control your smart home and stream content.",
+    rating: 4.7,
+    reviews: 3456,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgF_BNu7rgi0FMvhIVurRuwZvBUMyCT-D-BA&s",
+    thumbnail: "https://images.unsplash.com/photo-1558088458-b84d5b9f5b8f?w=300&auto=format",
+    badge: "Smart Choice",
+    stock: 34,
+    brand: "Google",
+    colors: ["Chalk", "Charcoal"],
+    features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
+  },
+  {
+    id: 52,
+    title: "Ring Video Doorbell Pro 2",
+    price: 249.99,
+    originalPrice: 279.99,
+    discountPercentage: 11,
+    category: "Smart Home",
+    subCategory: "Security",
+    description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings. Enhanced security for your home.",
+    rating: 4.8,
+    reviews: 2876,
+    image: "https://i.pinimg.com/736x/16/04/97/1604971a615098d269e4e60bf34b88ee.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
+    badge: "Top Security",
+    stock: 23,
+    brand: "Ring",
+    colors: ["Satin Nickel", "Venetian Bronze"],
+    features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
+  },
+  {
+    id: 53,
+    title: "Philips Hue White & Color Ambiance",
+    price: 79.99,
+    originalPrice: 99.99,
+    discountPercentage: 20,
+    category: "Smart Home",
+    subCategory: "Lighting",
+    description: "Smart LED light bulb with 16 million colors and white light. Control with voice or app, set schedules and routines.",
+    rating: 4.8,
+    reviews: 5678,
+    image: "https://i.pinimg.com/1200x/41/47/b2/4147b2087c60a5545a848a2b543b508f.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1573060220290-5a7c5d9b7c7b?w=300&auto=format",
+    badge: "Best Value",
+    stock: 156,
+    brand: "Philips Hue",
+    colors: ["White"],
+    features: ["16 Million Colors", "Voice Control", "Schedules", "Bluetooth & Bridge"]
+  },
+  {
+    id: 54,
+    title: "August Wi-Fi Smart Lock",
+    price: 199.99,
+    originalPrice: 229.99,
+    discountPercentage: 13,
+    category: "Smart Home",
+    subCategory: "Security",
+    description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control. Grant access to guests remotely.",
+    rating: 4.6,
+    reviews: 1987,
+    image: "https://i.pinimg.com/1200x/1d/ed/4c/1ded4c7b227be583ccc12b722fb512bb.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
+    badge: "Smart Security",
+    stock: 34,
+    brand: "August",
+    colors: ["Silver", "Dark Gray"],
+    features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
+  },
+  {
+    id: 55,
+    title: "Arlo Pro 4 Spotlight Camera",
+    price: 199.99,
+    originalPrice: 229.99,
+    discountPercentage: 13,
+    category: "Smart Home",
+    subCategory: "Security",
+    description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight. No hub required.",
+    rating: 4.8,
+    reviews: 3245,
+    image: "https://i.pinimg.com/1200x/27/91/51/279151a060a33db2f92f97a77dc048a8.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format",
+    badge: "Top Rated",
+    stock: 28,
+    brand: "Arlo",
+    colors: ["White"],
+    features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
+  },
+  {
+    id: 56,
+    title: "Ecobee SmartThermostat",
+    price: 249.99,
+    originalPrice: 279.99,
+    discountPercentage: 11,
+    category: "Smart Home",
+    subCategory: "Climate",
+    description: "Smart thermostat with built-in Alexa, voice control, and room sensors. Save energy and stay comfortable.",
+    rating: 4.8,
+    reviews: 4321,
+    image: "https://i.pinimg.com/1200x/37/b6/f0/37b6f06643ed080592a7c80f229a0ee9.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format",
+    badge: "Energy Saver",
+    stock: 31,
+    brand: "Ecobee",
+    colors: ["Black"],
+    features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
+  },
 
-// Row 14 - Pet Supplies (6 products)
-{
-  id: 57,
-  title: "Furbo 360° Dog Camera",
-  price: 249.99,
-  originalPrice: 299.99,
-  discountPercentage: 17,
-  category: "Pets",
-  subCategory: "Cameras",
-  description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts. Keep an eye on your pup.",
-  rating: 4.7,
-  reviews: 2876,
-  image: "https://i.pinimg.com/1200x/12/e4/ea/12e4ea1787d647361aba2a03cf96838e.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Pet Favorite",
-  stock: 23,
-  brand: "Furbo",
-  colors: ["White"],
-  features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
-},
-{
-  id: 58,
-  title: "Litter-Robot 4",
-  price: 699.00,
-  originalPrice: 749.00,
-  discountPercentage: 7,
-  category: "Pets",
-  subCategory: "Litter Boxes",
-  description: "Automatic self-cleaning litter box with odor control and waste drawer. Connects to app for monitoring.",
-  rating: 4.8,
-  reviews: 1654,
-  image: "https://i.pinimg.com/1200x/81/39/c1/8139c1bc07a144e08916a98fe2ad3d68.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Innovation",
-  stock: 12,
-  brand: "Whisker",
-  colors: ["White", "Black"],
-  features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
-},
-{
-  id: 59,
-  title: "PetSafe Automatic Feeder",
-  price: 89.99,
-  originalPrice: 109.99,
-  discountPercentage: 18,
-  category: "Pets",
-  subCategory: "Feeders",
-  description: "Programmable automatic pet feeder with portion control and up to 6 meals per day. Battery backup included.",
-  rating: 4.6,
-  reviews: 5432,
-  image: "https://i.pinimg.com/1200x/78/e5/74/78e57451cfe0d79770185a8b7992431f.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Best Seller",
-  stock: 78,
-  brand: "PetSafe",
-  colors: ["Gray"],
-  features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
-},
-{
-  id: 60,
-  title: "Furhaven Pet Bed",
-  price: 49.99,
-  originalPrice: 69.99,
-  discountPercentage: 29,
-  category: "Pets",
-  subCategory: "Beds",
-  description: "Orthopedic foam pet bed with removable, machine-washable cover. Provides joint relief and comfort.",
-  rating: 4.8,
-  reviews: 8765,
-  image: "https://i.pinimg.com/736x/86/98/f5/8698f503b44b2805e3fb8fb2cdf689fc.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Comfort",
-  stock: 145,
-  brand: "Furhaven",
-  colors: ["Gray", "Brown", "Blue"],
-  features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
-},
-{
-  id: 61,
-  title: "Outward Hound Life Jacket",
-  price: 34.99,
-  originalPrice: 44.99,
-  discountPercentage: 22,
-  category: "Pets",
-  subCategory: "Safety",
-  description: "Dog life jacket with rescue handle, bright colors, and adjustable straps. Ensures safety during water activities.",
-  rating: 4.7,
-  reviews: 3210,
-  image: "https://i.pinimg.com/736x/b1/ae/fe/b1aefe7d80313007ced1b063136b2d53.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Safety First",
-  stock: 67,
-  brand: "Outward Hound",
-  colors: ["Orange", "Red", "Blue"],
-  features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
-},
-{
-  id: 62,
-  title: "Catit Pixi Fountain",
-  price: 39.99,
-  originalPrice: 49.99,
-  discountPercentage: 20,
-  category: "Pets",
-  subCategory: "Water Fountains",
-  description: "Stainless steel water fountain with triple-action filtration and LED light. Encourages cats to drink more.",
-  rating: 4.7,
-  reviews: 2341,
-  image: "https://i.pinimg.com/1200x/ed/d0/6d/edd06dc1e36c5e7f1d807aa07ee22e65.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
-  badge: "Hydration",
-  stock: 54,
-  brand: "Catit",
-  colors: ["White"],
-  features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
-},
+  // Row 14 - Pet Supplies (6 products)
+  {
+    id: 57,
+    title: "Furbo 360° Dog Camera",
+    price: 249.99,
+    originalPrice: 299.99,
+    discountPercentage: 17,
+    category: "Pets",
+    subCategory: "Cameras",
+    description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts. Keep an eye on your pup.",
+    rating: 4.7,
+    reviews: 2876,
+    image: "https://i.pinimg.com/1200x/12/e4/ea/12e4ea1787d647361aba2a03cf96838e.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Pet Favorite",
+    stock: 23,
+    brand: "Furbo",
+    colors: ["White"],
+    features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
+  },
+  {
+    id: 58,
+    title: "Litter-Robot 4",
+    price: 699.00,
+    originalPrice: 749.00,
+    discountPercentage: 7,
+    category: "Pets",
+    subCategory: "Litter Boxes",
+    description: "Automatic self-cleaning litter box with odor control and waste drawer. Connects to app for monitoring.",
+    rating: 4.8,
+    reviews: 1654,
+    image: "https://i.pinimg.com/1200x/81/39/c1/8139c1bc07a144e08916a98fe2ad3d68.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Innovation",
+    stock: 12,
+    brand: "Whisker",
+    colors: ["White", "Black"],
+    features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
+  },
+  {
+    id: 59,
+    title: "PetSafe Automatic Feeder",
+    price: 89.99,
+    originalPrice: 109.99,
+    discountPercentage: 18,
+    category: "Pets",
+    subCategory: "Feeders",
+    description: "Programmable automatic pet feeder with portion control and up to 6 meals per day. Battery backup included.",
+    rating: 4.6,
+    reviews: 5432,
+    image: "https://i.pinimg.com/1200x/78/e5/74/78e57451cfe0d79770185a8b7992431f.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Best Seller",
+    stock: 78,
+    brand: "PetSafe",
+    colors: ["Gray"],
+    features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
+  },
+  {
+    id: 60,
+    title: "Furhaven Pet Bed",
+    price: 49.99,
+    originalPrice: 69.99,
+    discountPercentage: 29,
+    category: "Pets",
+    subCategory: "Beds",
+    description: "Orthopedic foam pet bed with removable, machine-washable cover. Provides joint relief and comfort.",
+    rating: 4.8,
+    reviews: 8765,
+    image: "https://i.pinimg.com/736x/86/98/f5/8698f503b44b2805e3fb8fb2cdf689fc.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Comfort",
+    stock: 145,
+    brand: "Furhaven",
+    colors: ["Gray", "Brown", "Blue"],
+    features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
+  },
+  {
+    id: 61,
+    title: "Outward Hound Life Jacket",
+    price: 34.99,
+    originalPrice: 44.99,
+    discountPercentage: 22,
+    category: "Pets",
+    subCategory: "Safety",
+    description: "Dog life jacket with rescue handle, bright colors, and adjustable straps. Ensures safety during water activities.",
+    rating: 4.7,
+    reviews: 3210,
+    image: "https://i.pinimg.com/736x/b1/ae/fe/b1aefe7d80313007ced1b063136b2d53.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Safety First",
+    stock: 67,
+    brand: "Outward Hound",
+    colors: ["Orange", "Red", "Blue"],
+    features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
+  },
+  {
+    id: 62,
+    title: "Catit Pixi Fountain",
+    price: 39.99,
+    originalPrice: 49.99,
+    discountPercentage: 20,
+    category: "Pets",
+    subCategory: "Water Fountains",
+    description: "Stainless steel water fountain with triple-action filtration and LED light. Encourages cats to drink more.",
+    rating: 4.7,
+    reviews: 2341,
+    image: "https://i.pinimg.com/1200x/ed/d0/6d/edd06dc1e36c5e7f1d807aa07ee22e65.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format",
+    badge: "Hydration",
+    stock: 54,
+    brand: "Catit",
+    colors: ["White"],
+    features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
+  },
 
-// Row 15 - Tools & Home Improvement (6 products)
-{
-  id: 63,
-  title: "DeWalt 20V Drill Combo Kit",
-  price: 199.99,
-  originalPrice: 249.99,
-  discountPercentage: 20,
-  category: "Tools",
-  subCategory: "Power Tools",
-  description: "20V cordless drill and impact driver combo kit with batteries and charger. Perfect for DIY and professional use.",
-  rating: 4.9,
-  reviews: 6543,
-  image: "https://i.pinimg.com/1200x/2b/61/57/2b6157276c722730e1d6203b4e5809e6.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Pro Choice",
-  stock: 34,
-  brand: "DeWalt",
-  colors: ["Yellow/Black"],
-  features: ["20V Max", "2-Tool Kit", "Brushess Motor", "LED Light"]
-},
-{
-  id: 64,
-  title: "Bosch Laser Distance Measurer",
-  price: 129.99,
-  originalPrice: 159.99,
-  discountPercentage: 19,
-  category: "Tools",
-  subCategory: "Measuring",
-  description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes. Accuracy within 1/16 inch.",
-  rating: 4.8,
-  reviews: 1876,
-  image: "https://i.pinimg.com/736x/a6/a7/97/a6a7978db0fb5e12596b46b0e28630f1.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Precision",
-  stock: 42,
-  brand: "Bosch",
-  colors: ["Blue"],
-  features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
-},
-{
-  id: 65,
-  title: "Milwaukee M18 Sawzall",
-  price: 179.99,
-  originalPrice: 199.99,
-  discountPercentage: 10,
-  category: "Tools",
-  subCategory: "Power Tools",
-  description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.",
-  rating: 4.9,
-  reviews: 2987,
-  image: "https://i.pinimg.com/736x/ad/00/b9/ad00b9640e008ef1e25163262a559fcc.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Heavy Duty",
-  stock: 21,
-  brand: "Milwaukee",
-  colors: ["Red/Black"],
-  features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
-},
-{
-  id: 66,
-  title: "Stanley Tool Set",
-  price: 89.99,
-  originalPrice: 119.99,
-  discountPercentage: 25,
-  category: "Tools",
-  subCategory: "Hand Tools",
-  description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets. Everything you need.",
-  rating: 4.7,
-  reviews: 4321,
-  image: "https://i.pinimg.com/736x/8d/e0/11/8de011a47ffc2b8935a643889903d4ce.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Complete Set",
-  stock: 67,
-  brand: "Stanley",
-  colors: ["Black/Yellow"],
-  features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
-},
-{
-  id: 67,
-  title: "Ryobi 18V Leaf Blower",
-  price: 99.99,
-  originalPrice: 129.99,
-  discountPercentage: 23,
-  category: "Outdoor",
-  subCategory: "Lawn Care",
-  description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed. Lightweight and quiet.",
-  rating: 4.6,
-  reviews: 2876,
-  image: "https://i.pinimg.com/1200x/6b/d8/f7/6bd8f70f3f0a36cc885219bfd2abde7e.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Yard Essential",
-  stock: 45,
-  brand: "Ryobi",
-  colors: ["Green"],
-  features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
-},
-{
-  id: 68,
-  title: "Black+Decker Hedge Trimmer",
-  price: 79.99,
-  originalPrice: 99.99,
-  discountPercentage: 20,
-  category: "Outdoor",
-  subCategory: "Lawn Care",
-  description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip. Easy hedge maintenance.",
-  rating: 4.6,
-  reviews: 2341,
-  image: "https://i.pinimg.com/736x/67/c1/15/67c115b88e851d9e571c88ef7682b6c1.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
-  badge: "Garden Tool",
-  stock: 38,
-  brand: "Black+Decker",
-  colors: ["Orange"],
-  features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
-},
+  // Row 15 - Tools & Home Improvement (6 products)
+  {
+    id: 63,
+    title: "DeWalt 20V Drill Combo Kit",
+    price: 199.99,
+    originalPrice: 249.99,
+    discountPercentage: 20,
+    category: "Tools",
+    subCategory: "Power Tools",
+    description: "20V cordless drill and impact driver combo kit with batteries and charger. Perfect for DIY and professional use.",
+    rating: 4.9,
+    reviews: 6543,
+    image: "https://i.pinimg.com/1200x/2b/61/57/2b6157276c722730e1d6203b4e5809e6.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Pro Choice",
+    stock: 34,
+    brand: "DeWalt",
+    colors: ["Yellow/Black"],
+    features: ["20V Max", "2-Tool Kit", "Brushess Motor", "LED Light"]
+  },
+  {
+    id: 64,
+    title: "Bosch Laser Distance Measurer",
+    price: 129.99,
+    originalPrice: 159.99,
+    discountPercentage: 19,
+    category: "Tools",
+    subCategory: "Measuring",
+    description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes. Accuracy within 1/16 inch.",
+    rating: 4.8,
+    reviews: 1876,
+    image: "https://i.pinimg.com/736x/a6/a7/97/a6a7978db0fb5e12596b46b0e28630f1.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Precision",
+    stock: 42,
+    brand: "Bosch",
+    colors: ["Blue"],
+    features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
+  },
+  {
+    id: 65,
+    title: "Milwaukee M18 Sawzall",
+    price: 179.99,
+    originalPrice: 199.99,
+    discountPercentage: 10,
+    category: "Tools",
+    subCategory: "Power Tools",
+    description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.",
+    rating: 4.9,
+    reviews: 2987,
+    image: "https://i.pinimg.com/736x/ad/00/b9/ad00b9640e008ef1e25163262a559fcc.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Heavy Duty",
+    stock: 21,
+    brand: "Milwaukee",
+    colors: ["Red/Black"],
+    features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
+  },
+  {
+    id: 66,
+    title: "Stanley Tool Set",
+    price: 89.99,
+    originalPrice: 119.99,
+    discountPercentage: 25,
+    category: "Tools",
+    subCategory: "Hand Tools",
+    description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets. Everything you need.",
+    rating: 4.7,
+    reviews: 4321,
+    image: "https://i.pinimg.com/736x/8d/e0/11/8de011a47ffc2b8935a643889903d4ce.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Complete Set",
+    stock: 67,
+    brand: "Stanley",
+    colors: ["Black/Yellow"],
+    features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
+  },
+  {
+    id: 67,
+    title: "Ryobi 18V Leaf Blower",
+    price: 99.99,
+    originalPrice: 129.99,
+    discountPercentage: 23,
+    category: "Outdoor",
+    subCategory: "Lawn Care",
+    description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed. Lightweight and quiet.",
+    rating: 4.6,
+    reviews: 2876,
+    image: "https://i.pinimg.com/1200x/6b/d8/f7/6bd8f70f3f0a36cc885219bfd2abde7e.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Yard Essential",
+    stock: 45,
+    brand: "Ryobi",
+    colors: ["Green"],
+    features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
+  },
+  {
+    id: 68,
+    title: "Black+Decker Hedge Trimmer",
+    price: 79.99,
+    originalPrice: 99.99,
+    discountPercentage: 20,
+    category: "Outdoor",
+    subCategory: "Lawn Care",
+    description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip. Easy hedge maintenance.",
+    rating: 4.6,
+    reviews: 2341,
+    image: "https://i.pinimg.com/736x/67/c1/15/67c115b88e851d9e571c88ef7682b6c1.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format",
+    badge: "Garden Tool",
+    stock: 38,
+    brand: "Black+Decker",
+    colors: ["Orange"],
+    features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
+  },
 
-// Row 16 - Automotive (6 products)
-{
-  id: 69,
-  title: "Dash Cam 4K",
-  price: 129.99,
-  originalPrice: 169.99,
-  discountPercentage: 24,
-  category: "Automotive",
-  subCategory: "Electronics",
-  description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording. Captures every moment on the road.",
-  rating: 4.7,
-  reviews: 3456,
-  image: "https://i.pinimg.com/1200x/ea/c8/95/eac895f6e439f11065dfa28f3d3384da.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Safety",
-  stock: 52,
-  brand: "Vantrue",
-  colors: ["Black"],
-  features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
-},
-{
-  id: 70,
-  title: "NOCO Boost Plus Jump Starter",
-  price: 99.99,
-  originalPrice: 129.99,
-  discountPercentage: 23,
-  category: "Automotive",
-  subCategory: "Emergency",
-  description: "1000-amp portable jump starter for gas and diesel engines. Also charges USB devices and includes LED light.",
-  rating: 4.9,
-  reviews: 8765,
-  image: "https://i.pinimg.com/736x/c9/b6/e2/c9b6e2069698a0aa95186d453a87fcc7.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Essential",
-  stock: 87,
-  brand: "NOCO",
-  colors: ["Red/Black"],
-  features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
-},
-{
-  id: 71,
-  title: "Michelin Wiper Blades",
-  price: 29.99,
-  originalPrice: 39.99,
-  discountPercentage: 25,
-  category: "Automotive",
-  subCategory: "Maintenance",
-  description: "Premium beam wiper blades with built-in wear indicator and weather shield. All-season performance.",
-  rating: 4.8,
-  reviews: 5432,
-  image: "https://i.pinimg.com/1200x/d3/fe/e5/d3fee5fbb05c19d706fdefeb2bc435bd.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Visibility",
-  stock: 134,
-  brand: "Michelin",
-  colors: ["Black"],
-  features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
-},
-{
-  id: 72,
-  title: "Car Vacuum Cleaner",
-  price: 49.99,
-  originalPrice: 69.99,
-  discountPercentage: 29,
-  category: "Automotive",
-  subCategory: "Cleaning",
-  description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord. Keeps your car spotless.",
-  rating: 4.6,
-  reviews: 3210,
-  image: "https://i.pinimg.com/1200x/0c/29/72/0c297214556a55a824d7ba8bc825e14b.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Clean Machine",
-  stock: 65,
-  brand: "Armor All",
-  colors: ["Black"],
-  features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
-},
-{
-  id: 73,
-  title: "Tire Inflator Portable",
-  price: 59.99,
-  originalPrice: 79.99,
-  discountPercentage: 25,
-  category: "Automotive",
-  subCategory: "Emergency",
-  description: "12V DC portable air compressor with digital display, auto shut-off, and LED light. Inflates tires quickly.",
-  rating: 4.7,
-  reviews: 4321,
-  image: "https://i.pinimg.com/736x/c9/51/83/c95183e6737b031573ce3ca15b6c8443.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Road Trip",
-  stock: 73,
-  brand: "EPAuto",
-  colors: ["Black"],
-  features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
-},
-{
-  id: 74,
-  title: "Car Cover Waterproof",
-  price: 89.99,
-  originalPrice: 119.99,
-  discountPercentage: 25,
-  category: "Automotive",
-  subCategory: "Protection",
-  description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag. Fits most sedans.",
-  rating: 4.6,
-  reviews: 1876,
-  image: "https://i.pinimg.com/1200x/fa/c4/e3/fac4e3780568df1859d61b5c78cc3beb.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
-  badge: "Protection",
-  stock: 42,
-  brand: "Kayme",
-  colors: ["Silver"],
-  features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
-},
+  // Row 16 - Automotive (6 products)
+  {
+    id: 69,
+    title: "Dash Cam 4K",
+    price: 129.99,
+    originalPrice: 169.99,
+    discountPercentage: 24,
+    category: "Automotive",
+    subCategory: "Electronics",
+    description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording. Captures every moment on the road.",
+    rating: 4.7,
+    reviews: 3456,
+    image: "https://i.pinimg.com/1200x/ea/c8/95/eac895f6e439f11065dfa28f3d3384da.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Safety",
+    stock: 52,
+    brand: "Vantrue",
+    colors: ["Black"],
+    features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
+  },
+  {
+    id: 70,
+    title: "NOCO Boost Plus Jump Starter",
+    price: 99.99,
+    originalPrice: 129.99,
+    discountPercentage: 23,
+    category: "Automotive",
+    subCategory: "Emergency",
+    description: "1000-amp portable jump starter for gas and diesel engines. Also charges USB devices and includes LED light.",
+    rating: 4.9,
+    reviews: 8765,
+    image: "https://i.pinimg.com/736x/c9/b6/e2/c9b6e2069698a0aa95186d453a87fcc7.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Essential",
+    stock: 87,
+    brand: "NOCO",
+    colors: ["Red/Black"],
+    features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
+  },
+  {
+    id: 71,
+    title: "Michelin Wiper Blades",
+    price: 29.99,
+    originalPrice: 39.99,
+    discountPercentage: 25,
+    category: "Automotive",
+    subCategory: "Maintenance",
+    description: "Premium beam wiper blades with built-in wear indicator and weather shield. All-season performance.",
+    rating: 4.8,
+    reviews: 5432,
+    image: "https://i.pinimg.com/1200x/d3/fe/e5/d3fee5fbb05c19d706fdefeb2bc435bd.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Visibility",
+    stock: 134,
+    brand: "Michelin",
+    colors: ["Black"],
+    features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
+  },
+  {
+    id: 72,
+    title: "Car Vacuum Cleaner",
+    price: 49.99,
+    originalPrice: 69.99,
+    discountPercentage: 29,
+    category: "Automotive",
+    subCategory: "Cleaning",
+    description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord. Keeps your car spotless.",
+    rating: 4.6,
+    reviews: 3210,
+    image: "https://i.pinimg.com/1200x/0c/29/72/0c297214556a55a824d7ba8bc825e14b.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Clean Machine",
+    stock: 65,
+    brand: "Armor All",
+    colors: ["Black"],
+    features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
+  },
+  {
+    id: 73,
+    title: "Tire Inflator Portable",
+    price: 59.99,
+    originalPrice: 79.99,
+    discountPercentage: 25,
+    category: "Automotive",
+    subCategory: "Emergency",
+    description: "12V DC portable air compressor with digital display, auto shut-off, and LED light. Inflates tires quickly.",
+    rating: 4.7,
+    reviews: 4321,
+    image: "https://i.pinimg.com/736x/c9/51/83/c95183e6737b031573ce3ca15b6c8443.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Road Trip",
+    stock: 73,
+    brand: "EPAuto",
+    colors: ["Black"],
+    features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
+  },
+  {
+    id: 74,
+    title: "Car Cover Waterproof",
+    price: 89.99,
+    originalPrice: 119.99,
+    discountPercentage: 25,
+    category: "Automotive",
+    subCategory: "Protection",
+    description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag. Fits most sedans.",
+    rating: 4.6,
+    reviews: 1876,
+    image: "https://i.pinimg.com/1200x/fa/c4/e3/fac4e3780568df1859d61b5c78cc3beb.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format",
+    badge: "Protection",
+    stock: 42,
+    brand: "Kayme",
+    colors: ["Silver"],
+    features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
+  },
 
-// Row 17 - Baby & Kids (6 products)
-{
-  id: 75,
-  title: "UPPAbaby Vista V2 Stroller",
-  price: 999.99,
-  originalPrice: 1099.99,
-  discountPercentage: 9,
-  category: "Baby",
-  subCategory: "Strollers",
-  description: "Premium modular stroller that converts from single to double. Includes bassinet, toddler seat, and rain shield.",
-  rating: 4.9,
-  reviews: 2341,
-  image: "https://i.pinimg.com/1200x/82/86/68/828668583578abe71c9a2e3564156a12.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Luxury",
-  stock: 8,
-  brand: "UPPAbaby",
-  colors: ["Jake", "Gwen", "Cruz"],
-  features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
-},
-{
-  id: 76,
-  title: "Baby Brezza Formula Pro",
-  price: 199.99,
-  originalPrice: 229.99,
-  discountPercentage: 13,
-  category: "Baby",
-  subCategory: "Feeding",
-  description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button. Perfect for nighttime feedings.",
-  rating: 4.8,
-  reviews: 4321,
-  image: "https://i.pinimg.com/736x/94/48/5c/94485cd7e823ccec20c30e08f77facd9.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Parent Saver",
-  stock: 23,
-  brand: "Baby Brezza",
-  colors: ["White"],
-  features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
-},
-{
-  id: 77,
-  title: "Graco 4Ever Car Seat",
-  price: 299.99,
-  originalPrice: 349.99,
-  discountPercentage: 14,
-  category: "Baby",
-  subCategory: "Car Seats",
-  description: "4-in-1 convertible car seat grows from infant to booster. 10-position headrest and SafeAdjust harness.",
-  rating: 4.9,
-  reviews: 6543,
-  image: "https://i.pinimg.com/1200x/9e/2a/92/9e2a92dbbfde85f8f518891f12d5bd08.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Grows with Baby",
-  stock: 31,
-  brand: "Graco",
-  colors: ["Gotham", "Carlson"],
-  features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
-},
-{
-  id: 78,
-  title: "Owlet Smart Sock 3",
-  price: 299.99,
-  originalPrice: 329.99,
-  discountPercentage: 9,
-  category: "Baby",
-  subCategory: "Monitoring",
-  description: "Smart baby monitor that tracks heart rate and oxygen levels. Sends alerts to your phone if readings change.",
-  rating: 4.7,
-  reviews: 2987,
-  image: "https://i.pinimg.com/1200x/1e/ab/8f/1eab8fd8326ca7896fdca9d122c29025.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Peace of Mind",
-  stock: 17,
-  brand: "Owlet",
-  colors: ["Gray"],
-  features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
-},
-{
-  id: 79,
-  title: "Hatch Baby Rest Sound Machine",
-  price: 69.99,
-  originalPrice: 89.99,
-  discountPercentage: 22,
-  category: "Baby",
-  subCategory: "Sleep",
-  description: "Sound machine, night light, and time-to-rise alert in one. Control from your phone via app.",
-  rating: 4.8,
-  reviews: 5432,
-  image: "https://i.pinimg.com/736x/3e/96/af/3e96af4b6a6519aa1ca2d0b2e97eaeb2.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Sleep Helper",
-  stock: 87,
-  brand: "Hatch",
-  colors: ["White", "Gray", "Pink", "Blue"],
-  features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
-},
-{
-  id: 80,
-  title: "Joolz Aer Stroller",
-  price: 449.99,
-  originalPrice: 499.99,
-  discountPercentage: 10,
-  category: "Baby",
-  subCategory: "Strollers",
-  description: "Ultra-compact travel stroller with one-hand fold, carry strap, and extendable canopy. FAA approved for carry-on.",
-  rating: 4.8,
-  reviews: 1654,
-  image: "https://i.pinimg.com/1200x/7c/4a/28/7c4a28497481fd2fd1082b385c80a699.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
-  badge: "Travel Ready",
-  stock: 19,
-  brand: "Joolz",
-  colors: ["Black", "Olive"],
-  features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
-},
+  // Row 17 - Baby & Kids (6 products)
+  {
+    id: 75,
+    title: "UPPAbaby Vista V2 Stroller",
+    price: 999.99,
+    originalPrice: 1099.99,
+    discountPercentage: 9,
+    category: "Baby",
+    subCategory: "Strollers",
+    description: "Premium modular stroller that converts from single to double. Includes bassinet, toddler seat, and rain shield.",
+    rating: 4.9,
+    reviews: 2341,
+    image: "https://i.pinimg.com/1200x/82/86/68/828668583578abe71c9a2e3564156a12.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Luxury",
+    stock: 8,
+    brand: "UPPAbaby",
+    colors: ["Jake", "Gwen", "Cruz"],
+    features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
+  },
+  {
+    id: 76,
+    title: "Baby Brezza Formula Pro",
+    price: 199.99,
+    originalPrice: 229.99,
+    discountPercentage: 13,
+    category: "Baby",
+    subCategory: "Feeding",
+    description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button. Perfect for nighttime feedings.",
+    rating: 4.8,
+    reviews: 4321,
+    image: "https://i.pinimg.com/736x/94/48/5c/94485cd7e823ccec20c30e08f77facd9.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Parent Saver",
+    stock: 23,
+    brand: "Baby Brezza",
+    colors: ["White"],
+    features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
+  },
+  {
+    id: 77,
+    title: "Graco 4Ever Car Seat",
+    price: 299.99,
+    originalPrice: 349.99,
+    discountPercentage: 14,
+    category: "Baby",
+    subCategory: "Car Seats",
+    description: "4-in-1 convertible car seat grows from infant to booster. 10-position headrest and SafeAdjust harness.",
+    rating: 4.9,
+    reviews: 6543,
+    image: "https://i.pinimg.com/1200x/9e/2a/92/9e2a92dbbfde85f8f518891f12d5bd08.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Grows with Baby",
+    stock: 31,
+    brand: "Graco",
+    colors: ["Gotham", "Carlson"],
+    features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
+  },
+  {
+    id: 78,
+    title: "Owlet Smart Sock 3",
+    price: 299.99,
+    originalPrice: 329.99,
+    discountPercentage: 9,
+    category: "Baby",
+    subCategory: "Monitoring",
+    description: "Smart baby monitor that tracks heart rate and oxygen levels. Sends alerts to your phone if readings change.",
+    rating: 4.7,
+    reviews: 2987,
+    image: "https://i.pinimg.com/1200x/1e/ab/8f/1eab8fd8326ca7896fdca9d122c29025.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Peace of Mind",
+    stock: 17,
+    brand: "Owlet",
+    colors: ["Gray"],
+    features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
+  },
+  {
+    id: 79,
+    title: "Hatch Baby Rest Sound Machine",
+    price: 69.99,
+    originalPrice: 89.99,
+    discountPercentage: 22,
+    category: "Baby",
+    subCategory: "Sleep",
+    description: "Sound machine, night light, and time-to-rise alert in one. Control from your phone via app.",
+    rating: 4.8,
+    reviews: 5432,
+    image: "https://i.pinimg.com/736x/3e/96/af/3e96af4b6a6519aa1ca2d0b2e97eaeb2.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Sleep Helper",
+    stock: 87,
+    brand: "Hatch",
+    colors: ["White", "Gray", "Pink", "Blue"],
+    features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
+  },
+  {
+    id: 80,
+    title: "Joolz Aer Stroller",
+    price: 449.99,
+    originalPrice: 499.99,
+    discountPercentage: 10,
+    category: "Baby",
+    subCategory: "Strollers",
+    description: "Ultra-compact travel stroller with one-hand fold, carry strap, and extendable canopy. FAA approved for carry-on.",
+    rating: 4.8,
+    reviews: 1654,
+    image: "https://i.pinimg.com/1200x/7c/4a/28/7c4a28497481fd2fd1082b385c80a699.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format",
+    badge: "Travel Ready",
+    stock: 19,
+    brand: "Joolz",
+    colors: ["Black", "Olive"],
+    features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
+  },
 
-// Row 18 - Health & Wellness (6 products)
-{
-  id: 81,
-  title: "Theragun Elite",
-  price: 399.99,
-  originalPrice: 449.99,
-  discountPercentage: 11,
-  category: "Health",
-  subCategory: "Massage",
-  description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines. Relieves muscle tension.",
-  rating: 4.8,
-  reviews: 3456,
-  image: "https://i.pinimg.com/1200x/1c/05/6a/1c056a3aba42f7b04326521525826536.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Recovery",
-  stock: 23,
-  brand: "Therabody",
-  colors: ["Black", "White"],
-  features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
-},
-{
-  id: 82,
-  title: "Fitbit Charge 6",
-  price: 159.99,
-  originalPrice: 179.99,
-  discountPercentage: 11,
-  category: "Health",
-  subCategory: "Fitness Trackers",
-  description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery. Tracks sleep and activity.",
-  rating: 4.7,
-  reviews: 5678,
-  image: "https://i.pinimg.com/736x/4a/2e/1e/4a2e1e3b56278df02cc5d2ede22eaf86.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Fitness",
-  stock: 54,
-  brand: "Fitbit",
-  colors: ["Black", "Blue", "Pink"],
-  features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
-},
-{
-  id: 83,
-  title: "Omron Blood Pressure Monitor",
-  price: 69.99,
-  originalPrice: 89.99,
-  discountPercentage: 22,
-  category: "Health",
-  subCategory: "Monitoring",
-  description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection. Stores readings.",
-  rating: 4.9,
-  reviews: 4321,
-  image: "https://i.pinimg.com/1200x/c0/c1/3d/c0c13de1ac7641cccf2007fc4bcea90c.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Health Essential",
-  stock: 98,
-  brand: "Omron",
-  colors: ["White"],
-  features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
-},
-{
-  id: 84,
-  title: "Weighted Blanket",
-  price: 89.99,
-  originalPrice: 119.99,
-  discountPercentage: 25,
-  category: "Health",
-  subCategory: "Sleep",
-  description: "15lb weighted blanket with glass beads and bamboo cover. Promotes deeper sleep and reduces anxiety.",
-  rating: 4.8,
-  reviews: 6543,
-  image: "https://i.pinimg.com/736x/50/46/42/504642b3fd2f07da4eba77953a3a577a.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Calm Sleep",
-  stock: 67,
-  brand: "YnM",
-  colors: ["Gray", "Blue", "Green"],
-  features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
-},
-{
-  id: 85,
-  title: "TheraFace Pro",
-  price: 399.99,
-  originalPrice: 449.99,
-  discountPercentage: 11,
-  category: "Beauty",
-  subCategory: "Skincare Tools",
-  description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage. Professional results.",
-  rating: 4.7,
-  reviews: 1876,
-  image: "https://i.pinimg.com/1200x/48/d3/a0/48d3a0d15d7e7cdd8eb98b045aab34a4.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Skincare",
-  stock: 14,
-  brand: "Therabody",
-  colors: ["White"],
-  features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
-},
-{
-  id: 86,
-  title: "Meditation Cushion Set",
-  price: 59.99,
-  originalPrice: 79.99,
-  discountPercentage: 25,
-  category: "Health",
-  subCategory: "Meditation",
-  description: "Set of meditation cushions including zafu and zabuton. Buckwheat hull filling for comfortable posture.",
-  rating: 4.8,
-  reviews: 2341,
-  image: "https://i.pinimg.com/1200x/6b/92/de/6b92de7f8ea14b31385b804947d7f028.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
-  badge: "Mindfulness",
-  stock: 45,
-  brand: "Florensi",
-  colors: ["Purple", "Blue", "Gray"],
-  features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
-},
+  // Row 18 - Health & Wellness (6 products)
+  {
+    id: 81,
+    title: "Theragun Elite",
+    price: 399.99,
+    originalPrice: 449.99,
+    discountPercentage: 11,
+    category: "Health",
+    subCategory: "Massage",
+    description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines. Relieves muscle tension.",
+    rating: 4.8,
+    reviews: 3456,
+    image: "https://i.pinimg.com/1200x/1c/05/6a/1c056a3aba42f7b04326521525826536.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Recovery",
+    stock: 23,
+    brand: "Therabody",
+    colors: ["Black", "White"],
+    features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
+  },
+  {
+    id: 82,
+    title: "Fitbit Charge 6",
+    price: 159.99,
+    originalPrice: 179.99,
+    discountPercentage: 11,
+    category: "Health",
+    subCategory: "Fitness Trackers",
+    description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery. Tracks sleep and activity.",
+    rating: 4.7,
+    reviews: 5678,
+    image: "https://i.pinimg.com/736x/4a/2e/1e/4a2e1e3b56278df02cc5d2ede22eaf86.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Fitness",
+    stock: 54,
+    brand: "Fitbit",
+    colors: ["Black", "Blue", "Pink"],
+    features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
+  },
+  {
+    id: 83,
+    title: "Omron Blood Pressure Monitor",
+    price: 69.99,
+    originalPrice: 89.99,
+    discountPercentage: 22,
+    category: "Health",
+    subCategory: "Monitoring",
+    description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection. Stores readings.",
+    rating: 4.9,
+    reviews: 4321,
+    image: "https://i.pinimg.com/1200x/c0/c1/3d/c0c13de1ac7641cccf2007fc4bcea90c.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Health Essential",
+    stock: 98,
+    brand: "Omron",
+    colors: ["White"],
+    features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
+  },
+  {
+    id: 84,
+    title: "Weighted Blanket",
+    price: 89.99,
+    originalPrice: 119.99,
+    discountPercentage: 25,
+    category: "Health",
+    subCategory: "Sleep",
+    description: "15lb weighted blanket with glass beads and bamboo cover. Promotes deeper sleep and reduces anxiety.",
+    rating: 4.8,
+    reviews: 6543,
+    image: "https://i.pinimg.com/736x/50/46/42/504642b3fd2f07da4eba77953a3a577a.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Calm Sleep",
+    stock: 67,
+    brand: "YnM",
+    colors: ["Gray", "Blue", "Green"],
+    features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
+  },
+  {
+    id: 85,
+    title: "TheraFace Pro",
+    price: 399.99,
+    originalPrice: 449.99,
+    discountPercentage: 11,
+    category: "Beauty",
+    subCategory: "Skincare Tools",
+    description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage. Professional results.",
+    rating: 4.7,
+    reviews: 1876,
+    image: "https://i.pinimg.com/1200x/48/d3/a0/48d3a0d15d7e7cdd8eb98b045aab34a4.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Skincare",
+    stock: 14,
+    brand: "Therabody",
+    colors: ["White"],
+    features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
+  },
+  {
+    id: 86,
+    title: "Meditation Cushion Set",
+    price: 59.99,
+    originalPrice: 79.99,
+    discountPercentage: 25,
+    category: "Health",
+    subCategory: "Meditation",
+    description: "Set of meditation cushions including zafu and zabuton. Buckwheat hull filling for comfortable posture.",
+    rating: 4.8,
+    reviews: 2341,
+    image: "https://i.pinimg.com/1200x/6b/92/de/6b92de7f8ea14b31385b804947d7f028.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format",
+    badge: "Mindfulness",
+    stock: 45,
+    brand: "Florensi",
+    colors: ["Purple", "Blue", "Gray"],
+    features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
+  },
 
-// Row 19 - Office & Desk Accessories (6 products)
-{
-  id: 87,
-  title: "Secretlab Titan Evo",
-  price: 549.99,
-  originalPrice: 599.99,
-  discountPercentage: 8,
-  category: "Office",
-  subCategory: "Chairs",
-  description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support and magnetic memory foam head pillow.",
-  rating: 4.9,
-  reviews: 4321,
-  image: "https://i.pinimg.com/736x/2c/57/61/2c5761ecbf4b5c250fbcc4251599a462.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Ergonomic",
-  stock: 18,
-  brand: "Secretlab",
-  colors: ["Black", "Stealth", "Cookies & Cream"],
-  features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
-},
-{
-  id: 88,
-  title: "Fully Jarvis Standing Desk",
-  price: 599.99,
-  originalPrice: 699.99,
-  discountPercentage: 14,
-  category: "Office",
-  subCategory: "Desks",
-  description: "Electric height-adjustable standing desk with programmable presets and bamboo top. Improves posture and health.",
-  rating: 4.8,
-  reviews: 2876,
-  image: "https://i.pinimg.com/1200x/2e/5e/69/2e5e6972f1f4b9941c5d0e59f791f34b.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Stand Up",
-  stock: 12,
-  brand: "Fully",
-  colors: ["Bamboo"],
-  features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
-},
-{
-  id: 89,
-  title: "Logitech MX Master 3S",
-  price: 99.99,
-  originalPrice: 129.99,
-  discountPercentage: 23,
-  category: "Electronics",
-  subCategory: "Mice",
-  description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling. Ergonomic design for all-day comfort.",
-  rating: 4.9,
-  reviews: 8765,
-  image: "https://i.pinimg.com/736x/6b/83/78/6b8378981aa5b6a5e49a59ac4e1e465e.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Productivity",
-  stock: 67,
-  brand: "Logitech",
-  colors: ["Graphite", "Pale Gray"],
-  features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
-},
-{
-  id: 90,
-  title: "Keychron Q1 Pro",
-  price: 199.99,
-  originalPrice: 229.99,
-  discountPercentage: 13,
-  category: "Electronics",
-  subCategory: "Keyboards",
-  description: "Wireless mechanical keyboard with QMK/VIA support, double-shot PBT keycaps, and premium aluminum case.",
-  rating: 4.8,
-  reviews: 2341,
-  image: "https://i.pinimg.com/736x/10/8d/18/108d183d4f8c61499eaf9a1e3ae5899b.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Mechanical",
-  stock: 32,
-  brand: "Keychron",
-  colors: ["Carbon Black", "Silver Gray"],
-  features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
-},
-{
-  id: 91,
-  title: "BenQ ScreenBar Plus",
-  price: 109.99,
-  originalPrice: 129.99,
-  discountPercentage: 15,
-  category: "Office",
-  subCategory: "Lighting",
-  description: "Monitor-mounted LED lamp with auto-dimming and desktop controller. Reduces eye strain and saves desk space.",
-  rating: 4.8,
-  reviews: 3456,
-  image: "https://i.pinimg.com/1200x/b9/42/ec/b942ec39b6bb116af1f9ae4efada00d5.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Eye Care",
-  stock: 43,
-  brand: "BenQ",
-  colors: ["Black"],
-  features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
-},
-{
-  id: 92,
-  title: "Rocketbook Fusion",
-  price: 29.99,
-  originalPrice: 39.99,
-  discountPercentage: 25,
-  category: "Office",
-  subCategory: "Notebooks",
-  description: "Reusable smart notebook with 42 pages, cloud integration, and Pilot FriXion pen. Upload notes to the cloud.",
-  rating: 4.7,
-  reviews: 6543,
-  image: "https://i.pinimg.com/1200x/9b/73/bb/9b73bb7619952a01e4935f17c3f9c217.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
-  badge: "Eco-Friendly",
-  stock: 98,
-  brand: "Rocketbook",
-  colors: ["Black", "Blue", "Green"],
-  features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
-},
-// Row 20 - Musical Instruments (6 products)
-{
-  id: 93,
-  title: "Yamaha P-125 Digital Piano",
-  price: 699.99,
-  originalPrice: 799.99,
-  discountPercentage: 12,
-  category: "Musical Instruments",
-  subCategory: "Pianos",
-  description: "88-key weighted action digital piano with PureCF sound engine and built-in speakers. Perfect for home practice.",
-  rating: 4.9,
-  reviews: 1876,
-  image: "https://i.pinimg.com/736x/1e/1f/b5/1e1fb5509f4f3b3c25edab9bb38c89a3.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Musician",
-  stock: 14,
-  brand: "Yamaha",
-  colors: ["Black"],
-  features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
-},
-{
-  id: 94,
-  title: "Fender Player Stratocaster",
-  price: 799.99,
-  originalPrice: 899.99,
-  discountPercentage: 11,
-  category: "Musical Instruments",
-  subCategory: "Guitars",
-  description: "Electric guitar with alder body, maple neck, and Player Series pickups. Iconic sound and feel.",
-  rating: 4.8,
-  reviews: 2341,
-  image: "https://i.pinimg.com/1200x/ec/1c/19/ec1c1984532da199fbb607333267e526.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Classic",
-  stock: 9,
-  brand: "Fender",
-  colors: ["Black", "Sunburst", "Polar White"],
-  features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
-},
-{
-  id: 95,
-  title: "Focusrite Scarlett 2i2",
-  price: 169.99,
-  originalPrice: 199.99,
-  discountPercentage: 15,
-  category: "Musical Instruments",
-  subCategory: "Audio Interfaces",
-  description: "USB audio interface with two mic preamps, high-quality converters, and bundled software. Perfect for home studio.",
-  rating: 4.9,
-  reviews: 4321,
-  image: "https://i.pinimg.com/736x/06/4c/b3/064cb39915887e5b7e00527351d0d14b.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Studio",
-  stock: 38,
-  brand: "Focusrite",
-  colors: ["Red"],
-  features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
-},
-{
-  id: 96,
-  title: "Roland TD-07KV V-Drums",
-  price: 899.99,
-  originalPrice: 999.99,
-  discountPercentage: 10,
-  category: "Musical Instruments",
-  subCategory: "Drums",
-  description: "Compact electronic drum kit with mesh heads, 25 preset kits, and Bluetooth connectivity. Quiet practice.",
-  rating: 4.8,
-  reviews: 1234,
-  image: "https://i.pinimg.com/736x/c0/c7/be/c0c7be3d610adc8e40fc1404b6123444.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Practice",
-  stock: 7,
-  brand: "Roland",
-  colors: ["Black"],
-  features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
-},
-{
-  id: 97,
-  title: "Shure SM58-LC",
-  price: 99.99,
-  originalPrice: 129.99,
-  discountPercentage: 23,
-  category: "Musical Instruments",
-  subCategory: "Microphones",
-  description: "Professional vocal microphone with cardioid pattern and tailored frequency response. Industry standard.",
-  rating: 4.9,
-  reviews: 8765,
-  image: "https://i.pinimg.com/736x/b0/91/0e/b0910e16ba5488b8d91838e47815c387.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Legendary",
-  stock: 87,
-  brand: "Shure",
-  colors: ["Silver"],
-  features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
-},
-{
-  id: 98,
-  title: "Korg Minilogue XD",
-  price: 649.99,
-  originalPrice: 699.99,
-  discountPercentage: 7,
-  category: "Musical Instruments",
-  subCategory: "Synthesizers",
-  description: "Polyphonic analog synthesizer with digital effects, sequencer, and user-customizable engine. Powerful sound design.",
-  rating: 4.8,
-  reviews: 1654,
-  image: "https://i.pinimg.com/1200x/5a/ed/90/5aed909bd63d43ca4d8bfa67e1ff78f1.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
-  badge: "Synth",
-  stock: 13,
-  brand: "Korg",
-  colors: ["Black", "Silver"],
-  features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
-},
+  // Row 19 - Office & Desk Accessories (6 products)
+  {
+    id: 87,
+    title: "Secretlab Titan Evo",
+    price: 549.99,
+    originalPrice: 599.99,
+    discountPercentage: 8,
+    category: "Office",
+    subCategory: "Chairs",
+    description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support and magnetic memory foam head pillow.",
+    rating: 4.9,
+    reviews: 4321,
+    image: "https://i.pinimg.com/736x/2c/57/61/2c5761ecbf4b5c250fbcc4251599a462.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Ergonomic",
+    stock: 18,
+    brand: "Secretlab",
+    colors: ["Black", "Stealth", "Cookies & Cream"],
+    features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
+  },
+  {
+    id: 88,
+    title: "Fully Jarvis Standing Desk",
+    price: 599.99,
+    originalPrice: 699.99,
+    discountPercentage: 14,
+    category: "Office",
+    subCategory: "Desks",
+    description: "Electric height-adjustable standing desk with programmable presets and bamboo top. Improves posture and health.",
+    rating: 4.8,
+    reviews: 2876,
+    image: "https://i.pinimg.com/1200x/2e/5e/69/2e5e6972f1f4b9941c5d0e59f791f34b.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Stand Up",
+    stock: 12,
+    brand: "Fully",
+    colors: ["Bamboo"],
+    features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
+  },
+  {
+    id: 89,
+    title: "Logitech MX Master 3S",
+    price: 99.99,
+    originalPrice: 129.99,
+    discountPercentage: 23,
+    category: "Electronics",
+    subCategory: "Mice",
+    description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling. Ergonomic design for all-day comfort.",
+    rating: 4.9,
+    reviews: 8765,
+    image: "https://i.pinimg.com/736x/6b/83/78/6b8378981aa5b6a5e49a59ac4e1e465e.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Productivity",
+    stock: 67,
+    brand: "Logitech",
+    colors: ["Graphite", "Pale Gray"],
+    features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
+  },
+  {
+    id: 90,
+    title: "Keychron Q1 Pro",
+    price: 199.99,
+    originalPrice: 229.99,
+    discountPercentage: 13,
+    category: "Electronics",
+    subCategory: "Keyboards",
+    description: "Wireless mechanical keyboard with QMK/VIA support, double-shot PBT keycaps, and premium aluminum case.",
+    rating: 4.8,
+    reviews: 2341,
+    image: "https://i.pinimg.com/736x/10/8d/18/108d183d4f8c61499eaf9a1e3ae5899b.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Mechanical",
+    stock: 32,
+    brand: "Keychron",
+    colors: ["Carbon Black", "Silver Gray"],
+    features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
+  },
+  {
+    id: 91,
+    title: "BenQ ScreenBar Plus",
+    price: 109.99,
+    originalPrice: 129.99,
+    discountPercentage: 15,
+    category: "Office",
+    subCategory: "Lighting",
+    description: "Monitor-mounted LED lamp with auto-dimming and desktop controller. Reduces eye strain and saves desk space.",
+    rating: 4.8,
+    reviews: 3456,
+    image: "https://i.pinimg.com/1200x/b9/42/ec/b942ec39b6bb116af1f9ae4efada00d5.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Eye Care",
+    stock: 43,
+    brand: "BenQ",
+    colors: ["Black"],
+    features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
+  },
+  {
+    id: 92,
+    title: "Rocketbook Fusion",
+    price: 29.99,
+    originalPrice: 39.99,
+    discountPercentage: 25,
+    category: "Office",
+    subCategory: "Notebooks",
+    description: "Reusable smart notebook with 42 pages, cloud integration, and Pilot FriXion pen. Upload notes to the cloud.",
+    rating: 4.7,
+    reviews: 6543,
+    image: "https://i.pinimg.com/1200x/9b/73/bb/9b73bb7619952a01e4935f17c3f9c217.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format",
+    badge: "Eco-Friendly",
+    stock: 98,
+    brand: "Rocketbook",
+    colors: ["Black", "Blue", "Green"],
+    features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
+  },
+  // Row 20 - Musical Instruments (6 products)
+  {
+    id: 93,
+    title: "Yamaha P-125 Digital Piano",
+    price: 699.99,
+    originalPrice: 799.99,
+    discountPercentage: 12,
+    category: "Musical Instruments",
+    subCategory: "Pianos",
+    description: "88-key weighted action digital piano with PureCF sound engine and built-in speakers. Perfect for home practice.",
+    rating: 4.9,
+    reviews: 1876,
+    image: "https://i.pinimg.com/736x/1e/1f/b5/1e1fb5509f4f3b3c25edab9bb38c89a3.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Musician",
+    stock: 14,
+    brand: "Yamaha",
+    colors: ["Black"],
+    features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
+  },
+  {
+    id: 94,
+    title: "Fender Player Stratocaster",
+    price: 799.99,
+    originalPrice: 899.99,
+    discountPercentage: 11,
+    category: "Musical Instruments",
+    subCategory: "Guitars",
+    description: "Electric guitar with alder body, maple neck, and Player Series pickups. Iconic sound and feel.",
+    rating: 4.8,
+    reviews: 2341,
+    image: "https://i.pinimg.com/1200x/ec/1c/19/ec1c1984532da199fbb607333267e526.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Classic",
+    stock: 9,
+    brand: "Fender",
+    colors: ["Black", "Sunburst", "Polar White"],
+    features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
+  },
+  {
+    id: 95,
+    title: "Focusrite Scarlett 2i2",
+    price: 169.99,
+    originalPrice: 199.99,
+    discountPercentage: 15,
+    category: "Musical Instruments",
+    subCategory: "Audio Interfaces",
+    description: "USB audio interface with two mic preamps, high-quality converters, and bundled software. Perfect for home studio.",
+    rating: 4.9,
+    reviews: 4321,
+    image: "https://i.pinimg.com/736x/06/4c/b3/064cb39915887e5b7e00527351d0d14b.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Studio",
+    stock: 38,
+    brand: "Focusrite",
+    colors: ["Red"],
+    features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
+  },
+  {
+    id: 96,
+    title: "Roland TD-07KV V-Drums",
+    price: 899.99,
+    originalPrice: 999.99,
+    discountPercentage: 10,
+    category: "Musical Instruments",
+    subCategory: "Drums",
+    description: "Compact electronic drum kit with mesh heads, 25 preset kits, and Bluetooth connectivity. Quiet practice.",
+    rating: 4.8,
+    reviews: 1234,
+    image: "https://i.pinimg.com/736x/c0/c7/be/c0c7be3d610adc8e40fc1404b6123444.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Practice",
+    stock: 7,
+    brand: "Roland",
+    colors: ["Black"],
+    features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
+  },
+  {
+    id: 97,
+    title: "Shure SM58-LC",
+    price: 99.99,
+    originalPrice: 129.99,
+    discountPercentage: 23,
+    category: "Musical Instruments",
+    subCategory: "Microphones",
+    description: "Professional vocal microphone with cardioid pattern and tailored frequency response. Industry standard.",
+    rating: 4.9,
+    reviews: 8765,
+    image: "https://i.pinimg.com/736x/b0/91/0e/b0910e16ba5488b8d91838e47815c387.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Legendary",
+    stock: 87,
+    brand: "Shure",
+    colors: ["Silver"],
+    features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
+  },
+  {
+    id: 98,
+    title: "Korg Minilogue XD",
+    price: 649.99,
+    originalPrice: 699.99,
+    discountPercentage: 7,
+    category: "Musical Instruments",
+    subCategory: "Synthesizers",
+    description: "Polyphonic analog synthesizer with digital effects, sequencer, and user-customizable engine. Powerful sound design.",
+    rating: 4.8,
+    reviews: 1654,
+    image: "https://i.pinimg.com/1200x/5a/ed/90/5aed909bd63d43ca4d8bfa67e1ff78f1.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format",
+    badge: "Synth",
+    stock: 13,
+    brand: "Korg",
+    colors: ["Black", "Silver"],
+    features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
+  },
 
-// Row 21 - Art & Craft (6 products)
-{
-  id: 99,
-  title: "Cricut Maker 3",
-  price: 399.99,
-  originalPrice: 449.99,
-  discountPercentage: 11,
-  category: "Crafts",
-  subCategory: "Cutting Machines",
-  description: "Smart cutting machine that cuts 300+ materials without a mat. Perfect for DIY projects and crafts.",
-  rating: 4.8,
-  reviews: 3210,
-  image: "https://i.pinimg.com/1200x/10/1b/a0/101ba033c044bbdb61c36f2285768b64.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format",
-  badge: "Creative",
-  stock: 19,
-  brand: "Cricut",
-  colors: ["Blue"],
-  features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
-},
-{
-  id: 100,
-  title: "Wacom Intuos Pro Medium",
-  price: 349.99,
-  originalPrice: 399.99,
-  discountPercentage: 12,
-  category: "Electronics",
-  subCategory: "Drawing Tablets",
-  description: "Professional pen tablet with 8192 pressure sensitivity, multi-touch, and customizable ExpressKeys. For digital artists.",
-  rating: 4.9,
-  reviews: 2341,
-  image: "https://i.pinimg.com/736x/10/b1/80/10b180e734c741162e4ce81cfb5b71e1.jpg",
-  thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format",
-  badge: "Artist Choice",
-  stock: 22,
-  brand: "Wacom",
-  colors: ["Black"],
-  features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
-},
-// Add this to your products array in main.js (after your existing products)
+  // Row 21 - Art & Craft (6 products)
+  {
+    id: 99,
+    title: "Cricut Maker 3",
+    price: 399.99,
+    originalPrice: 449.99,
+    discountPercentage: 11,
+    category: "Crafts",
+    subCategory: "Cutting Machines",
+    description: "Smart cutting machine that cuts 300+ materials without a mat. Perfect for DIY projects and crafts.",
+    rating: 4.8,
+    reviews: 3210,
+    image: "https://i.pinimg.com/1200x/10/1b/a0/101ba033c044bbdb61c36f2285768b64.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format",
+    badge: "Creative",
+    stock: 19,
+    brand: "Cricut",
+    colors: ["Blue"],
+    features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
+  },
+  {
+    id: 100,
+    title: "Wacom Intuos Pro Medium",
+    price: 349.99,
+    originalPrice: 399.99,
+    discountPercentage: 12,
+    category: "Electronics",
+    subCategory: "Drawing Tablets",
+    description: "Professional pen tablet with 8192 pressure sensitivity, multi-touch, and customizable ExpressKeys. For digital artists.",
+    rating: 4.9,
+    reviews: 2341,
+    image: "https://i.pinimg.com/736x/10/b1/80/10b180e734c741162e4ce81cfb5b71e1.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format",
+    badge: "Artist Choice",
+    stock: 22,
+    brand: "Wacom",
+    colors: ["Black"],
+    features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
+  },
+  // Add this to your products array in main.js (after your existing products)
 
-// Smart Home & Security
-{
-  id: 101, title: "Google Nest Hub Max", price: 229.99, originalPrice: 249.99, discountPercentage: 8, category: "Electronics", subCategory: "Smart Home", description: "10-inch smart display with Google Assistant, video calling, and motion sense.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=300&auto=format", badge: "Smart Choice", stock: 34, brand: "Google", colors: ["Chalk", "Charcoal"], features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
-},
-{
-  id: 102, title: "Ring Video Doorbell Pro 2", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Electronics", subCategory: "Smart Home", description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Security", stock: 23, brand: "Ring", colors: ["Satin Nickel", "Venetian Bronze"], features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
-},
-{
-  id: 103, title: "Philips Hue Starter Kit", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Smart Lighting", description: "Smart lighting starter kit with bridge and 4 color ambiance bulbs.", rating: 4.8, reviews: 5678, image: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=300&auto=format", badge: "Smart Home", stock: 56, brand: "Philips", colors: ["White"], features: ["16 Million Colors", "Voice Control", "Schedules", "Bridge Included"]
-},
-{
-  id: 104, title: "August Wi-Fi Smart Lock", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Security", description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control.", rating: 4.6, reviews: 1987, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Smart Security", stock: 34, brand: "August", colors: ["Silver", "Dark Gray"], features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
-},
-{
-  id: 105, title: "Arlo Pro 4 Spotlight Camera", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Security", description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight.", rating: 4.8, reviews: 3245, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Rated", stock: 28, brand: "Arlo", colors: ["White"], features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
-},
-{
-  id: 106, title: "Ecobee SmartThermostat", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Home", subCategory: "Climate", description: "Smart thermostat with built-in Alexa, voice control, and room sensors.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format", badge: "Energy Saver", stock: 31, brand: "Ecobee", colors: ["Black"], features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
-},
+  // Smart Home & Security
+  {
+    id: 101, title: "Google Nest Hub Max", price: 229.99, originalPrice: 249.99, discountPercentage: 8, category: "Electronics", subCategory: "Smart Home", description: "10-inch smart display with Google Assistant, video calling, and motion sense.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=300&auto=format", badge: "Smart Choice", stock: 34, brand: "Google", colors: ["Chalk", "Charcoal"], features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
+  },
+  {
+    id: 102, title: "Ring Video Doorbell Pro 2", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Electronics", subCategory: "Smart Home", description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Security", stock: 23, brand: "Ring", colors: ["Satin Nickel", "Venetian Bronze"], features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
+  },
+  {
+    id: 103, title: "Philips Hue Starter Kit", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Smart Lighting", description: "Smart lighting starter kit with bridge and 4 color ambiance bulbs.", rating: 4.8, reviews: 5678, image: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=300&auto=format", badge: "Smart Home", stock: 56, brand: "Philips", colors: ["White"], features: ["16 Million Colors", "Voice Control", "Schedules", "Bridge Included"]
+  },
+  {
+    id: 104, title: "August Wi-Fi Smart Lock", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Security", description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control.", rating: 4.6, reviews: 1987, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Smart Security", stock: 34, brand: "August", colors: ["Silver", "Dark Gray"], features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
+  },
+  {
+    id: 105, title: "Arlo Pro 4 Spotlight Camera", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Security", description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight.", rating: 4.8, reviews: 3245, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Rated", stock: 28, brand: "Arlo", colors: ["White"], features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
+  },
+  {
+    id: 106, title: "Ecobee SmartThermostat", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Home", subCategory: "Climate", description: "Smart thermostat with built-in Alexa, voice control, and room sensors.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format", badge: "Energy Saver", stock: 31, brand: "Ecobee", colors: ["Black"], features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
+  },
 
-// Pet Supplies
-{
-  id: 107, title: "Furbo Dog Camera", price: 249.99, originalPrice: 299.99, discountPercentage: 17, category: "Accessories", subCategory: "Pet", description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts.", rating: 4.7, reviews: 2876, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Pet Favorite", stock: 23, brand: "Furbo", colors: ["White"], features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
-},
-{
-  id: 108, title: "Litter-Robot 4", price: 699.00, originalPrice: 749.00, discountPercentage: 7, category: "Home", subCategory: "Pet", description: "Automatic self-cleaning litter box with odor control and waste drawer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Innovation", stock: 12, brand: "Whisker", colors: ["White", "Black"], features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
-},
-{
-  id: 109, title: "PetSafe Automatic Feeder", price: 89.99, originalPrice: 109.99, discountPercentage: 18, category: "Accessories", subCategory: "Pet", description: "Programmable automatic pet feeder with portion control and up to 6 meals per day.", rating: 4.6, reviews: 5432, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Best Seller", stock: 78, brand: "PetSafe", colors: ["Gray"], features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
-},
-{
-  id: 110, title: "Furhaven Pet Bed", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Pet", description: "Orthopedic foam pet bed with removable, machine-washable cover.", rating: 4.8, reviews: 8765, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Comfort", stock: 145, brand: "Furhaven", colors: ["Gray", "Brown", "Blue"], features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
-},
-{
-  id: 111, title: "Outward Hound Life Jacket", price: 34.99, originalPrice: 44.99, discountPercentage: 22, category: "Accessories", subCategory: "Pet", description: "Dog life jacket with rescue handle, bright colors, and adjustable straps.", rating: 4.7, reviews: 3210, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Safety First", stock: 67, brand: "Outward Hound", colors: ["Orange", "Red", "Blue"], features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
-},
-{
-  id: 112, title: "Catit Pixi Fountain", price: 39.99, originalPrice: 49.99, discountPercentage: 20, category: "Accessories", subCategory: "Pet", description: "Stainless steel water fountain with triple-action filtration and LED light.", rating: 4.7, reviews: 2341, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Hydration", stock: 54, brand: "Catit", colors: ["White"], features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
-},
+  // Pet Supplies
+  {
+    id: 107, title: "Furbo Dog Camera", price: 249.99, originalPrice: 299.99, discountPercentage: 17, category: "Accessories", subCategory: "Pet", description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts.", rating: 4.7, reviews: 2876, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Pet Favorite", stock: 23, brand: "Furbo", colors: ["White"], features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
+  },
+  {
+    id: 108, title: "Litter-Robot 4", price: 699.00, originalPrice: 749.00, discountPercentage: 7, category: "Home", subCategory: "Pet", description: "Automatic self-cleaning litter box with odor control and waste drawer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Innovation", stock: 12, brand: "Whisker", colors: ["White", "Black"], features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
+  },
+  {
+    id: 109, title: "PetSafe Automatic Feeder", price: 89.99, originalPrice: 109.99, discountPercentage: 18, category: "Accessories", subCategory: "Pet", description: "Programmable automatic pet feeder with portion control and up to 6 meals per day.", rating: 4.6, reviews: 5432, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Best Seller", stock: 78, brand: "PetSafe", colors: ["Gray"], features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
+  },
+  {
+    id: 110, title: "Furhaven Pet Bed", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Pet", description: "Orthopedic foam pet bed with removable, machine-washable cover.", rating: 4.8, reviews: 8765, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Comfort", stock: 145, brand: "Furhaven", colors: ["Gray", "Brown", "Blue"], features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
+  },
+  {
+    id: 111, title: "Outward Hound Life Jacket", price: 34.99, originalPrice: 44.99, discountPercentage: 22, category: "Accessories", subCategory: "Pet", description: "Dog life jacket with rescue handle, bright colors, and adjustable straps.", rating: 4.7, reviews: 3210, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Safety First", stock: 67, brand: "Outward Hound", colors: ["Orange", "Red", "Blue"], features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
+  },
+  {
+    id: 112, title: "Catit Pixi Fountain", price: 39.99, originalPrice: 49.99, discountPercentage: 20, category: "Accessories", subCategory: "Pet", description: "Stainless steel water fountain with triple-action filtration and LED light.", rating: 4.7, reviews: 2341, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Hydration", stock: 54, brand: "Catit", colors: ["White"], features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
+  },
 
-// Tools & Home Improvement
-{
-  id: 113, title: "DeWalt 20V Drill Combo", price: 199.99, originalPrice: 249.99, discountPercentage: 20, category: "Home", subCategory: "Tools", description: "20V cordless drill and impact driver combo kit with batteries and charger.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Pro Choice", stock: 34, brand: "DeWalt", colors: ["Yellow/Black"], features: ["20V Max", "2-Tool Kit", "Brushless Motor", "LED Light"]
-},
-{
-  id: 114, title: "Bosch Laser Distance Measurer", price: 129.99, originalPrice: 159.99, discountPercentage: 19, category: "Home", subCategory: "Tools", description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes.", rating: 4.8, reviews: 1876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Precision", stock: 42, brand: "Bosch", colors: ["Blue"], features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
-},
-{
-  id: 115, title: "Milwaukee M18 Sawzall", price: 179.99, originalPrice: 199.99, discountPercentage: 10, category: "Home", subCategory: "Tools", description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.", rating: 4.9, reviews: 2987, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Heavy Duty", stock: 21, brand: "Milwaukee", colors: ["Red/Black"], features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
-},
-{
-  id: 116, title: "Stanley Tool Set", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Tools", description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Complete Set", stock: 67, brand: "Stanley", colors: ["Black/Yellow"], features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
-},
-{
-  id: 117, title: "Ryobi Leaf Blower", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Home", subCategory: "Outdoor", description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed.", rating: 4.6, reviews: 2876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Yard Essential", stock: 45, brand: "Ryobi", colors: ["Green"], features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
-},
-{
-  id: 118, title: "Black+Decker Hedge Trimmer", price: 79.99, originalPrice: 99.99, discountPercentage: 20, category: "Home", subCategory: "Outdoor", description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip.", rating: 4.6, reviews: 2341, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Garden Tool", stock: 38, brand: "Black+Decker", colors: ["Orange"], features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
-},
+  // Tools & Home Improvement
+  {
+    id: 113, title: "DeWalt 20V Drill Combo", price: 199.99, originalPrice: 249.99, discountPercentage: 20, category: "Home", subCategory: "Tools", description: "20V cordless drill and impact driver combo kit with batteries and charger.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Pro Choice", stock: 34, brand: "DeWalt", colors: ["Yellow/Black"], features: ["20V Max", "2-Tool Kit", "Brushless Motor", "LED Light"]
+  },
+  {
+    id: 114, title: "Bosch Laser Distance Measurer", price: 129.99, originalPrice: 159.99, discountPercentage: 19, category: "Home", subCategory: "Tools", description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes.", rating: 4.8, reviews: 1876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Precision", stock: 42, brand: "Bosch", colors: ["Blue"], features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
+  },
+  {
+    id: 115, title: "Milwaukee M18 Sawzall", price: 179.99, originalPrice: 199.99, discountPercentage: 10, category: "Home", subCategory: "Tools", description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.", rating: 4.9, reviews: 2987, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Heavy Duty", stock: 21, brand: "Milwaukee", colors: ["Red/Black"], features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
+  },
+  {
+    id: 116, title: "Stanley Tool Set", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Tools", description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Complete Set", stock: 67, brand: "Stanley", colors: ["Black/Yellow"], features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
+  },
+  {
+    id: 117, title: "Ryobi Leaf Blower", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Home", subCategory: "Outdoor", description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed.", rating: 4.6, reviews: 2876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Yard Essential", stock: 45, brand: "Ryobi", colors: ["Green"], features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
+  },
+  {
+    id: 118, title: "Black+Decker Hedge Trimmer", price: 79.99, originalPrice: 99.99, discountPercentage: 20, category: "Home", subCategory: "Outdoor", description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip.", rating: 4.6, reviews: 2341, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Garden Tool", stock: 38, brand: "Black+Decker", colors: ["Orange"], features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
+  },
 
-// Automotive
-{
-  id: 119, title: "Dash Cam 4K", price: 129.99, originalPrice: 169.99, discountPercentage: 24, category: "Electronics", subCategory: "Automotive", description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Safety", stock: 52, brand: "Vantrue", colors: ["Black"], features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
-},
-{
-  id: 120, title: "NOCO Boost Jump Starter", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Automotive", description: "1000-amp portable jump starter for gas and diesel engines.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Essential", stock: 87, brand: "NOCO", colors: ["Red/Black"], features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
-},
-{
-  id: 121, title: "Michelin Wiper Blades", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "Premium beam wiper blades with built-in wear indicator and weather shield.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Visibility", stock: 134, brand: "Michelin", colors: ["Black"], features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
-},
-{
-  id: 122, title: "Car Vacuum Cleaner", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Automotive", description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord.", rating: 4.6, reviews: 3210, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Clean Machine", stock: 65, brand: "Armor All", colors: ["Black"], features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
-},
-{
-  id: 123, title: "Tire Inflator Portable", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Electronics", subCategory: "Automotive", description: "12V DC portable air compressor with digital display, auto shut-off, and LED light.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Road Trip", stock: 73, brand: "EPAuto", colors: ["Black"], features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
-},
-{
-  id: 124, title: "Car Cover Waterproof", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag.", rating: 4.6, reviews: 1876, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Protection", stock: 42, brand: "Kayme", colors: ["Silver"], features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
-},
+  // Automotive
+  {
+    id: 119, title: "Dash Cam 4K", price: 129.99, originalPrice: 169.99, discountPercentage: 24, category: "Electronics", subCategory: "Automotive", description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Safety", stock: 52, brand: "Vantrue", colors: ["Black"], features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
+  },
+  {
+    id: 120, title: "NOCO Boost Jump Starter", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Automotive", description: "1000-amp portable jump starter for gas and diesel engines.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Essential", stock: 87, brand: "NOCO", colors: ["Red/Black"], features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
+  },
+  {
+    id: 121, title: "Michelin Wiper Blades", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "Premium beam wiper blades with built-in wear indicator and weather shield.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Visibility", stock: 134, brand: "Michelin", colors: ["Black"], features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
+  },
+  {
+    id: 122, title: "Car Vacuum Cleaner", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Automotive", description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord.", rating: 4.6, reviews: 3210, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Clean Machine", stock: 65, brand: "Armor All", colors: ["Black"], features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
+  },
+  {
+    id: 123, title: "Tire Inflator Portable", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Electronics", subCategory: "Automotive", description: "12V DC portable air compressor with digital display, auto shut-off, and LED light.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Road Trip", stock: 73, brand: "EPAuto", colors: ["Black"], features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
+  },
+  {
+    id: 124, title: "Car Cover Waterproof", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag.", rating: 4.6, reviews: 1876, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Protection", stock: 42, brand: "Kayme", colors: ["Silver"], features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
+  },
 
-// Baby & Kids
-{
-  id: 125, title: "UPPAbaby Vista Stroller", price: 999.99, originalPrice: 1099.99, discountPercentage: 9, category: "Baby", subCategory: "Strollers", description: "Premium modular stroller that converts from single to double.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Luxury", stock: 8, brand: "UPPAbaby", colors: ["Jake", "Gwen", "Cruz"], features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
-},
-{
-  id: 126, title: "Baby Brezza Formula Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Baby", subCategory: "Feeding", description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Parent Saver", stock: 23, brand: "Baby Brezza", colors: ["White"], features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
-},
-{
-  id: 127, title: "Graco 4Ever Car Seat", price: 299.99, originalPrice: 349.99, discountPercentage: 14, category: "Baby", subCategory: "Car Seats", description: "4-in-1 convertible car seat grows from infant to booster.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Grows with Baby", stock: 31, brand: "Graco", colors: ["Gotham", "Carlson"], features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
-},
-{
-  id: 128, title: "Owlet Smart Sock 3", price: 299.99, originalPrice: 329.99, discountPercentage: 9, category: "Baby", subCategory: "Monitoring", description: "Smart baby monitor that tracks heart rate and oxygen levels.", rating: 4.7, reviews: 2987, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Peace of Mind", stock: 17, brand: "Owlet", colors: ["Gray"], features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
-},
-{
-  id: 129, title: "Hatch Baby Rest Sound Machine", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Baby", subCategory: "Sleep", description: "Sound machine, night light, and time-to-rise alert in one.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Sleep Helper", stock: 87, brand: "Hatch", colors: ["White", "Gray", "Pink", "Blue"], features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
-},
-{
-  id: 130, title: "Joolz Aer Stroller", price: 449.99, originalPrice: 499.99, discountPercentage: 10, category: "Baby", subCategory: "Strollers", description: "Ultra-compact travel stroller with one-hand fold and carry strap.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Travel Ready", stock: 19, brand: "Joolz", colors: ["Black", "Olive"], features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
-},
+  // Baby & Kids
+  {
+    id: 125, title: "UPPAbaby Vista Stroller", price: 999.99, originalPrice: 1099.99, discountPercentage: 9, category: "Baby", subCategory: "Strollers", description: "Premium modular stroller that converts from single to double.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Luxury", stock: 8, brand: "UPPAbaby", colors: ["Jake", "Gwen", "Cruz"], features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
+  },
+  {
+    id: 126, title: "Baby Brezza Formula Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Baby", subCategory: "Feeding", description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Parent Saver", stock: 23, brand: "Baby Brezza", colors: ["White"], features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
+  },
+  {
+    id: 127, title: "Graco 4Ever Car Seat", price: 299.99, originalPrice: 349.99, discountPercentage: 14, category: "Baby", subCategory: "Car Seats", description: "4-in-1 convertible car seat grows from infant to booster.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Grows with Baby", stock: 31, brand: "Graco", colors: ["Gotham", "Carlson"], features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
+  },
+  {
+    id: 128, title: "Owlet Smart Sock 3", price: 299.99, originalPrice: 329.99, discountPercentage: 9, category: "Baby", subCategory: "Monitoring", description: "Smart baby monitor that tracks heart rate and oxygen levels.", rating: 4.7, reviews: 2987, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Peace of Mind", stock: 17, brand: "Owlet", colors: ["Gray"], features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
+  },
+  {
+    id: 129, title: "Hatch Baby Rest Sound Machine", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Baby", subCategory: "Sleep", description: "Sound machine, night light, and time-to-rise alert in one.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Sleep Helper", stock: 87, brand: "Hatch", colors: ["White", "Gray", "Pink", "Blue"], features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
+  },
+  {
+    id: 130, title: "Joolz Aer Stroller", price: 449.99, originalPrice: 499.99, discountPercentage: 10, category: "Baby", subCategory: "Strollers", description: "Ultra-compact travel stroller with one-hand fold and carry strap.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Travel Ready", stock: 19, brand: "Joolz", colors: ["Black", "Olive"], features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
+  },
 
-// Health & Wellness
-{
-  id: 131, title: "Theragun Elite", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Health", subCategory: "Massage", description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Recovery", stock: 23, brand: "Therabody", colors: ["Black", "White"], features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
-},
-{
-  id: 132, title: "Fitbit Charge 6", price: 159.99, originalPrice: 179.99, discountPercentage: 11, category: "Health", subCategory: "Fitness", description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery.", rating: 4.7, reviews: 5678, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Fitness", stock: 54, brand: "Fitbit", colors: ["Black", "Blue", "Pink"], features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
-},
-{
-  id: 133, title: "Omron Blood Pressure Monitor", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Health", subCategory: "Monitoring", description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Health Essential", stock: 98, brand: "Omron", colors: ["White"], features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
-},
-{
-  id: 134, title: "Weighted Blanket", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Sleep", description: "15lb weighted blanket with glass beads and bamboo cover.", rating: 4.8, reviews: 6543, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Calm Sleep", stock: 67, brand: "YnM", colors: ["Gray", "Blue", "Green"], features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
-},
-{
-  id: 135, title: "TheraFace Pro", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Beauty", subCategory: "Skincare", description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage.", rating: 4.7, reviews: 1876, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Skincare", stock: 14, brand: "Therabody", colors: ["White"], features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
-},
-{
-  id: 136, title: "Meditation Cushion Set", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Home", subCategory: "Wellness", description: "Set of meditation cushions including zafu and zabuton with buckwheat hull filling.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Mindfulness", stock: 45, brand: "Florensi", colors: ["Purple", "Blue", "Gray"], features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
-},
+  // Health & Wellness
+  {
+    id: 131, title: "Theragun Elite", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Health", subCategory: "Massage", description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Recovery", stock: 23, brand: "Therabody", colors: ["Black", "White"], features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
+  },
+  {
+    id: 132, title: "Fitbit Charge 6", price: 159.99, originalPrice: 179.99, discountPercentage: 11, category: "Health", subCategory: "Fitness", description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery.", rating: 4.7, reviews: 5678, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Fitness", stock: 54, brand: "Fitbit", colors: ["Black", "Blue", "Pink"], features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
+  },
+  {
+    id: 133, title: "Omron Blood Pressure Monitor", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Health", subCategory: "Monitoring", description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Health Essential", stock: 98, brand: "Omron", colors: ["White"], features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
+  },
+  {
+    id: 134, title: "Weighted Blanket", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Sleep", description: "15lb weighted blanket with glass beads and bamboo cover.", rating: 4.8, reviews: 6543, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Calm Sleep", stock: 67, brand: "YnM", colors: ["Gray", "Blue", "Green"], features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
+  },
+  {
+    id: 135, title: "TheraFace Pro", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Beauty", subCategory: "Skincare", description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage.", rating: 4.7, reviews: 1876, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Skincare", stock: 14, brand: "Therabody", colors: ["White"], features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
+  },
+  {
+    id: 136, title: "Meditation Cushion Set", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Home", subCategory: "Wellness", description: "Set of meditation cushions including zafu and zabuton with buckwheat hull filling.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Mindfulness", stock: 45, brand: "Florensi", colors: ["Purple", "Blue", "Gray"], features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
+  },
 
-// Office & Desk Accessories
-{
-  id: 137, title: "Secretlab Titan Evo", price: 549.99, originalPrice: 599.99, discountPercentage: 8, category: "Furniture", subCategory: "Chairs", description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Ergonomic", stock: 18, brand: "Secretlab", colors: ["Black", "Stealth", "Cookies & Cream"], features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
-},
-{
-  id: 138, title: "Fully Jarvis Standing Desk", price: 599.99, originalPrice: 699.99, discountPercentage: 14, category: "Furniture", subCategory: "Desks", description: "Electric height-adjustable standing desk with programmable presets.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Stand Up", stock: 12, brand: "Fully", colors: ["Bamboo"], features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
-},
-{
-  id: 139, title: "Logitech MX Master 3S", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Mice", description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Productivity", stock: 67, brand: "Logitech", colors: ["Graphite", "Pale Gray"], features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
-},
-{
-  id: 140, title: "Keychron Q1 Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Keyboards", description: "Wireless mechanical keyboard with QMK/VIA support and premium aluminum case.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Mechanical", stock: 32, brand: "Keychron", colors: ["Carbon Black", "Silver Gray"], features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
-},
-{
-  id: 141, title: "BenQ ScreenBar Plus", price: 109.99, originalPrice: 129.99, discountPercentage: 15, category: "Electronics", subCategory: "Lighting", description: "Monitor-mounted LED lamp with auto-dimming and desktop controller.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eye Care", stock: 43, brand: "BenQ", colors: ["Black"], features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
-},
-{
-  id: 142, title: "Rocketbook Fusion", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Office", subCategory: "Notebooks", description: "Reusable smart notebook with 42 pages and cloud integration.", rating: 4.7, reviews: 6543, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eco-Friendly", stock: 98, brand: "Rocketbook", colors: ["Black", "Blue", "Green"], features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
-},
+  // Office & Desk Accessories
+  {
+    id: 137, title: "Secretlab Titan Evo", price: 549.99, originalPrice: 599.99, discountPercentage: 8, category: "Furniture", subCategory: "Chairs", description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Ergonomic", stock: 18, brand: "Secretlab", colors: ["Black", "Stealth", "Cookies & Cream"], features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
+  },
+  {
+    id: 138, title: "Fully Jarvis Standing Desk", price: 599.99, originalPrice: 699.99, discountPercentage: 14, category: "Furniture", subCategory: "Desks", description: "Electric height-adjustable standing desk with programmable presets.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Stand Up", stock: 12, brand: "Fully", colors: ["Bamboo"], features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
+  },
+  {
+    id: 139, title: "Logitech MX Master 3S", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Mice", description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Productivity", stock: 67, brand: "Logitech", colors: ["Graphite", "Pale Gray"], features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
+  },
+  {
+    id: 140, title: "Keychron Q1 Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Keyboards", description: "Wireless mechanical keyboard with QMK/VIA support and premium aluminum case.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Mechanical", stock: 32, brand: "Keychron", colors: ["Carbon Black", "Silver Gray"], features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
+  },
+  {
+    id: 141, title: "BenQ ScreenBar Plus", price: 109.99, originalPrice: 129.99, discountPercentage: 15, category: "Electronics", subCategory: "Lighting", description: "Monitor-mounted LED lamp with auto-dimming and desktop controller.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eye Care", stock: 43, brand: "BenQ", colors: ["Black"], features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
+  },
+  {
+    id: 142, title: "Rocketbook Fusion", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Office", subCategory: "Notebooks", description: "Reusable smart notebook with 42 pages and cloud integration.", rating: 4.7, reviews: 6543, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eco-Friendly", stock: 98, brand: "Rocketbook", colors: ["Black", "Blue", "Green"], features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
+  },
 
-// Musical Instruments
-{
-  id: 143, title: "Yamaha P-125 Digital Piano", price: 699.99, originalPrice: 799.99, discountPercentage: 12, category: "Music", subCategory: "Pianos", description: "88-key weighted action digital piano with PureCF sound engine.", rating: 4.9, reviews: 1876, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Musician", stock: 14, brand: "Yamaha", colors: ["Black"], features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
-},
-{
-  id: 144, title: "Fender Player Stratocaster", price: 799.99, originalPrice: 899.99, discountPercentage: 11, category: "Music", subCategory: "Guitars", description: "Electric guitar with alder body, maple neck, and Player Series pickups.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Classic", stock: 9, brand: "Fender", colors: ["Black", "Sunburst", "Polar White"], features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
-},
-{
-  id: 145, title: "Focusrite Scarlett 2i2", price: 169.99, originalPrice: 199.99, discountPercentage: 15, category: "Music", subCategory: "Audio Interfaces", description: "USB audio interface with two mic preamps and high-quality converters.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Studio", stock: 38, brand: "Focusrite", colors: ["Red"], features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
-},
-{
-  id: 146, title: "Roland TD-07KV V-Drums", price: 899.99, originalPrice: 999.99, discountPercentage: 10, category: "Music", subCategory: "Drums", description: "Compact electronic drum kit with mesh heads and Bluetooth connectivity.", rating: 4.8, reviews: 1234, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Practice", stock: 7, brand: "Roland", colors: ["Black"], features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
-},
-{
-  id: 147, title: "Shure SM58-LC", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Music", subCategory: "Microphones", description: "Professional vocal microphone with cardioid pattern and tailored frequency response.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Legendary", stock: 87, brand: "Shure", colors: ["Silver"], features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
-},
-{
-  id: 148, title: "Korg Minilogue XD", price: 649.99, originalPrice: 699.99, discountPercentage: 7, category: "Music", subCategory: "Synthesizers", description: "Polyphonic analog synthesizer with digital effects and sequencer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Synth", stock: 13, brand: "Korg", colors: ["Black", "Silver"], features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
-},
+  // Musical Instruments
+  {
+    id: 143, title: "Yamaha P-125 Digital Piano", price: 699.99, originalPrice: 799.99, discountPercentage: 12, category: "Music", subCategory: "Pianos", description: "88-key weighted action digital piano with PureCF sound engine.", rating: 4.9, reviews: 1876, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Musician", stock: 14, brand: "Yamaha", colors: ["Black"], features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
+  },
+  {
+    id: 144, title: "Fender Player Stratocaster", price: 799.99, originalPrice: 899.99, discountPercentage: 11, category: "Music", subCategory: "Guitars", description: "Electric guitar with alder body, maple neck, and Player Series pickups.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Classic", stock: 9, brand: "Fender", colors: ["Black", "Sunburst", "Polar White"], features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
+  },
+  {
+    id: 145, title: "Focusrite Scarlett 2i2", price: 169.99, originalPrice: 199.99, discountPercentage: 15, category: "Music", subCategory: "Audio Interfaces", description: "USB audio interface with two mic preamps and high-quality converters.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Studio", stock: 38, brand: "Focusrite", colors: ["Red"], features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
+  },
+  {
+    id: 146, title: "Roland TD-07KV V-Drums", price: 899.99, originalPrice: 999.99, discountPercentage: 10, category: "Music", subCategory: "Drums", description: "Compact electronic drum kit with mesh heads and Bluetooth connectivity.", rating: 4.8, reviews: 1234, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Practice", stock: 7, brand: "Roland", colors: ["Black"], features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
+  },
+  {
+    id: 147, title: "Shure SM58-LC", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Music", subCategory: "Microphones", description: "Professional vocal microphone with cardioid pattern and tailored frequency response.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Legendary", stock: 87, brand: "Shure", colors: ["Silver"], features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
+  },
+  {
+    id: 148, title: "Korg Minilogue XD", price: 649.99, originalPrice: 699.99, discountPercentage: 7, category: "Music", subCategory: "Synthesizers", description: "Polyphonic analog synthesizer with digital effects and sequencer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Synth", stock: 13, brand: "Korg", colors: ["Black", "Silver"], features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
+  },
 
-// Art & Craft
-{
-  id: 149, title: "Cricut Maker 3", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Crafts", subCategory: "Cutting", description: "Smart cutting machine that cuts 300+ materials without a mat.", rating: 4.8, reviews: 3210, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Creative", stock: 19, brand: "Cricut", colors: ["Blue"], features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
-},
-{
-  id: 150, title: "Wacom Intuos Pro Medium", price: 349.99, originalPrice: 399.99, discountPercentage: 12, category: "Electronics", subCategory: "Drawing", description: "Professional pen tablet with 8192 pressure sensitivity and multi-touch.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Artist Choice", stock: 22, brand: "Wacom", colors: ["Black"], features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
-}
+  // Art & Craft
+  {
+    id: 149, title: "Cricut Maker 3", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Crafts", subCategory: "Cutting", description: "Smart cutting machine that cuts 300+ materials without a mat.", rating: 4.8, reviews: 3210, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Creative", stock: 19, brand: "Cricut", colors: ["Blue"], features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
+  },
+  {
+    id: 150, title: "Wacom Intuos Pro Medium", price: 349.99, originalPrice: 399.99, discountPercentage: 12, category: "Electronics", subCategory: "Drawing", description: "Professional pen tablet with 8192 pressure sensitivity and multi-touch.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Artist Choice", stock: 22, brand: "Wacom", colors: ["Black"], features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
+  }
 ];
 
-// Initialize auth
-const auth = getAuth();
 
+// Global variables
 export let cart = [];
-let currentUser = null;
-
 export let wishlist = [];
+let currentUser = null;
+let bannerInterval = null;
+let currentBannerIndex = 0;
+let banners = [];
 
-// Sync products to Firebase
-export async function syncProductsToFirebase() {
-  try {
-    const productsRef = collection(db, 'products');
-    
-    const q = query(productsRef, limit(1));
-    const querySnapshot = await getDocs(q);
-    
-    if (querySnapshot.empty) {
-      console.log('Syncing products to Firebase...');
-      let count = 0;
-      for (const product of products) {
-        await addDoc(productsRef, {
-          name: product.title,
-          price: product.price,
-          stock: product.stock,
-          category: product.category,
-          description: product.description,
-          image: product.image,
-          rating: product.rating,
-          reviews: product.reviews,
-          badge: product.badge,
-          brand: product.brand,
-          colors: product.colors,
-          features: product.features,
-          originalPrice: product.originalPrice,
-          discountPercentage: product.discountPercentage,
-          createdAt: new Date().toISOString()
-        });
-        count++;
-        console.log(`Added product ${count}: ${product.title}`);
-      }
-      console.log(`Successfully synced ${count} products to Firebase!`);
-    } else {
-      console.log('Products already exist in Firebase');
-    }
-  } catch (error) {
-    console.error('Error syncing products:', error);
+// ==================== TOAST NOTIFICATION ====================
+export function showToast(message, type = 'success') {
+  const existingToasts = document.querySelectorAll('.toast-message');
+  existingToasts.forEach(toast => toast.remove());
+
+  const toast = document.createElement('div');
+  let bgColor = 'bg-gradient-to-r from-green-500 to-emerald-600';
+  let icon = 'fa-check-circle';
+
+  if (type === 'error') {
+    bgColor = 'bg-gradient-to-r from-red-500 to-rose-600';
+    icon = 'fa-exclamation-circle';
+  } else if (type === 'warning') {
+    bgColor = 'bg-gradient-to-r from-yellow-500 to-orange-600';
+    icon = 'fa-exclamation-triangle';
+  } else if (type === 'info') {
+    bgColor = 'bg-gradient-to-r from-blue-500 to-cyan-600';
+    icon = 'fa-info-circle';
   }
+
+  toast.className = `toast-message fixed bottom-4 right-4 z-50 ${bgColor} text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-slide-up`;
+  toast.innerHTML = `<i class="fas ${icon} text-xl"></i><span class="text-sm font-medium">${message}</span>`;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    if (toast.parentNode) toast.remove();
+  }, 3000);
 }
 
-// Load user's wishlist from Firestore
+// ==================== WISHLIST FUNCTIONS ====================
 export async function loadUserWishlist(userId) {
+  if (!userId) return [];
+
   try {
     const wishlistRef = doc(db, 'wishlists', userId);
     const wishlistDoc = await getDoc(wishlistRef);
-    
+
     if (wishlistDoc.exists()) {
       wishlist = wishlistDoc.data().items || [];
     } else {
-      await setDoc(wishlistRef, { 
+      await setDoc(wishlistRef, {
         items: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       });
       wishlist = [];
     }
-    
+
     updateWishlistCount();
     return wishlist;
   } catch (error) {
@@ -2190,18 +2194,14 @@ export async function loadUserWishlist(userId) {
 }
 
 export async function saveWishlistToFirebase() {
-  if (!currentUser) {
-    console.log('No user logged in, cannot save wishlist');
-    return false;
-  }
-  
+  if (!currentUser) return false;
+
   try {
     const wishlistRef = doc(db, 'wishlists', currentUser.uid);
-    await setDoc(wishlistRef, { 
+    await setDoc(wishlistRef, {
       items: wishlist,
       updatedAt: new Date().toISOString()
     }, { merge: true });
-    console.log('Wishlist saved successfully');
     return true;
   } catch (error) {
     console.error('Error saving wishlist:', error);
@@ -2212,14 +2212,12 @@ export async function saveWishlistToFirebase() {
 export async function toggleWishlist(product) {
   if (!currentUser) {
     showToast('Please log in to add items to wishlist', 'warning');
-    setTimeout(() => {
-      window.location.href = './Pages/login.html';
-    }, 2000);
+    setTimeout(() => window.location.href = './Pages/login.html', 2000);
     return false;
   }
-  
+
   const existingItemIndex = wishlist.findIndex(item => item.id === product.id);
-  
+
   if (existingItemIndex >= 0) {
     wishlist.splice(existingItemIndex, 1);
     showToast('Removed from wishlist', 'info');
@@ -2237,9 +2235,8 @@ export async function toggleWishlist(product) {
     wishlist.push(wishlistItem);
     showToast('Added to wishlist!', 'success');
   }
-  
+
   const saved = await saveWishlistToFirebase();
-  
   if (saved) {
     updateWishlistCount();
     return true;
@@ -2254,14 +2251,10 @@ export function isInWishlist(productId) {
 export function updateWishlistCount() {
   const wishlistBadges = document.querySelectorAll('.wishlist-badge');
   const totalItems = wishlist.length;
-  
+
   wishlistBadges.forEach(badge => {
     badge.textContent = totalItems;
-    if (totalItems > 0) {
-      badge.classList.remove('hidden');
-    } else {
-      badge.classList.add('hidden');
-    }
+    badge.classList.toggle('hidden', totalItems === 0);
   });
 }
 
@@ -2273,51 +2266,43 @@ export async function getUserWishlist() {
   return [...wishlist];
 }
 
-// Load user's cart from Firestore
+// ==================== CART FUNCTIONS ====================
 async function loadUserCart(userId) {
+  if (!userId) return [];
+
   try {
     const cartRef = doc(db, 'carts', userId);
     const cartDoc = await getDoc(cartRef);
-    
+
     if (cartDoc.exists()) {
       cart = cartDoc.data().items || [];
-      console.log('Cart loaded from Firebase:', cart);
     } else {
-      // Create empty cart for new user
-      await setDoc(cartRef, { 
+      await setDoc(cartRef, {
         items: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       });
       cart = [];
-      console.log('Created empty cart for user');
     }
-    
+
     updateCartCount();
     return cart;
   } catch (error) {
     console.error('Error loading cart:', error);
     cart = [];
-    updateCartCount();
     return [];
   }
 }
 
-// Save cart to Firestore
 async function saveCartToFirebase() {
-  if (!currentUser) {
-    console.log('No user logged in, cannot save cart');
-    return false;
-  }
-  
+  if (!currentUser) return false;
+
   try {
-    console.log('Saving cart to Firebase for user:', currentUser.uid);
     const cartRef = doc(db, 'carts', currentUser.uid);
-    await setDoc(cartRef, { 
+    await setDoc(cartRef, {
       items: cart,
       updatedAt: new Date().toISOString()
     }, { merge: true });
-    console.log('Cart saved successfully, items:', cart.length);
     return true;
   } catch (error) {
     console.error('Error saving cart:', error);
@@ -2328,74 +2313,50 @@ async function saveCartToFirebase() {
 export function updateCartCount() {
   const cartBadges = document.querySelectorAll('.cart-badge');
   const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  
+
   cartBadges.forEach(badge => {
     badge.textContent = totalItems;
-    if (totalItems > 0) {
-      badge.classList.remove('hidden');
-    } else {
-      badge.classList.add('hidden');
-    }
+    badge.classList.toggle('hidden', totalItems === 0);
   });
 }
 
 export async function addToCart(product, quantity = 1) {
-  console.log('Adding to cart - currentUser:', currentUser);
-  console.log('Product:', product.title, 'Quantity:', quantity);
-  
   if (!currentUser) {
-    console.log('No user logged in');
     showToast('Please log in to add items to cart', 'warning');
-    setTimeout(() => {
-      window.location.href = './Pages/signup.html';
-    }, 2000);
+    setTimeout(() => window.location.href = './Pages/signup.html', 2000);
     return false;
   }
-  
-  // Make sure quantity is a number
+
   quantity = parseInt(quantity) || 1;
-  
   const existingItemIndex = cart.findIndex(item => item.id === product.id);
-  
+
   if (existingItemIndex >= 0) {
-    // Item exists, update quantity
     cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + quantity;
-    console.log('Updated existing item:', cart[existingItemIndex]);
   } else {
-    // New item
-    const newItem = {
+    cart.push({
       id: product.id,
       title: product.title,
       price: product.price,
       image: product.thumbnail || product.image,
       quantity: quantity,
       brand: product.brand || 'PunnyCart'
-    };
-    cart.push(newItem);
-    console.log('Added new item:', newItem);
+    });
   }
-  
-  // Save to Firebase
+
   const saved = await saveCartToFirebase();
-  
   if (saved) {
     updateCartCount();
     showToast(`${product.title} added to cart!`);
     return true;
-  } else {
-    console.error('Failed to save cart to Firebase');
-    showToast('Failed to add item to cart', 'error');
-    return false;
   }
+  return false;
 }
 
 export async function removeFromCart(productId) {
   if (!currentUser) return false;
-  
-  console.log('Removing item:', productId);
+
   cart = cart.filter(item => item.id !== productId);
   const saved = await saveCartToFirebase();
-  
   if (saved) {
     updateCartCount();
     showToast('Item removed from cart');
@@ -2406,13 +2367,9 @@ export async function removeFromCart(productId) {
 
 export async function updateCartItemQuantity(productId, newQuantity) {
   if (!currentUser) return false;
-  
-  console.log('Updating quantity:', productId, 'to', newQuantity);
-  
-  if (newQuantity <= 0) {
-    return await removeFromCart(productId);
-  }
-  
+
+  if (newQuantity <= 0) return await removeFromCart(productId);
+
   const itemIndex = cart.findIndex(item => item.id === productId);
   if (itemIndex >= 0) {
     cart[itemIndex].quantity = newQuantity;
@@ -2425,71 +2382,544 @@ export async function updateCartItemQuantity(productId, newQuantity) {
   return false;
 }
 
-export async function clearCart() {
-  if (!currentUser) return false;
-  
-  console.log('Clearing cart');
-  cart = [];
-  const saved = await saveCartToFirebase();
-  if (saved) {
-    updateCartCount();
-    showToast('Cart cleared');
-    return true;
-  }
-  return false;
-}
-
-export function showToast(message, type = 'success') {
-  // Remove any existing toasts
-  const existingToasts = document.querySelectorAll('.toast-message');
-  existingToasts.forEach(toast => toast.remove());
-  
-  const toast = document.createElement('div');
-  
-  let bgColor = 'bg-green-500';
-  if (type === 'error') bgColor = 'bg-red-500';
-  if (type === 'warning') bgColor = 'bg-yellow-500';
-  if (type === 'info') bgColor = 'bg-blue-500';
-  
-  toast.className = `toast-message fixed bottom-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce-slow`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    if (toast.parentNode) {
-      toast.remove();
-    }
-  }, 3000);
-}
-
 export async function getUserCart() {
-  console.log('getUserCart called, currentUser:', currentUser);
-  if (!currentUser) {
-    console.log('No user logged in, returning empty cart');
-    return [];
-  }
-  
-  // Make sure cart is loaded
+  if (!currentUser) return [];
   if (cart.length === 0) {
-    console.log('Cart is empty, loading from Firebase');
     await loadUserCart(currentUser.uid);
   }
-  
-  console.log('Returning cart:', cart);
-  return [...cart]; // Return a copy
+  return [...cart];
 }
 
-// Modal functions
+// ==================== ANNOUNCEMENT BAR ====================
+async function loadAnnouncementBar() {
+  const announcementPlaceholder = document.getElementById('announcementPlaceholder');
+  if (!announcementPlaceholder) return;
+
+  try {
+    const announcementsRef = collection(db, 'announcements');
+    const querySnapshot = await getDocs(announcementsRef);
+
+    if (!querySnapshot.empty) {
+      const docSnap = querySnapshot.docs[0];
+      const announcementData = docSnap.data();
+      if (announcementData.enabled) {
+        createAnnouncementBar(announcementData);
+      }
+    }
+  } catch (error) {
+    console.error('Error loading announcement:', error);
+  }
+}
+
+function createAnnouncementBar(data) {
+  const announcementPlaceholder = document.getElementById('announcementPlaceholder');
+  if (!announcementPlaceholder) return;
+  if (document.getElementById('announcementBarContainer')) return;
+
+  const isCoupon = data.linkType === 'coupon' && data.couponCode;
+  let endTime;
+  const savedEndTime = localStorage.getItem('announcementEndTime');
+  const currentTime = new Date().getTime();
+
+  if (savedEndTime && parseInt(savedEndTime) > currentTime) {
+    endTime = parseInt(savedEndTime);
+  } else if (savedEndTime && parseInt(savedEndTime) <= currentTime) {
+    localStorage.removeItem('announcementEndTime');
+    return;
+  } else {
+    endTime = currentTime + (data.countdownHours || 24) * 60 * 60 * 1000;
+    localStorage.setItem('announcementEndTime', endTime);
+  }
+
+  const announcementHTML = `
+        <div id="announcementBarContainer" class="sticky top-0 z-[100] overflow-hidden">
+            <div class="bg-gradient-to-r ${data.bgColor || 'from-indigo-600 via-purple-600 to-pink-600'} text-white">
+                <div class="container mx-auto px-4 py-2.5 sm:py-3">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
+                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <span class="text-base">${escapeHtml(data.icon || '⚡')}</span>
+                            </div>
+                            <span class="font-semibold text-sm sm:text-base">${escapeHtml(data.message)}</span>
+                            ${isCoupon ? `<div class="relative group">
+                                <span class="coupon-code-badge bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-3 py-1 rounded-full text-xs font-mono font-bold shadow-lg flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
+                                    <i class="fas fa-ticket-alt text-xs"></i> ${escapeHtml(data.couponCode)} 
+                                    <i class="fas fa-copy text-xs opacity-70"></i>
+                                </span>
+                            </div>` : ''}
+                        </div>
+                        <div class="flex items-center gap-2 sm:gap-3">
+                            <div class="flex items-center gap-1 sm:gap-2 bg-black/20 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1 sm:py-1.5">
+                                <i class="fas fa-clock text-xs sm:text-sm"></i>
+                                <span class="text-xs sm:text-sm font-mono font-bold">ENDS IN:</span>
+                                <div class="flex gap-1 sm:gap-2">
+                                    <span class="bg-white/20 rounded px-1.5 sm:px-2 py-0.5 text-xs sm:text-sm font-mono font-bold announcement-hours">00</span>
+                                    <span>:</span>
+                                    <span class="bg-white/20 rounded px-1.5 sm:px-2 py-0.5 text-xs sm:text-sm font-mono font-bold announcement-minutes">00</span>
+                                    <span>:</span>
+                                    <span class="bg-white/20 rounded px-1.5 sm:px-2 py-0.5 text-xs sm:text-sm font-mono font-bold announcement-seconds">00</span>
+                                </div>
+                            </div>
+                            <button id="announcementActionBtn" class="bg-white text-indigo-600 hover:bg-indigo-50 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 transform hover:scale-105 shadow-md whitespace-nowrap flex items-center gap-1">
+                                ${isCoupon ? '<i class="fas fa-gift text-xs"></i> Get Offer' : (escapeHtml(data.buttonText || 'Shop Now') + ' →')}
+                            </button>
+                            <button id="closeAnnouncementBtn" class="text-white/70 hover:text-white transition-colors ml-1 sm:ml-2 w-6 h-6 rounded-full hover:bg-white/10 flex items-center justify-center">
+                                <i class="fas fa-times text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+  announcementPlaceholder.innerHTML = announcementHTML;
+  startAnnouncementCountdown(endTime);
+
+  if (isCoupon && data.couponCode) {
+    const couponBadge = document.querySelector('.coupon-code-badge');
+    if (couponBadge) {
+      couponBadge.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        await navigator.clipboard.writeText(data.couponCode);
+        showToast(`Coupon ${data.couponCode} copied!`, 'success');
+        const originalHTML = couponBadge.innerHTML;
+        couponBadge.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => { couponBadge.innerHTML = originalHTML; }, 1500);
+      });
+    }
+  }
+
+  const actionBtn = document.getElementById('announcementActionBtn');
+  if (actionBtn) {
+    actionBtn.addEventListener('click', async () => {
+      if (isCoupon && data.couponCode) {
+        showProfessionalCouponModal(data.couponCode, data.couponDiscount || 20);
+      } else if (data.buttonLink) {
+        window.location.href = data.buttonLink;
+      }
+    });
+  }
+
+  const closeBtn = document.getElementById('closeAnnouncementBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      const container = document.getElementById('announcementBarContainer');
+      if (container) {
+        container.style.display = 'none';
+      }
+      localStorage.setItem('announcementClosed', 'true');
+    });
+  }
+
+  if (localStorage.getItem('announcementClosed') === 'true') {
+    const container = document.getElementById('announcementBarContainer');
+    if (container) container.style.display = 'none';
+  }
+}
+
+function startAnnouncementCountdown(endTime) {
+  let interval = setInterval(() => {
+    const now = new Date().getTime();
+    const diff = endTime - now;
+
+    const hoursEl = document.querySelector('.announcement-hours');
+    const minutesEl = document.querySelector('.announcement-minutes');
+    const secondsEl = document.querySelector('.announcement-seconds');
+
+    if (!hoursEl) {
+      clearInterval(interval);
+      return;
+    }
+
+    if (diff <= 0) {
+      hoursEl.textContent = '00';
+      minutesEl.textContent = '00';
+      secondsEl.textContent = '00';
+      localStorage.removeItem('announcementEndTime');
+      localStorage.removeItem('announcementClosed');
+
+      const container = document.getElementById('announcementBarContainer');
+      if (container) container.style.display = 'none';
+      clearInterval(interval);
+      return;
+    }
+
+    const hrs = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    hoursEl.textContent = hrs.toString().padStart(2, '0');
+    minutesEl.textContent = mins.toString().padStart(2, '0');
+    secondsEl.textContent = secs.toString().padStart(2, '0');
+  }, 1000);
+}
+
+// ==================== COUPON MODAL ====================
+function showProfessionalCouponModal(couponCode, discount, message = '') {
+  const modalOverlay = document.createElement('div');
+  modalOverlay.className = 'fixed inset-0 bg-black/70 backdrop-blur-sm z-[300] flex items-center justify-center p-4 opacity-0 transition-all duration-300';
+  modalOverlay.id = 'couponModal';
+
+  modalOverlay.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full overflow-hidden shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-white/10 transform -skew-x-12"></div>
+                <div class="relative">
+                    <div class="text-6xl mb-3 animate-bounce">🎉</div>
+                    <h3 class="text-2xl font-bold text-white">Special Offer!</h3>
+                    <p class="text-indigo-200 text-sm mt-1">Limited time only</p>
+                </div>
+            </div>
+            <div class="p-6 text-center">
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Use this coupon code at checkout:</p>
+                <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-xl p-4 mb-5 border-2 border-dashed border-indigo-300 dark:border-indigo-700">
+                    <div class="flex items-center justify-between gap-3">
+                        <code class="text-2xl font-mono font-bold text-indigo-600 dark:text-indigo-400 tracking-wider">${couponCode}</code>
+                        <button id="copyCouponBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full mb-4">
+                    <i class="fas fa-tag text-green-600 dark:text-green-400"></i>
+                    <span class="text-lg font-bold text-green-600 dark:text-green-400">${discount}% OFF</span>
+                    <span class="text-xs text-gray-500">on entire order</span>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">${message || 'Don\'t miss out on this amazing deal!'}</p>
+                <div class="flex gap-3">
+                    <button id="shopNowBtn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition-all transform hover:scale-105">Shop Now</button>
+                    <button id="closeModalBtn" class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2.5 rounded-lg transition-all">Maybe Later</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+  document.body.appendChild(modalOverlay);
+  setTimeout(() => { modalOverlay.style.opacity = '1'; }, 10);
+
+  const copyBtn = modalOverlay.querySelector('#copyCouponBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(couponCode);
+      copyBtn.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
+      copyBtn.classList.remove('bg-indigo-600');
+      copyBtn.classList.add('bg-green-600');
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i><span>Copy</span>';
+        copyBtn.classList.remove('bg-green-600');
+        copyBtn.classList.add('bg-indigo-600');
+      }, 2000);
+      showToast('Coupon copied to clipboard!', 'success');
+    });
+  }
+
+  const shopBtn = modalOverlay.querySelector('#shopNowBtn');
+  if (shopBtn) {
+    shopBtn.addEventListener('click', () => {
+      modalOverlay.remove();
+      window.location.href = './Pages/shop.html';
+    });
+  }
+
+  const closeBtn = modalOverlay.querySelector('#closeModalBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modalOverlay.style.opacity = '0';
+      setTimeout(() => modalOverlay.remove(), 300);
+    });
+  }
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+      modalOverlay.style.opacity = '0';
+      setTimeout(() => modalOverlay.remove(), 300);
+    }
+  });
+}
+
+// ==================== BANNER FUNCTIONS ====================
+async function fetchBanners() {
+  const heroSection = document.getElementById('heroSection');
+  if (!heroSection) return;
+
+  try {
+    const q = query(collection(db, 'banners'), where('active', '==', true));
+    const snapshot = await getDocs(q);
+    banners = [];
+    const today = new Date().toISOString().split('T')[0];
+
+    snapshot.forEach(docSnap => {
+      const banner = docSnap.data();
+      const hasStart = banner.startDate && banner.startDate !== "";
+      const hasEnd = banner.endDate && banner.endDate !== "";
+      let isValid = true;
+      if (hasStart && banner.startDate > today) isValid = false;
+      if (hasEnd && banner.endDate < today) isValid = false;
+      if (isValid && banner.image && banner.title) {
+        banners.push({ id: docSnap.id, ...banner, order: banner.order || 999 });
+      }
+    });
+
+    banners.sort((a, b) => a.order - b.order);
+    if (banners.length > 0) createBannerSlider();
+  } catch (error) {
+    console.error('Error fetching banners:', error);
+  }
+}
+
+function createBannerSlider() {
+  const heroSection = document.getElementById('heroSection');
+  if (!heroSection || banners.length === 0) return;
+
+  heroSection.innerHTML = `
+        <div class="banner-slider-container relative overflow-hidden w-full h-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px]">
+            <div id="bannerSlider" class="flex transition-transform duration-500 ease-in-out h-full">
+                ${banners.map(banner => `
+                    <div class="w-full flex-shrink-0 relative h-full">
+                        <div class="relative group w-full h-full cursor-pointer" onclick="window.location.href='${banner.link || './Pages/shop.html'}'">
+                            <img src="${banner.image}" alt="${escapeHtml(banner.title)}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+                            <div class="absolute inset-0 flex items-center justify-start p-8 md:p-12 lg:p-16">
+                                <div class="text-white max-w-xl">
+                                    <h2 class="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 animate-fade-in">${escapeHtml(banner.title)}</h2>
+                                    ${banner.subtitle ? `<p class="text-base md:text-lg lg:text-xl mb-6 animate-fade-in-delay">${escapeHtml(banner.subtitle)}</p>` : ''}
+                                    ${banner.buttonText ? `<button class="px-5 py-2 md:px-6 md:py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all transform hover:scale-105 animate-fade-in-delay-2">${escapeHtml(banner.buttonText)} →</button>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            ${banners.length > 1 ? `
+                <button id="prevBanner" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all z-10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextBanner" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all z-10">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    ${banners.map((_, i) => `<button class="banner-dot w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-white w-6' : 'bg-white/50'}" data-index="${i}"></button>`).join('')}
+                </div>
+            ` : ''}
+        </div>
+    `;
+
+  heroSection.classList.remove('py-12', 'sm:py-16', 'md:py-24');
+  heroSection.classList.add('p-0');
+
+  if (banners.length > 1) {
+    startBannerSlider();
+
+    document.getElementById('prevBanner')?.addEventListener('click', () => {
+      stopBannerSlider();
+      currentBannerIndex = (currentBannerIndex - 1 + banners.length) % banners.length;
+      updateBannerSlider();
+      startBannerSlider();
+    });
+
+    document.getElementById('nextBanner')?.addEventListener('click', () => {
+      stopBannerSlider();
+      currentBannerIndex = (currentBannerIndex + 1) % banners.length;
+      updateBannerSlider();
+      startBannerSlider();
+    });
+
+    document.querySelectorAll('.banner-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        stopBannerSlider();
+        currentBannerIndex = parseInt(e.target.dataset.index);
+        updateBannerSlider();
+        startBannerSlider();
+      });
+    });
+  }
+}
+
+function updateBannerSlider() {
+  const slider = document.getElementById('bannerSlider');
+  if (slider) slider.style.transform = `translateX(-${currentBannerIndex * 100}%)`;
+
+  document.querySelectorAll('.banner-dot').forEach((dot, i) => {
+    dot.classList.toggle('bg-white', i === currentBannerIndex);
+    dot.classList.toggle('w-6', i === currentBannerIndex);
+    dot.classList.toggle('bg-white/50', i !== currentBannerIndex);
+    dot.classList.toggle('w-2', i !== currentBannerIndex);
+  });
+}
+
+function startBannerSlider() {
+  if (banners.length > 1) {
+    stopBannerSlider();
+    bannerInterval = setInterval(() => {
+      currentBannerIndex = (currentBannerIndex + 1) % banners.length;
+      updateBannerSlider();
+    }, 5000);
+  }
+}
+
+function stopBannerSlider() {
+  if (bannerInterval) {
+    clearInterval(bannerInterval);
+    bannerInterval = null;
+  }
+}
+
+// ==================== PRODUCT DISPLAY ====================
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+}
+
+async function handleWishlistClick(e, product) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  const heartIcon = btn.querySelector('.heart-icon');
+  const wasInWishlist = isInWishlist(product.id);
+
+  await toggleWishlist(product);
+
+  if (heartIcon) {
+    if (!wasInWishlist) {
+      heartIcon.innerHTML = '❤️';
+      heartIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+      heartIcon.classList.add('text-red-500');
+    } else {
+      heartIcon.innerHTML = '🤍';
+      heartIcon.classList.remove('text-red-500');
+      heartIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+    }
+  }
+}
+
+async function handleAddToCartClick(e, product) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  const originalHTML = btn.innerHTML;
+
+  btn.innerHTML = `<svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>`;
+  btn.disabled = true;
+
+  await addToCart(product, 1);
+
+  btn.innerHTML = '✓ Added';
+  btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+  btn.classList.add('bg-green-600', 'hover:bg-green-700');
+
+  setTimeout(() => {
+    btn.innerHTML = originalHTML;
+    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+    btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+    btn.disabled = false;
+  }, 2000);
+}
+
+function displayFeaturedProducts() {
+  const featuredProducts = document.getElementById('featuredProducts');
+  if (!featuredProducts) return;
+
+  featuredProducts.innerHTML = `
+        <div class="col-span-full flex justify-center items-center py-20">
+            <div class="text-center">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <p class="mt-4 text-gray-500 dark:text-gray-400">Loading products...</p>
+            </div>
+        </div>
+    `;
+
+  setTimeout(() => {
+    if (!products || products.length === 0) {
+      featuredProducts.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Failed to load products</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Please refresh the page</p>
+                </div>
+            `;
+      return;
+    }
+
+    const featured = products.slice(0, 8);
+    featuredProducts.innerHTML = featured.map(product => {
+      const badgeColor = product.badge === 'Best Seller' ? 'bg-yellow-400 text-gray-900' :
+        product.badge === 'New' ? 'bg-green-500 text-white' :
+          product.badge === 'Popular' ? 'bg-purple-500 text-white' :
+            product.badge === 'Trending' ? 'bg-blue-500 text-white' :
+              product.badge === 'Premium' ? 'bg-indigo-500 text-white' :
+                product.badge === 'Editors\' Choice' ? 'bg-pink-500 text-white' : 'bg-gray-500 text-white';
+
+      const inWishlist = isInWishlist(product.id);
+      const shortDesc = product.description.length > 80 ? product.description.substring(0, 80) + '...' : product.description;
+
+      return `
+                <div class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative">
+                    <button class="wishlist-btn absolute top-3 right-3 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:scale-110 transition-transform duration-300" data-product-id="${product.id}">
+                        <span class="heart-icon text-xl ${inWishlist ? 'text-red-500' : 'text-gray-400 dark:text-gray-500'}">${inWishlist ? '❤️' : '🤍'}</span>
+                    </button>
+                    <div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="cursor-pointer relative overflow-hidden h-48 sm:h-56 md:h-64">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                        ${product.discountPercentage ? `<div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">-${product.discountPercentage}%</div>` : ''}
+                        <div class="absolute bottom-4 left-4 ${badgeColor} text-xs font-bold px-2 py-1 rounded z-10">${product.badge}</div>
+                        <div class="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1"><span>★</span><span>${product.rating}</span></div>
+                    </div>
+                    <div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="p-4 cursor-pointer">
+                        <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">${product.category}</p>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${product.title}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">${shortDesc}</p>
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="flex text-yellow-400 text-sm">${'★'.repeat(Math.floor(product.rating))}${product.rating % 1 >= 0.5 ? '½' : ''}${'☆'.repeat(5 - Math.ceil(product.rating))}</div>
+                            <span class="text-xs text-gray-500">(${product.reviews.toLocaleString()})</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${product.price.toFixed(2)}</span>
+                            ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">$${product.originalPrice.toFixed(2)}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <button class="add-to-cart-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base" data-product-id="${product.id}">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+    }).join('');
+
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+      const productId = parseInt(btn.dataset.productId);
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        btn.addEventListener('click', (e) => handleWishlistClick(e, product));
+      }
+    });
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      const productId = parseInt(btn.dataset.productId);
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        btn.addEventListener('click', (e) => handleAddToCartClick(e, product));
+      }
+    });
+  }, 100);
+}
+
+// ==================== MODAL FUNCTIONS ====================
 export function openModal(product) {
   const modal = document.getElementById('productModal');
   if (!modal) return;
-  
+
   document.getElementById('modalImage').src = product.image;
   document.getElementById('modalTitle').textContent = product.title;
   document.getElementById('modalDescription').textContent = product.description;
   document.getElementById('modalCategory').textContent = product.category;
   document.getElementById('modalPrice').textContent = `$${product.price.toFixed(2)}`;
-  
+
   const rating = product.rating;
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
@@ -2499,7 +2929,7 @@ export function openModal(product) {
   for (let i = 0; i < 5 - Math.ceil(rating); i++) starsHTML += '☆';
   document.getElementById('modalRating').innerHTML = starsHTML;
   document.getElementById('modalReviewCount').textContent = `(${product.reviews.toLocaleString()} reviews)`;
-  
+
   if (product.discountPercentage) {
     document.getElementById('modalOriginalPrice').textContent = `$${product.originalPrice.toFixed(2)}`;
     document.getElementById('modalOriginalPrice').classList.remove('hidden');
@@ -2511,30 +2941,29 @@ export function openModal(product) {
     document.getElementById('modalDiscountPercent').classList.add('hidden');
     document.getElementById('modalDiscountBadge')?.classList.add('hidden');
   }
-  
+
   document.getElementById('modalStock').textContent = `In Stock (${product.stock} available)`;
-  
+
   const colorsContainer = document.getElementById('modalColors');
   if (colorsContainer && product.colors) {
-    colorsContainer.innerHTML = product.colors.map(color => 
-      `<span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">${color}</span>`
+    colorsContainer.innerHTML = product.colors.map(color =>
+      `<span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">${escapeHtml(color)}</span>`
     ).join('');
   }
-  
+
   const featuresContainer = document.getElementById('modalFeatures');
   if (featuresContainer && product.features) {
-    featuresContainer.innerHTML = product.features.map(feature => 
+    featuresContainer.innerHTML = product.features.map(feature =>
       `<li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        ${feature}
-      </li>`
+                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                ${escapeHtml(feature)}
+            </li>`
     ).join('');
   }
-  
+
   window.currentProduct = product;
-  
   modal.classList.remove('hidden');
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -2551,26 +2980,86 @@ export function closeModal() {
   }
 }
 
-// Auth state change - THIS IS THE IMPORTANT PART
+window.decrementQuantity = () => {
+  const q = document.getElementById('quantity');
+  if (q && parseInt(q.textContent) > 1) {
+    q.textContent = parseInt(q.textContent) - 1;
+  }
+};
+
+window.incrementQuantity = () => {
+  const q = document.getElementById('quantity');
+  if (q && parseInt(q.textContent) < 10) {
+    q.textContent = parseInt(q.textContent) + 1;
+  }
+};
+
+window.addToCartFromModal = () => {
+  if (window.currentProduct) {
+    addToCart(window.currentProduct, parseInt(document.getElementById('quantity').textContent));
+    closeModal();
+  }
+};
+
+// ==================== AUTH STATE CHANGE ====================
 onAuthStateChanged(auth, async (user) => {
   console.log('Auth state changed:', user ? `User ${user.uid} logged in` : 'User logged out');
   currentUser = user;
-  
+
   if (user) {
-    // User is signed in, load their cart and wishlist from Firestore
-    await loadUserCart(user.uid);
-    await loadUserWishlist(user.uid);
-    // Only sync products for admin users
-    const ADMIN_EMAILS = ['abdulwarisabdullahi52@gmail.com', 'yxngalhaji002@gmail.com'];
-    if (ADMIN_EMAILS.includes(user.email)) {
-      await syncProductsToFirebase();
-    }
+    await Promise.all([
+      loadUserCart(user.uid),
+      loadUserWishlist(user.uid)
+    ]);
+    displayFeaturedProducts();
   } else {
-    // User is signed out, clear cart and wishlist
     cart = [];
     wishlist = [];
     updateCartCount();
     updateWishlistCount();
+    displayFeaturedProducts();
     console.log('Cart and wishlist cleared - user logged out');
   }
+});
+
+// ==================== INITIALIZATION ====================
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadAnnouncementBar();
+  updateCartCount();
+  updateWishlistCount();
+  await fetchBanners();
+
+  // Mobile menu toggle
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // Back to top button
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.style.opacity = window.scrollY > 300 ? '1' : '0';
+      backToTop.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Close mobile menu on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && mobileMenu) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+
+  // Make functions available globally
+  window.openModal = openModal;
+  window.closeModal = closeModal;
 });

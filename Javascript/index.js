@@ -1,4 +1,4 @@
-import { products, openModal, closeModal, addToCart, updateCartCount, cart, toggleWishlist, isInWishlist } from './main.js';
+import { products, openModal, closeModal, addToCart, updateCartCount, cart, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -28,8 +28,14 @@ let bannerInterval = null;
 let banners = [];
 let currentUser = null;
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     currentUser = user;
+    if (user) {
+        await loadUserWishlist(user.uid);
+        displayFeaturedProducts();
+    } else {
+        displayFeaturedProducts();
+    }
 });
 
 if (mobileMenuToggle && mobileMenu) {
@@ -64,6 +70,8 @@ function showProductsLoading() {
         </div>
     `;
 }
+
+// ==================== COUPON FUNCTIONS ====================
 
 function showProfessionalCouponModal(couponCode, discount, message = '') {
     const modalOverlay = document.createElement('div');
@@ -226,6 +234,8 @@ function showFloatingCouponNotification(couponCode, discount) {
     }, 8000);
 }
 
+// ==================== ANNOUNCEMENT BAR ====================
+
 async function loadAnnouncementBar() {
     try {
         const announcementsRef = collection(db, 'announcements');
@@ -255,19 +265,14 @@ function createAnnouncementBar(data) {
 
     if (savedEndTime && parseInt(savedEndTime) > currentTime) {
         endTime = parseInt(savedEndTime);
+    } else if (savedEndTime && parseInt(savedEndTime) <= currentTime) {
+        localStorage.removeItem('announcementEndTime');
+        localStorage.removeItem('announcementClosed');
+        return;
     } else {
         endTime = currentTime + (data.countdownHours || 24) * 60 * 60 * 1000;
         localStorage.setItem('announcementEndTime', endTime);
     }
-
-    const couponDisplay = isCoupon ? `
-        <div class="relative group">
-            <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-3 py-1 rounded-full text-xs font-mono font-bold shadow-lg flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
-                <i class="fas fa-ticket-alt text-xs"></i> ${escapeHtml(data.couponCode)} <i class="fas fa-copy text-xs opacity-70"></i>
-            </span>
-            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Click to copy</div>
-        </div>
-    ` : '';
 
     const announcementHTML = `
         <div id="announcementBarContainer" class="sticky top-0 z-[100] overflow-hidden">
@@ -277,7 +282,12 @@ function createAnnouncementBar(data) {
                         <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
                             <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center animate-pulse"><span class="text-base">${escapeHtml(data.icon || '⚡')}</span></div>
                             <span class="font-semibold text-sm sm:text-base">${escapeHtml(data.message)}</span>
-                            ${couponDisplay}
+                            ${isCoupon ? `<div class="relative group">
+                                <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-3 py-1 rounded-full text-xs font-mono font-bold shadow-lg flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
+                                    <i class="fas fa-ticket-alt text-xs"></i> ${escapeHtml(data.couponCode)} <i class="fas fa-copy text-xs opacity-70"></i>
+                                </span>
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Click to copy</div>
+                            </div>` : ''}
                         </div>
                         <div class="flex items-center gap-2 sm:gap-3">
                             <div class="flex items-center gap-1 sm:gap-2 bg-black/20 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1 sm:py-1.5">
@@ -334,20 +344,21 @@ function createAnnouncementBar(data) {
         closeBtn.addEventListener('click', () => {
             const container = document.getElementById('announcementBarContainer');
             if (container) {
-                container.style.animation = 'slideOut 0.3s ease forwards';
-                setTimeout(() => { container.style.display = 'none'; }, 300);
+                container.style.display = 'none';
             }
-            sessionStorage.setItem('announcementClosed', 'true');
+            localStorage.setItem('announcementClosed', 'true');
         });
     }
 
-    if (sessionStorage.getItem('announcementClosed') === 'true') {
+    if (localStorage.getItem('announcementClosed') === 'true') {
         const container = document.getElementById('announcementBarContainer');
         if (container) container.style.display = 'none';
     }
 }
 
 function startAnnouncementCountdown(endTime) {
+    const announcementBar = document.getElementById('announcementBarContainer');
+
     function updateCountdown() {
         const now = new Date().getTime();
         const diff = endTime - now;
@@ -363,6 +374,11 @@ function startAnnouncementCountdown(endTime) {
             minutesEl.textContent = '00';
             secondsEl.textContent = '00';
             localStorage.removeItem('announcementEndTime');
+            localStorage.removeItem('announcementClosed');
+
+            if (announcementBar) {
+                announcementBar.style.display = 'none';
+            }
             return;
         }
 
@@ -378,6 +394,8 @@ function startAnnouncementCountdown(endTime) {
     updateCountdown();
     setInterval(updateCountdown, 1000);
 }
+
+// ==================== BANNER FUNCTIONALITY ====================
 
 async function fetchBanners() {
     if (!heroSection) return;
@@ -434,20 +452,35 @@ function updateBannerSlider() {
 function startBannerSlider() { if (banners.length > 1) { stopBannerSlider(); bannerInterval = setInterval(() => { currentBannerIndex = (currentBannerIndex + 1) % banners.length; updateBannerSlider(); }, 5000); } }
 function stopBannerSlider() { if (bannerInterval) { clearInterval(bannerInterval); bannerInterval = null; } }
 
+// ==================== WISHLIST FUNCTIONS ====================
+
 async function handleWishlistClick(e, product) {
     e.stopPropagation();
-    const heartIcon = e.currentTarget.querySelector('.heart-icon');
+    const btn = e.currentTarget;
+    const heartIcon = btn.querySelector('.heart-icon');
     const wasInWishlist = isInWishlist(product.id);
+
     await toggleWishlist(product);
+
     if (heartIcon) {
-        heartIcon.innerHTML = wasInWishlist ? '🤍' : '❤️';
-        heartIcon.className = `heart-icon text-xl ${wasInWishlist ? 'text-gray-400 dark:text-gray-500' : 'text-red-500'}`;
+        if (!wasInWishlist) {
+            heartIcon.innerHTML = '❤️';
+            heartIcon.classList.remove('text-gray-400', 'dark:text-gray-500');
+            heartIcon.classList.add('text-red-500');
+        } else {
+            heartIcon.innerHTML = '🤍';
+            heartIcon.classList.remove('text-red-500');
+            heartIcon.classList.add('text-gray-400', 'dark:text-gray-500');
+        }
     }
 }
+
+// ==================== ADD TO CART FUNCTIONS ====================
 
 async function handleAddToCartClick(e, product) {
     e.stopPropagation();
     const btn = e.currentTarget;
+    const originalHTML = btn.innerHTML;
     btn.innerHTML = `<svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
     btn.disabled = true;
     await addToCart(product, 1);
@@ -455,12 +488,14 @@ async function handleAddToCartClick(e, product) {
     btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
     btn.classList.add('bg-green-600', 'hover:bg-green-700');
     setTimeout(() => {
-        btn.innerHTML = 'Add to Cart';
+        btn.innerHTML = originalHTML;
         btn.classList.remove('bg-green-600', 'hover:bg-green-700');
         btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
         btn.disabled = false;
     }, 2000);
 }
+
+// ==================== DISPLAY PRODUCTS ====================
 
 function displayFeaturedProducts() {
     if (!featuredProducts) return;
@@ -468,30 +503,91 @@ function displayFeaturedProducts() {
     showProductsLoading();
 
     setTimeout(() => {
+        if (!products || products.length === 0) {
+            console.error('Products array is empty or not loaded');
+            featuredProducts.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Failed to load products</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Please refresh the page</p>
+                </div>
+            `;
+            return;
+        }
+
         const featured = products.slice(0, 8);
         featuredProducts.innerHTML = featured.map(product => {
             const badgeColor = product.badge === 'Best Seller' ? 'bg-yellow-400 text-gray-900' : product.badge === 'New' ? 'bg-green-500 text-white' : product.badge === 'Popular' ? 'bg-purple-500 text-white' : product.badge === 'Trending' ? 'bg-blue-500 text-white' : product.badge === 'Premium' ? 'bg-indigo-500 text-white' : product.badge === 'Editors\' Choice' ? 'bg-pink-500 text-white' : 'bg-gray-500 text-white';
+
             const inWishlist = isInWishlist(product.id);
             const shortDesc = product.description.length > 80 ? product.description.substring(0, 80) + '...' : product.description;
-            return `<div class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative"><button onclick="event.stopPropagation()" class="wishlist-btn absolute top-3 right-3 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:scale-110 transition-transform duration-300" data-product-id="${product.id}"><span class="heart-icon text-xl ${inWishlist ? 'text-red-500' : 'text-gray-400 dark:text-gray-500'}">${inWishlist ? '❤️' : '🤍'}</span></button><div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="cursor-pointer relative overflow-hidden h-48 sm:h-56 md:h-64"><img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">${product.discountPercentage ? `<div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">-${product.discountPercentage}%</div>` : ''}<div class="absolute bottom-4 left-4 ${badgeColor} text-xs font-bold px-2 py-1 rounded z-10">${product.badge}</div><div class="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1"><span>★</span><span>${product.rating}</span></div></div><div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="p-4 cursor-pointer"><p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">${product.category}</p><h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${product.title}</h3><p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">${shortDesc}</p><div class="flex items-center gap-2 mb-3"><div class="flex text-yellow-400 text-sm">${'★'.repeat(Math.floor(product.rating))}${product.rating % 1 >= 0.5 ? '½' : ''}${'☆'.repeat(5 - Math.ceil(product.rating))}</div><span class="text-xs text-gray-500">(${product.reviews.toLocaleString()})</span></div><div class="flex items-center gap-2 mb-2"><span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${product.price.toFixed(2)}</span>${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">$${product.originalPrice.toFixed(2)}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}</div></div><div class="px-4 pb-4"><button class="add-to-cart-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base" data-product-id="${product.id}"><svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Add to Cart</button></div></div>`;
+
+            return `<div class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative">
+                <button class="wishlist-btn absolute top-3 right-3 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:scale-110 transition-transform duration-300" data-product-id="${product.id}">
+                    <span class="heart-icon text-xl ${inWishlist ? 'text-red-500' : 'text-gray-400 dark:text-gray-500'}">${inWishlist ? '❤️' : '🤍'}</span>
+                </button>
+                <div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="cursor-pointer relative overflow-hidden h-48 sm:h-56 md:h-64">
+                    <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                    ${product.discountPercentage ? `<div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">-${product.discountPercentage}%</div>` : ''}
+                    <div class="absolute bottom-4 left-4 ${badgeColor} text-xs font-bold px-2 py-1 rounded z-10">${product.badge}</div>
+                    <div class="absolute bottom-4 right-4 bg-black/70 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1"><span>★</span><span>${product.rating}</span></div>
+                </div>
+                <div onclick='openModal(${JSON.stringify(product).replace(/'/g, "\\'")})' class="p-4 cursor-pointer">
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">${product.category}</p>
+                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${product.title}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">${shortDesc}</p>
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="flex text-yellow-400 text-sm">${'★'.repeat(Math.floor(product.rating))}${product.rating % 1 >= 0.5 ? '½' : ''}${'☆'.repeat(5 - Math.ceil(product.rating))}</div>
+                        <span class="text-xs text-gray-500">(${product.reviews.toLocaleString()})</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${product.price.toFixed(2)}</span>
+                        ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">$${product.originalPrice.toFixed(2)}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
+                    </div>
+                </div>
+                <div class="px-4 pb-4">
+                    <button class="add-to-cart-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base" data-product-id="${product.id}">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>`;
         }).join('');
 
-        document.querySelectorAll('.wishlist-btn').forEach(btn => { const product = products.find(p => p.id === parseInt(btn.dataset.productId)); btn.addEventListener('click', (e) => handleWishlistClick(e, product)); });
-        document.querySelectorAll('.add-to-cart-btn').forEach(btn => { const product = products.find(p => p.id === parseInt(btn.dataset.productId)); btn.addEventListener('click', (e) => handleAddToCartClick(e, product)); });
-    }, 300);
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            const productId = parseInt(btn.dataset.productId);
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                btn.addEventListener('click', (e) => handleWishlistClick(e, product));
+            }
+        });
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            const productId = parseInt(btn.dataset.productId);
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                btn.addEventListener('click', (e) => handleAddToCartClick(e, product));
+            }
+        });
+    }, 100);
 }
+
+// ==================== MODAL FUNCTIONS ====================
 
 window.decrementQuantity = () => { const q = document.getElementById('quantity'); if (q && parseInt(q.textContent) > 1) q.textContent = parseInt(q.textContent) - 1; };
 window.incrementQuantity = () => { const q = document.getElementById('quantity'); if (q && parseInt(q.textContent) < 10) q.textContent = parseInt(q.textContent) + 1; };
 window.addToCartFromModal = () => { if (window.currentProduct) addToCart(window.currentProduct, parseInt(document.getElementById('quantity').textContent)); closeModal(); };
 
+// ==================== INITIALIZATION ====================
+
 document.addEventListener('DOMContentLoaded', async () => {
     await loadAnnouncementBar();
-    displayFeaturedProducts();
     updateCartCount();
     await fetchBanners();
     window.openModal = openModal;
     window.closeModal = closeModal;
 });
 
+// Export for use in other files if needed
 export { fetchBanners, banners, updateBannerSlider, stopBannerSlider, startBannerSlider, loadAnnouncementBar };

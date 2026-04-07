@@ -37,7 +37,11 @@ let currentSort = 'default';
 let currentSearch = '';
 let currentUser = null;
 
-// Helper function to show toast messages
+// PAGINATION VARIABLES
+let currentPage = 1;
+const PRODUCTS_PER_PAGE = 24; // Show 24 products per page
+let totalPages = 1;
+
 function showToastMessage(message, type = 'error') {
   const toast = document.createElement('div');
   let bgColor = 'bg-red-500';
@@ -112,7 +116,10 @@ function filterAndSearch() {
   
   filteredProducts = result;
   sortProducts();
+  currentPage = 1; // Reset to first page when filter changes
+  totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   displayProducts();
+  displayPagination();
 }
 
 function filterProducts(category) {
@@ -139,6 +146,120 @@ function sortProducts() {
 function handleSearch() {
   currentSearch = searchInput?.value || '';
   filterAndSearch();
+}
+
+// PAGINATION DISPLAY FUNCTION
+function displayPagination() {
+  const existingPagination = document.getElementById('paginationContainer');
+  if (existingPagination) existingPagination.remove();
+  
+  if (totalPages <= 1) return;
+  
+  const paginationContainer = document.createElement('div');
+  paginationContainer.id = 'paginationContainer';
+  paginationContainer.className = 'flex justify-center items-center gap-2 mt-8 mb-8 flex-wrap';
+  
+  // Previous button
+  const prevBtn = document.createElement('button');
+  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+  prevBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${currentPage === 1 ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}`;
+  prevBtn.disabled = currentPage === 1;
+  if (currentPage > 1) {
+    prevBtn.addEventListener('click', () => {
+      currentPage--;
+      displayProducts();
+      displayPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  paginationContainer.appendChild(prevBtn);
+  
+  // Page numbers
+  const maxVisiblePages = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+  
+  if (startPage > 1) {
+    const firstBtn = document.createElement('button');
+    firstBtn.textContent = '1';
+    firstBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${1 === currentPage ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white'}`;
+    firstBtn.addEventListener('click', () => {
+      currentPage = 1;
+      displayProducts();
+      displayPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    paginationContainer.appendChild(firstBtn);
+    
+    if (startPage > 2) {
+      const dots = document.createElement('span');
+      dots.textContent = '...';
+      dots.className = 'px-2 text-gray-500';
+      paginationContainer.appendChild(dots);
+    }
+  }
+  
+  for (let i = startPage; i <= endPage; i++) {
+    const pageBtn = document.createElement('button');
+    pageBtn.textContent = i;
+    pageBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${i === currentPage ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white'}`;
+    pageBtn.addEventListener('click', () => {
+      currentPage = i;
+      displayProducts();
+      displayPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    paginationContainer.appendChild(pageBtn);
+  }
+  
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      const dots = document.createElement('span');
+      dots.textContent = '...';
+      dots.className = 'px-2 text-gray-500';
+      paginationContainer.appendChild(dots);
+    }
+    
+    const lastBtn = document.createElement('button');
+    lastBtn.textContent = totalPages;
+    lastBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${totalPages === currentPage ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white'}`;
+    lastBtn.addEventListener('click', () => {
+      currentPage = totalPages;
+      displayProducts();
+      displayPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    paginationContainer.appendChild(lastBtn);
+  }
+  
+  // Next button
+  const nextBtn = document.createElement('button');
+  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+  nextBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${currentPage === totalPages ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}`;
+  nextBtn.disabled = currentPage === totalPages;
+  if (currentPage < totalPages) {
+    nextBtn.addEventListener('click', () => {
+      currentPage++;
+      displayProducts();
+      displayPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  paginationContainer.appendChild(nextBtn);
+  
+  // Info text
+  const infoText = document.createElement('div');
+  infoText.className = 'text-center text-sm text-gray-500 dark:text-gray-400 mt-4 w-full';
+  const startItem = (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
+  const endItem = Math.min(currentPage * PRODUCTS_PER_PAGE, filteredProducts.length);
+  infoText.textContent = `Showing ${startItem} - ${endItem} of ${filteredProducts.length} products`;
+  paginationContainer.appendChild(infoText);
+  
+  productsGrid.parentNode.appendChild(paginationContainer);
 }
 
 async function handleWishlistClick(e, product) {
@@ -221,7 +342,12 @@ async function handleAddToCartClick(e, product) {
 function displayProducts() {
   if (!productsGrid) return;
 
-  if (filteredProducts.length === 0) {
+  // Get current page products
+  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const endIndex = startIndex + PRODUCTS_PER_PAGE;
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+
+  if (currentProducts.length === 0) {
     productsGrid.innerHTML = `
       <div class="col-span-full text-center py-16">
         <i class="fas fa-search text-6xl text-gray-400 mb-4"></i>
@@ -232,7 +358,7 @@ function displayProducts() {
     return;
   }
 
-  productsGrid.innerHTML = filteredProducts.map(product => {
+  productsGrid.innerHTML = currentProducts.map(product => {
     const productName = product.name || product.title || 'Product';
     const productImage = product.image || product.thumbnail || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format';
     const productPrice = product.price || 0;
@@ -249,7 +375,6 @@ function displayProducts() {
                         productBadge === 'Premium' ? 'bg-indigo-500 text-white' :
                         'bg-gray-500 text-white';
 
-    // Check if product is in wishlist (this will reflect after reload)
     const inWishlist = isInWishlist(product.id);
     const heartIcon = inWishlist ? '❤️' : '🤍';
     const heartColor = inWishlist ? 'text-red-500' : 'text-gray-400 dark:text-gray-500';
@@ -394,15 +519,6 @@ async function loadProductsFromFirebase() {
   }
 }
 
-// Function to refresh wishlist and re-render products
-async function refreshWishlistAndProducts() {
-  if (currentUser) {
-    await loadUserWishlist(currentUser.uid);
-  }
-  // Re-display products with updated wishlist status
-  displayProducts();
-}
-
 // Filter button event listeners
 if (filterAll) {
   filterAll.addEventListener('click', () => {
@@ -445,7 +561,9 @@ if (sortSelect) {
   sortSelect.addEventListener('change', (e) => {
     currentSort = e.target.value;
     sortProducts();
+    currentPage = 1;
     displayProducts();
+    displayPagination();
   });
 }
 
@@ -483,9 +601,8 @@ function getCategoryFromUrl() {
   return params.get('category');
 }
 
-// Initialize shop - THIS IS THE KEY FIX
+// Initialize shop
 document.addEventListener('DOMContentLoaded', async () => {
-  // Show loading state
   if (productsGrid) {
     productsGrid.innerHTML = `
       <div class="col-span-full text-center py-16">
@@ -495,23 +612,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
   
-  // First, load products from Firebase
   await loadProductsFromFirebase();
   
-  // Then, set up auth state to load wishlist
   onAuthStateChanged(auth, async (user) => {
     currentUser = user;
     
     if (user) {
       console.log('User logged in, loading wishlist...');
       await loadUserWishlist(user.uid);
-      console.log('Wishlist loaded, refreshing products...');
-      // Refresh the display to show correct heart colors
       displayProducts();
     } else {
-      console.log('No user logged in');
-      // Clear wishlist and refresh
-      refreshWishlistAndProducts();
+      displayProducts();
     }
     
     updateCartCount();

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sync All Products</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e2e; color: #fff; }
+        button { padding: 12px 24px; font-size: 16px; background: #4f46e5; color: white; border: none; border-radius: 8px; cursor: pointer; margin: 20px 0; }
+        button:hover { background: #4338ca; }
+        .status { background: #2d2d3d; padding: 15px; border-radius: 8px; white-space: pre-wrap; max-height: 500px; overflow-y: auto; font-size: 12px; }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <h1>Sync All 150 Products to Firebase</h1>
+    <button id="syncBtn">Start Sync (150 Products)</button>
+    <div id="status" class="status">Ready. Click the button to sync all products.</div>
+
+    <script type="module">
+        import { products } from './javascript/main.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, writeBatch } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
+            authDomain: "e-commerce-29a73.firebaseapp.com",
+            projectId: "e-commerce-29a73",
+            storageBucket: "e-commerce-29a73.firebasestorage.app",
+            messagingSenderId: "870933397259",
+            appId: "1:870933397259:web:7a0d6f50a6a11f92b66c0e"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const statusDiv = document.getElementById('status');
+        const btn = document.getElementById('syncBtn');
+        
+        function log(msg, type = 'info') {
+            const color = type === 'success' ? 'success' : (type === 'error' ? 'error' : 'info');
+            statusDiv.innerHTML += `<div class="${color}">${msg}</div>`;
+            statusDiv.scrollTop = statusDiv.scrollHeight;
+            console.log(msg);
+        }
+        
+        btn.onclick = async () => {
+            btn.disabled = true;
+            btn.textContent = 'Syncing...';
+            statusDiv.innerHTML = '';
+            
+            try {
+                log('🚀 Starting sync...');
+                log(`📦 Found ${products.length} products in main.js`);
+                
+                const productsRef = collection(db, 'products');
+                const snapshot = await getDocs(productsRef);
+                log(`📊 Existing products in Firebase: ${snapshot.size}`);
+                
+                if (snapshot.size > 0) {
+                    log('🗑️ Clearing existing products...');
+                    const batch = writeBatch(db);
+                    snapshot.forEach(doc => batch.delete(doc.ref));
+                    await batch.commit();
+                    log('✅ Cleared existing products');
+                }
+                
+                log(`📤 Adding ${products.length} products to Firebase...`);
+                let count = 0;
+                
+                for (const p of products) {
+                    await addDoc(productsRef, {
+                        name: p.title,
+                        title: p.title,
+                        price: p.price,
+                        originalPrice: p.originalPrice || null,
+                        discountPercentage: p.discountPercentage || null,
+                        stock: p.stock || 0,
+                        category: p.category,
+                        description: p.description,
+                        image: p.image,
+                        thumbnail: p.thumbnail,
+                        rating: p.rating || 4.5,
+                        reviews: p.reviews || 0,
+                        badge: p.badge || null,
+                        brand: p.brand || 'PunnyCart',
+                        colors: p.colors || ['Black', 'White'],
+                        features: p.features || ['Premium Quality', 'Fast Delivery'],
+                        createdAt: new Date().toISOString()
+                    });
+                    count++;
+                    if (count % 20 === 0) log(`📦 Progress: ${count}/${products.length}`);
+                }
+                
+                log(`✅ SUCCESS! Added ${count} products to Firebase!`, 'success');
+                log(`🔄 Go to shop.html and refresh!`, 'success');
+                btn.textContent = 'Sync Complete!';
+                
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+                btn.disabled = false;
+                btn.textContent = 'Start Sync';
+            }
+        };
+    </script>
+</body>
+</html>

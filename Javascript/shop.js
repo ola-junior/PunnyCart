@@ -1,7 +1,7 @@
 import { openModal, closeModal, addToCart, updateCartCount, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDlkoedJh9k940IofE8VKJ9-fT8Gz7WvoI",
@@ -39,7 +39,7 @@ let currentUser = null;
 
 // PAGINATION VARIABLES
 let currentPage = 1;
-const PRODUCTS_PER_PAGE = 24; // Show 24 products per page
+const PRODUCTS_PER_PAGE = 24;
 let totalPages = 1;
 
 function showToastMessage(message, type = 'error') {
@@ -116,7 +116,7 @@ function filterAndSearch() {
   
   filteredProducts = result;
   sortProducts();
-  currentPage = 1; // Reset to first page when filter changes
+  currentPage = 1;
   totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   displayProducts();
   displayPagination();
@@ -148,7 +148,6 @@ function handleSearch() {
   filterAndSearch();
 }
 
-// PAGINATION DISPLAY FUNCTION
 function displayPagination() {
   const existingPagination = document.getElementById('paginationContainer');
   if (existingPagination) existingPagination.remove();
@@ -159,7 +158,6 @@ function displayPagination() {
   paginationContainer.id = 'paginationContainer';
   paginationContainer.className = 'flex justify-center items-center gap-2 mt-8 mb-8 flex-wrap';
   
-  // Previous button
   const prevBtn = document.createElement('button');
   prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
   prevBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${currentPage === 1 ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}`;
@@ -174,7 +172,6 @@ function displayPagination() {
   }
   paginationContainer.appendChild(prevBtn);
   
-  // Page numbers
   const maxVisiblePages = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -236,7 +233,6 @@ function displayPagination() {
     paginationContainer.appendChild(lastBtn);
   }
   
-  // Next button
   const nextBtn = document.createElement('button');
   nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
   nextBtn.className = `px-4 py-2 rounded-lg font-semibold transition-all ${currentPage === totalPages ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}`;
@@ -251,7 +247,6 @@ function displayPagination() {
   }
   paginationContainer.appendChild(nextBtn);
   
-  // Info text
   const infoText = document.createElement('div');
   infoText.className = 'text-center text-sm text-gray-500 dark:text-gray-400 mt-4 w-full';
   const startItem = (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
@@ -264,10 +259,7 @@ function displayPagination() {
 
 async function handleWishlistClick(e, product) {
   e.stopPropagation();
-  if (!product || !product.id) {
-    console.error('Invalid product for wishlist');
-    return;
-  }
+  if (!product || !product.id) return;
   
   const btn = e.currentTarget;
   const heartIcon = btn.querySelector('.heart-icon');
@@ -292,7 +284,6 @@ async function handleAddToCartClick(e, product) {
   e.stopPropagation();
   
   if (!product || !product.id) {
-    console.error('Invalid product for cart:', product);
     showToastMessage('Product data is invalid', 'error');
     return;
   }
@@ -311,10 +302,8 @@ async function handleAddToCartClick(e, product) {
   const cartProduct = {
     id: product.id,
     title: product.name || product.title || 'Product',
-    name: product.name || product.title || 'Product',
     price: product.price || 0,
-    image: product.image || product.thumbnail || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&auto=format',
-    thumbnail: product.image || product.thumbnail,
+    image: product.image || product.thumbnail,
     brand: product.brand || 'PunnyCart',
     stock: product.stock || 0
   };
@@ -342,7 +331,6 @@ async function handleAddToCartClick(e, product) {
 function displayProducts() {
   if (!productsGrid) return;
 
-  // Get current page products
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
   const endIndex = startIndex + PRODUCTS_PER_PAGE;
   const currentProducts = filteredProducts.slice(startIndex, endIndex);
@@ -452,7 +440,6 @@ function displayProducts() {
     `;
   }).join('');
 
-  // Attach event listeners
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const productId = btn.dataset.productId;
     const product = filteredProducts.find(p => String(p.id) === String(productId));
@@ -470,12 +457,15 @@ function displayProducts() {
   });
 }
 
+// Load products from Firebase (so admin added products appear)
 async function loadProductsFromFirebase() {
   if (productsGrid) {
     productsGrid.innerHTML = `
       <div class="col-span-full text-center py-16">
-        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
-        <p class="mt-4 text-gray-600 dark:text-gray-400">Loading products...</p>
+        <div class="relative inline-flex items-center justify-center">
+          <div class="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+        </div>
+        <p class="mt-6 text-gray-600 dark:text-gray-400 font-medium">Loading amazing products...</p>
       </div>
     `;
   }
@@ -502,7 +492,7 @@ async function loadProductsFromFirebase() {
       });
     });
     
-    console.log(`Loaded ${allProducts.length} products from Firebase`);
+    console.log(`✅ Loaded ${allProducts.length} products from Firebase`);
     filterAndSearch();
     
   } catch (error) {
@@ -520,42 +510,12 @@ async function loadProductsFromFirebase() {
 }
 
 // Filter button event listeners
-if (filterAll) {
-  filterAll.addEventListener('click', () => {
-    setActiveFilter(filterAll);
-    filterProducts('All');
-  });
-}
-if (filterElectronics) {
-  filterElectronics.addEventListener('click', () => {
-    setActiveFilter(filterElectronics);
-    filterProducts('Electronics');
-  });
-}
-if (filterFashion) {
-  filterFashion.addEventListener('click', () => {
-    setActiveFilter(filterFashion);
-    filterProducts('Fashion');
-  });
-}
-if (filterHome) {
-  filterHome.addEventListener('click', () => {
-    setActiveFilter(filterHome);
-    filterProducts('Home');
-  });
-}
-if (filterAccessories) {
-  filterAccessories.addEventListener('click', () => {
-    setActiveFilter(filterAccessories);
-    filterProducts('Accessories');
-  });
-}
-if (filterAudio) {
-  filterAudio.addEventListener('click', () => {
-    setActiveFilter(filterAudio);
-    filterProducts('Audio');
-  });
-}
+if (filterAll) filterAll.addEventListener('click', () => { setActiveFilter(filterAll); filterProducts('All'); });
+if (filterElectronics) filterElectronics.addEventListener('click', () => { setActiveFilter(filterElectronics); filterProducts('Electronics'); });
+if (filterFashion) filterFashion.addEventListener('click', () => { setActiveFilter(filterFashion); filterProducts('Fashion'); });
+if (filterHome) filterHome.addEventListener('click', () => { setActiveFilter(filterHome); filterProducts('Home'); });
+if (filterAccessories) filterAccessories.addEventListener('click', () => { setActiveFilter(filterAccessories); filterProducts('Accessories'); });
+if (filterAudio) filterAudio.addEventListener('click', () => { setActiveFilter(filterAudio); filterProducts('Audio'); });
 
 if (sortSelect) {
   sortSelect.addEventListener('change', (e) => {
@@ -567,26 +527,20 @@ if (sortSelect) {
   });
 }
 
-if (searchInput) {
-  searchInput.addEventListener('input', handleSearch);
-}
+if (searchInput) searchInput.addEventListener('input', handleSearch);
 
 window.decrementQuantity = function () {
   const quantityEl = document.getElementById('quantity');
   if (!quantityEl) return;
   let quantity = parseInt(quantityEl.textContent);
-  if (quantity > 1) {
-    quantityEl.textContent = quantity - 1;
-  }
+  if (quantity > 1) quantityEl.textContent = quantity - 1;
 };
 
 window.incrementQuantity = function () {
   const quantityEl = document.getElementById('quantity');
   if (!quantityEl) return;
   let quantity = parseInt(quantityEl.textContent);
-  if (quantity < 10) {
-    quantityEl.textContent = quantity + 1;
-  }
+  if (quantity < 10) quantityEl.textContent = quantity + 1;
 };
 
 window.addToCartFromModal = function () {
@@ -603,28 +557,14 @@ function getCategoryFromUrl() {
 
 // Initialize shop
 document.addEventListener('DOMContentLoaded', async () => {
-  if (productsGrid) {
-    productsGrid.innerHTML = `
-      <div class="col-span-full text-center py-16">
-        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
-        <p class="mt-4 text-gray-600 dark:text-gray-400">Loading products...</p>
-      </div>
-    `;
-  }
-  
   await loadProductsFromFirebase();
   
   onAuthStateChanged(auth, async (user) => {
     currentUser = user;
-    
     if (user) {
-      console.log('User logged in, loading wishlist...');
       await loadUserWishlist(user.uid);
-      displayProducts();
-    } else {
-      displayProducts();
+      displayProducts(); // Refresh to show wishlist hearts
     }
-    
     updateCartCount();
   });
   

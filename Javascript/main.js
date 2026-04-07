@@ -3002,16 +3002,22 @@ window.addToCartFromModal = () => {
 };
 
 // ==================== AUTH STATE CHANGE ====================
+// FIXED - No auto-sync to prevent duplicates
 onAuthStateChanged(auth, async (user) => {
   console.log('Auth state changed:', user ? `User ${user.uid} logged in` : 'User logged out');
   currentUser = user;
 
   if (user) {
+    // Only load user data - NO PRODUCT SYNCING!
     await Promise.all([
       loadUserCart(user.uid),
       loadUserWishlist(user.uid)
     ]);
     displayFeaturedProducts();
+    
+    // IMPORTANT: DO NOT call syncProductsToFirebase() here!
+    // Products should only be added via admin page, not automatically synced
+    
   } else {
     cart = [];
     wishlist = [];

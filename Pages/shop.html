@@ -145,6 +145,31 @@
     .dark .nav-link::after {
       background: #818cf8;
     }
+
+    /* Category filter scroll for mobile */
+    .categories-scroll {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .categories-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-track {
+      background: #e5e7eb;
+      border-radius: 10px;
+    }
+    
+    .categories-scroll::-webkit-scrollbar-thumb {
+      background: #4f46e5;
+      border-radius: 10px;
+    }
+    
+    .dark .categories-scroll::-webkit-scrollbar-track {
+      background: #374151;
+    }
   </style>
 </head>
 
@@ -213,43 +238,73 @@
   <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Shop All Products</h1>
-      <p class="text-xl opacity-90 max-w-2xl mx-auto">Browse our complete collection of 150+ premium products</p>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Browse our complete collection of premium products</p>
     </div>
   </section>
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Search and Filter Section -->
-    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
-      <div class="flex flex-wrap gap-2">
-        <button id="filterAll"
-          class="filter-btn px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">All</button>
-        <button id="filterElectronics"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Electronics</button>
-        <button id="filterFashion"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Fashion</button>
-        <button id="filterHome"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Home</button>
-        <button id="filterAccessories"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Accessories</button>
-        <button id="filterAudio"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Audio</button>
-        <button id="filterBeauty"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Beauty</button>
-        <button id="filterSports"
-          class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors">Sports</button>
+    <div class="flex flex-col gap-4">
+      <!-- Categories Filter - Scrollable on mobile -->
+      <div class="categories-scroll">
+        <div class="flex flex-nowrap gap-2 pb-2 min-w-max">
+          <button id="filterAll"
+            class="filter-btn px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors whitespace-nowrap">All</button>
+          <button id="filterElectronics"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Electronics</button>
+          <button id="filterFashion"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Fashion</button>
+          <button id="filterHome"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Home</button>
+          <button id="filterAccessories"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Accessories</button>
+          <button id="filterAudio"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Audio</button>
+          <button id="filterBeauty"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Beauty</button>
+          <button id="filterSports"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Sports</button>
+          <button id="filterBooks"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Books</button>
+          <button id="filterGaming"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Gaming</button>
+          <button id="filterHealth"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Health</button>
+          <button id="filterOffice"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Office</button>
+          <button id="filterOutdoor"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Outdoor</button>
+          <button id="filterPets"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Pets</button>
+          <button id="filterToys"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Toys</button>
+          <button id="filterTools"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Tools</button>
+          <button id="filterAutomotive"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Automotive</button>
+          <button id="filterBaby"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Baby</button>
+          <button id="filterMusic"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Music</button>
+          <button id="filterCrafts"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Crafts</button>
+          <button id="filterWearables"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Wearables</button>
+          <button id="filterFitness"
+            class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors whitespace-nowrap">Fitness</button>
+        </div>
       </div>
       
-      <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-        <!-- Search Input -->
-        <div class="relative w-full sm:w-64">
+      <!-- Search and Sort -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 justify-between">
+        <div class="relative w-full sm:w-80">
           <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
           <input type="text" id="searchInput" 
                  placeholder="Search products..." 
                  class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
         </div>
         
-        <!-- Sort Dropdown -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
           <span class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Sort by:</span>
           <select id="sortSelect"
             class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -275,6 +330,7 @@
     </div>
   </section>
 
+  <!-- Rest of the footer and modal remains the same -->
   <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">

@@ -23,12 +23,29 @@ const backToTop = document.getElementById('backToTop');
 const sortSelect = document.getElementById('sortSelect');
 const searchInput = document.getElementById('searchInput');
 
+// All category filter buttons
 const filterAll = document.getElementById('filterAll');
 const filterElectronics = document.getElementById('filterElectronics');
 const filterFashion = document.getElementById('filterFashion');
 const filterHome = document.getElementById('filterHome');
 const filterAccessories = document.getElementById('filterAccessories');
 const filterAudio = document.getElementById('filterAudio');
+const filterBeauty = document.getElementById('filterBeauty');
+const filterSports = document.getElementById('filterSports');
+const filterBooks = document.getElementById('filterBooks');
+const filterGaming = document.getElementById('filterGaming');
+const filterHealth = document.getElementById('filterHealth');
+const filterOffice = document.getElementById('filterOffice');
+const filterOutdoor = document.getElementById('filterOutdoor');
+const filterPets = document.getElementById('filterPets');
+const filterToys = document.getElementById('filterToys');
+const filterTools = document.getElementById('filterTools');
+const filterAutomotive = document.getElementById('filterAutomotive');
+const filterBaby = document.getElementById('filterBaby');
+const filterMusic = document.getElementById('filterMusic');
+const filterCrafts = document.getElementById('filterCrafts');
+const filterWearables = document.getElementById('filterWearables');
+const filterFitness = document.getElementById('filterFitness');
 
 let allProducts = [];
 let filteredProducts = [];
@@ -457,7 +474,7 @@ function displayProducts() {
   });
 }
 
-// Load products from Firebase (so admin added products appear)
+// Load products from Firebase
 async function loadProductsFromFirebase() {
   if (productsGrid) {
     productsGrid.innerHTML = `
@@ -509,13 +526,29 @@ async function loadProductsFromFirebase() {
   }
 }
 
-// Filter button event listeners
+// All category filter event listeners
 if (filterAll) filterAll.addEventListener('click', () => { setActiveFilter(filterAll); filterProducts('All'); });
 if (filterElectronics) filterElectronics.addEventListener('click', () => { setActiveFilter(filterElectronics); filterProducts('Electronics'); });
 if (filterFashion) filterFashion.addEventListener('click', () => { setActiveFilter(filterFashion); filterProducts('Fashion'); });
 if (filterHome) filterHome.addEventListener('click', () => { setActiveFilter(filterHome); filterProducts('Home'); });
 if (filterAccessories) filterAccessories.addEventListener('click', () => { setActiveFilter(filterAccessories); filterProducts('Accessories'); });
 if (filterAudio) filterAudio.addEventListener('click', () => { setActiveFilter(filterAudio); filterProducts('Audio'); });
+if (filterBeauty) filterBeauty.addEventListener('click', () => { setActiveFilter(filterBeauty); filterProducts('Beauty'); });
+if (filterSports) filterSports.addEventListener('click', () => { setActiveFilter(filterSports); filterProducts('Sports'); });
+if (filterBooks) filterBooks.addEventListener('click', () => { setActiveFilter(filterBooks); filterProducts('Books'); });
+if (filterGaming) filterGaming.addEventListener('click', () => { setActiveFilter(filterGaming); filterProducts('Gaming'); });
+if (filterHealth) filterHealth.addEventListener('click', () => { setActiveFilter(filterHealth); filterProducts('Health'); });
+if (filterOffice) filterOffice.addEventListener('click', () => { setActiveFilter(filterOffice); filterProducts('Office'); });
+if (filterOutdoor) filterOutdoor.addEventListener('click', () => { setActiveFilter(filterOutdoor); filterProducts('Outdoor'); });
+if (filterPets) filterPets.addEventListener('click', () => { setActiveFilter(filterPets); filterProducts('Pets'); });
+if (filterToys) filterToys.addEventListener('click', () => { setActiveFilter(filterToys); filterProducts('Toys'); });
+if (filterTools) filterTools.addEventListener('click', () => { setActiveFilter(filterTools); filterProducts('Tools'); });
+if (filterAutomotive) filterAutomotive.addEventListener('click', () => { setActiveFilter(filterAutomotive); filterProducts('Automotive'); });
+if (filterBaby) filterBaby.addEventListener('click', () => { setActiveFilter(filterBaby); filterProducts('Baby'); });
+if (filterMusic) filterMusic.addEventListener('click', () => { setActiveFilter(filterMusic); filterProducts('Music'); });
+if (filterCrafts) filterCrafts.addEventListener('click', () => { setActiveFilter(filterCrafts); filterProducts('Crafts'); });
+if (filterWearables) filterWearables.addEventListener('click', () => { setActiveFilter(filterWearables); filterProducts('Wearables'); });
+if (filterFitness) filterFitness.addEventListener('click', () => { setActiveFilter(filterFitness); filterProducts('Fitness'); });
 
 if (sortSelect) {
   sortSelect.addEventListener('change', (e) => {
@@ -563,7 +596,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentUser = user;
     if (user) {
       await loadUserWishlist(user.uid);
-      displayProducts(); // Refresh to show wishlist hearts
+      displayProducts();
     }
     updateCartCount();
   });
@@ -575,7 +608,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       'Fashion': filterFashion,
       'Home': filterHome,
       'Accessories': filterAccessories,
-      'Audio': filterAudio
+      'Audio': filterAudio,
+      'Beauty': filterBeauty,
+      'Sports': filterSports,
+      'Books': filterBooks,
+      'Gaming': filterGaming,
+      'Health': filterHealth,
+      'Office': filterOffice,
+      'Outdoor': filterOutdoor,
+      'Pets': filterPets,
+      'Toys': filterToys,
+      'Tools': filterTools,
+      'Automotive': filterAutomotive,
+      'Baby': filterBaby,
+      'Music': filterMusic,
+      'Crafts': filterCrafts,
+      'Wearables': filterWearables,
+      'Fitness': filterFitness
     };
     const filterBtn = categoryMap[category];
     if (filterBtn) {

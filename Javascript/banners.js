@@ -92,7 +92,7 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById('adminName').textContent = user.displayName || user.email.split('@')[0];
         document.getElementById('adminEmail').textContent = user.email;
         loadBanners();
-    } else if (user) { Swal.fire('Access Denied', 'You are not authorized', 'error').then(() => window.location.href = './Dashboard.html'); }
-    else { window.location.href = './index.html'; }
+    } else if (user) { Swal.fire('Access Denied', 'You are not authorized', 'error').then(() => window.location.href = '../Pages/Dashboard.html'); }
+    else { window.location.href = '../Pages/login.html'; }
 });
-document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = './index.html'; });
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = '../Pages/login.html'; });

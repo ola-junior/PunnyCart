@@ -241,7 +241,7 @@ window.viewOrderDetails = async (orderId) => {
 // Auth check - redirect if not admin, no loading overlay
 onAuthStateChanged(auth, async user => {
     if (!user) {
-        window.location.href = '../login.html';
+        window.location.href = '../Pages/login.html';
         return;
     }
     
@@ -259,5 +259,5 @@ onAuthStateChanged(auth, async user => {
 
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
-    window.location.href = '../login.html';
+    window.location.href = '../Pages/login.html';
 });

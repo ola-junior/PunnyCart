@@ -229,13 +229,13 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById('adminEmail').textContent = user.email;
         loadSettings();
     } else if (user) {
-        Swal.fire('Access Denied', 'You are not authorized to view this page', 'error').then(() => window.location.href = './Dashboard.html');
+        Swal.fire('Access Denied', 'You are not authorized to view this page', 'error').then(() => window.location.href = '../Pages/Dashboard.html');
     } else {
-        window.location.href = './index.html';
+        window.location.href = '../Pages/login.html';
     }
 });
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
     await signOut(auth);
-    window.location.href = './index.html';
+    window.location.href = '../Pages/login.html';
 });

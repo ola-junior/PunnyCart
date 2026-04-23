@@ -108,7 +108,7 @@ function displayWishlist() {
 
 window.addToWishlist = async function(product) {
   if (!currentUser) {
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
     return;
   }
 
@@ -175,7 +175,7 @@ window.addToCartFromWishlist = async function(productId) {
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
     return;
   }
   

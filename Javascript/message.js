@@ -405,7 +405,7 @@ onAuthStateChanged(auth, async (user) => {
         const email = user.email;
         if (!ADMIN_EMAILS.includes(email)) {
             Swal.fire('Access Denied', 'You are not authorized to view this page', 'error').then(() => {
-                window.location.href = './Dashboard.html';
+                window.location.href = '../Pages/Dashboard.html';
             });
             return;
         }
@@ -413,11 +413,11 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById('adminEmail').textContent = user.email;
         loadMessages();
     } else {
-        window.location.href = './index.html';
+        window.location.href = '../Pages/login.html';
     }
 });
 
 document.getElementById('logoutBtn').addEventListener('click', async () => {
     await signOut(auth);
-    window.location.href = './index.html';
+    window.location.href = '../Pages/login.html';
 });

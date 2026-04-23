@@ -146,7 +146,7 @@ function displayOrderSummary() {
 function checkAuthAndLoadData() {
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
-      window.location.href = 'signup.html';
+      window.location.href = 'login.html';
       return;
     }
 

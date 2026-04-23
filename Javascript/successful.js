@@ -181,7 +181,7 @@ async function clearCart() {
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = 'signup.html';
+    window.location.href = 'login.html';
     return;
   }
 

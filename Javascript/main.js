@@ -2209,10 +2209,18 @@ export async function saveWishlistToFirebase() {
   }
 }
 
+function getLoginPath() {
+  return window.location.pathname.includes('/Pages/') ? 'login.html' : './Pages/login.html';
+}
+
+function getSignupPath() {
+  return window.location.pathname.includes('/Pages/') ? 'signup.html' : './Pages/signup.html';
+}
+
 export async function toggleWishlist(product) {
   if (!currentUser) {
     showToast('Please log in to add items to wishlist', 'warning');
-    setTimeout(() => window.location.href = './Pages/login.html', 2000);
+    setTimeout(() => window.location.href = getLoginPath(), 2000);
     return false;
   }
 
@@ -2323,7 +2331,7 @@ export function updateCartCount() {
 export async function addToCart(product, quantity = 1) {
   if (!currentUser) {
     showToast('Please log in to add items to cart', 'warning');
-    setTimeout(() => window.location.href = './Pages/signup.html', 2000);
+    setTimeout(() => window.location.href = getSignupPath(), 2000);
     return false;
   }
 
@@ -2417,18 +2425,29 @@ function createAnnouncementBar(data) {
   if (document.getElementById('announcementBarContainer')) return;
 
   const isCoupon = data.linkType === 'coupon' && data.couponCode;
+
+  // Use updatedAt as a unique key for this announcement version
+  const announcementKey = data.updatedAt ? (data.updatedAt.seconds || data.updatedAt.toString()) : 'default';
+  const storageKey = `announcementEndTime_${announcementKey}`;
+  const expiredKey = `announcementExpired_${announcementKey}`;
+
+  // If this specific announcement has already expired, never show it again
+  if (localStorage.getItem(expiredKey) === 'true') return;
+
   let endTime;
-  const savedEndTime = localStorage.getItem('announcementEndTime');
+  const savedEndTime = localStorage.getItem(storageKey);
   const currentTime = new Date().getTime();
 
   if (savedEndTime && parseInt(savedEndTime) > currentTime) {
     endTime = parseInt(savedEndTime);
   } else if (savedEndTime && parseInt(savedEndTime) <= currentTime) {
-    localStorage.removeItem('announcementEndTime');
+    // Timer expired — mark permanently expired and never show again
+    localStorage.setItem(expiredKey, 'true');
+    localStorage.removeItem(storageKey);
     return;
   } else {
     endTime = currentTime + (data.countdownHours || 24) * 60 * 60 * 1000;
-    localStorage.setItem('announcementEndTime', endTime);
+    localStorage.setItem(storageKey, endTime);
   }
 
   const announcementHTML = `
@@ -2474,7 +2493,7 @@ function createAnnouncementBar(data) {
     `;
 
   announcementPlaceholder.innerHTML = announcementHTML;
-  startAnnouncementCountdown(endTime);
+  startAnnouncementCountdown(endTime, expiredKey, storageKey);
 
   if (isCoupon && data.couponCode) {
     const couponBadge = document.querySelector('.coupon-code-badge');
@@ -2505,20 +2524,18 @@ function createAnnouncementBar(data) {
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
       const container = document.getElementById('announcementBarContainer');
-      if (container) {
-        container.style.display = 'none';
-      }
-      localStorage.setItem('announcementClosed', 'true');
+      if (container) container.style.display = 'none';
+      localStorage.setItem(`announcementClosed_${announcementKey}`, 'true');
     });
   }
 
-  if (localStorage.getItem('announcementClosed') === 'true') {
+  if (localStorage.getItem(`announcementClosed_${announcementKey}`) === 'true') {
     const container = document.getElementById('announcementBarContainer');
     if (container) container.style.display = 'none';
   }
 }
 
-function startAnnouncementCountdown(endTime) {
+function startAnnouncementCountdown(endTime, expiredKey, storageKey) {
   let interval = setInterval(() => {
     const now = new Date().getTime();
     const diff = endTime - now;
@@ -2536,8 +2553,9 @@ function startAnnouncementCountdown(endTime) {
       hoursEl.textContent = '00';
       minutesEl.textContent = '00';
       secondsEl.textContent = '00';
-      localStorage.removeItem('announcementEndTime');
-      localStorage.removeItem('announcementClosed');
+      // Mark this announcement as permanently expired
+      localStorage.setItem(expiredKey, 'true');
+      localStorage.removeItem(storageKey);
 
       const container = document.getElementById('announcementBarContainer');
       if (container) container.style.display = 'none';
@@ -2619,7 +2637,8 @@ function showProfessionalCouponModal(couponCode, discount, message = '') {
   if (shopBtn) {
     shopBtn.addEventListener('click', () => {
       modalOverlay.remove();
-      window.location.href = './Pages/shop.html';
+      const shopPath = window.location.pathname.includes('/Pages/') ? 'shop.html' : './Pages/shop.html';
+      window.location.href = shopPath;
     });
   }
 
@@ -2804,15 +2823,21 @@ async function handleAddToCartClick(e, product) {
     </svg>`;
   btn.disabled = true;
 
-  await addToCart(product, 1);
+  const result = await addToCart(product, 1);
 
-  btn.innerHTML = '✓ Added';
-  btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-  btn.classList.add('bg-green-600', 'hover:bg-green-700');
+  if (result) {
+    btn.innerHTML = '✓ Added';
+    btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+  } else {
+    btn.innerHTML = '✗ Login Required';
+    btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+    btn.classList.add('bg-red-600', 'hover:bg-red-700');
+  }
 
   setTimeout(() => {
     btn.innerHTML = originalHTML;
-    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+    btn.classList.remove('bg-green-600', 'hover:bg-green-700', 'bg-red-600', 'hover:bg-red-700');
     btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
     btn.disabled = false;
   }, 2000);

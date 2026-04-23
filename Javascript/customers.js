@@ -70,9 +70,9 @@ document.getElementById('searchInput')?.addEventListener('input',e=>{
 });
 
 onAuthStateChanged(auth,async user=>{
-  if(!user||!ADMIN_EMAILS.includes(user.email)){window.location.href='../login.html';return;}
+  if(!user||!ADMIN_EMAILS.includes(user.email)){window.location.href='../Pages/login.html';return;}
   document.getElementById('adminName').textContent=user.displayName||user.email.split('@')[0];
   document.getElementById('adminEmail').textContent=user.email;
   await loadCustomers();
 });
-document.getElementById('logoutBtn')?.addEventListener('click',async()=>{await signOut(auth);window.location.href='../login.html';});
+document.getElementById('logoutBtn')?.addEventListener('click',async()=>{await signOut(auth);window.location.href='../Pages/login.html';});

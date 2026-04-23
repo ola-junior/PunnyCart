@@ -326,7 +326,7 @@ document.getElementById('addCouponBtn')?.addEventListener('click', () => window.
 
 onAuthStateChanged(auth, async user => {
     if (!user || !ADMIN_EMAILS.includes(user.email)) {
-        window.location.href = '../login.html';
+        window.location.href = '../Pages/login.html';
         return;
     }
     document.getElementById('adminName').textContent = user.displayName || user.email.split('@')[0];
@@ -336,5 +336,5 @@ onAuthStateChanged(auth, async user => {
 
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
-    window.location.href = '../login.html';
+    window.location.href = '../Pages/login.html';
 });

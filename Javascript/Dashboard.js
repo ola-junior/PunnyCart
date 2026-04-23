@@ -268,7 +268,7 @@ window.loadDashboardData = async function() {
 
 onAuthStateChanged(auth, async user => {
   if (!user || !ADMIN_EMAILS.includes(user.email)) {
-    window.location.href = '../login.html';
+    window.location.href = '../Pages/login.html';
     return;
   }
   const name = user.displayName || user.email.split('@')[0];
@@ -282,6 +282,6 @@ const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', async () => {
     await signOut(auth);
-    window.location.href = '../login.html';
+    window.location.href = '../Pages/login.html';
   });
 }

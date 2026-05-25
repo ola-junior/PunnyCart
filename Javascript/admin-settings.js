@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updatePassword, updateEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -108,3 +108,5 @@ onAuthStateChanged(auth, async user => {
     await loadSettings();
 });
 document.getElementById('logoutBtn')?.addEventListener('click', async () => { await signOut(auth); window.location.href = '../Pages/login.html'; });
+
+

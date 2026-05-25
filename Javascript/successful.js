@@ -1,4 +1,4 @@
-import { updateCartCount } from './main.js';
+﻿import { updateCartCount } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -98,21 +98,21 @@ function displayOrderSummary() {
     if (orderTotalValue && orderTotalValue !== '0') {
       const totalNumber = parseFloat(orderTotalValue);
       if (!isNaN(totalNumber) && totalNumber > 0) {
-        orderTotal.textContent = `$${totalNumber.toFixed(2)}`;
+        orderTotal.textContent = `₦${totalNumber.toLocaleString()}`;
       } else {
         const savedTotal = localStorage.getItem('lastOrderTotal');
         if (savedTotal) {
-          orderTotal.textContent = `$${parseFloat(savedTotal).toFixed(2)}`;
+          orderTotal.textContent = `₦${parseFloat(savedTotal).toLocaleString()}`;
         } else {
-          orderTotal.textContent = '$0.00';
+          orderTotal.textContent = '₦0.00';
         }
       }
     } else {
       const savedTotal = localStorage.getItem('lastOrderTotal');
       if (savedTotal) {
-        orderTotal.textContent = `$${parseFloat(savedTotal).toFixed(2)}`;
+        orderTotal.textContent = `₦${parseFloat(savedTotal).toLocaleString()}`;
       } else {
-        orderTotal.textContent = '$0.00';
+        orderTotal.textContent = '₦0.00';
       }
     }
   }
@@ -196,3 +196,4 @@ document.addEventListener('DOMContentLoaded', () => {
     displayOrderSummary();
   }, 100);
 });
+

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -139,9 +139,9 @@ async function loadAnalytics() {
         });
 
         const totalOrders = filteredOrders.length;
-        document.getElementById('revenueMetric').textContent = '$' + totalRevenue.toFixed(2);
+        document.getElementById('revenueMetric').textContent = '₦' + totalRevenue.toLocaleString();
         document.getElementById('ordersMetric').textContent = totalOrders;
-        document.getElementById('avgOrderMetric').textContent = totalOrders > 0 ? '$' + (totalRevenue / totalOrders).toFixed(2) : '$0';
+        document.getElementById('avgOrderMetric').textContent = totalOrders > 0 ? '₦' + (totalRevenue / totalOrders).toLocaleString() : '₦0';
 
         let newCustomers = 0;
         usersSnap.forEach(d => {
@@ -161,7 +161,7 @@ async function loadAnalytics() {
                 salesChart = new Chart(salesCtx, {
                     type: 'line',
                     data: { labels: dayLabels.length ? dayLabels : ['No data'], datasets: [{ label: 'Revenue ($)', data: dayValues.length ? dayValues : [0], borderColor: '#4f46e5', backgroundColor: 'rgba(79,70,229,.12)', fill: true, tension: .4, pointRadius: 4, pointBackgroundColor: '#4f46e5', pointHoverRadius: 6 }] },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: tickColor(), font: { size: 11 }, boxWidth: 10 } }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false }, ticks: { color: tickColor(), font: { size: 11 } } }, y: { grid: { color: gridColor() }, ticks: { color: tickColor(), font: { size: 11 }, callback: v => '$' + v } } } }
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: tickColor(), font: { size: 11 }, boxWidth: 10 } }, tooltip: { mode: 'index', intersect: false } }, scales: { x: { grid: { display: false }, ticks: { color: tickColor(), font: { size: 11 } } }, y: { grid: { color: gridColor() }, ticks: { color: tickColor(), font: { size: 11 }, callback: v => '₦' + v } } } }
                 });
             }
 
@@ -210,7 +210,7 @@ async function loadAnalytics() {
             const avColors = ['bg-indigo-500', 'bg-purple-500', 'bg-pink-500', 'bg-blue-500', 'bg-teal-500', 'bg-amber-500'];
             tbody.innerHTML = sorted.map(([email, data], i) => {
                 const initials = email.slice(0, 2).toUpperCase();
-                return `<tr class="trow"><td class="px-4 sm:px-6 py-3"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full ${avColors[i % avColors.length]} flex items-center justify-center text-white text-xs font-bold flex-shrink-0">${initials}</div><span class="text-sm text-gray-700 dark:text-gray-200 truncate max-w-[160px] sm:max-w-xs">${email}</span></div></td><td class="px-4 sm:px-6 py-3 text-center"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">${data.orders}</span></td><td class="px-4 sm:px-6 py-3 text-right font-bold text-indigo-600 dark:text-indigo-400">$${data.spent.toFixed(2)}</td></tr>`;
+                return `<tr class="trow"><td class="px-4 sm:px-6 py-3"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full ${avColors[i % avColors.length]} flex items-center justify-center text-white text-xs font-bold flex-shrink-0">${initials}</div><span class="text-sm text-gray-700 dark:text-gray-200 truncate max-w-[160px] sm:max-w-xs">${email}</span></div></td><td class="px-4 sm:px-6 py-3 text-center"><span class="inline-block px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">${data.orders}</span></td><td class="px-4 sm:px-6 py-3 text-right font-bold text-indigo-600 dark:text-indigo-400">₦${data.spent.toLocaleString()}</td></tr>`;
             }).join('');
         }
     } catch (err) {
@@ -243,3 +243,5 @@ document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
     window.location.href = '../Pages/login.html';
 });
+
+

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
@@ -27,7 +27,7 @@ function updateStats() {
   document.getElementById('totalProducts').textContent = total;
   document.getElementById('totalCategories').textContent = categories.size;
   document.getElementById('lowStockCount').textContent = lowStock;
-  document.getElementById('totalValue').textContent = '$' + totalValue.toFixed(2);
+  document.getElementById('totalValue').textContent = '₦' + totalValue.toLocaleString();
 }
 
 function stockBadge(stock) {
@@ -72,7 +72,7 @@ function renderProducts(products) {
         </div>
        </td>
       <td class="px-4 sm:px-6 py-3"><span class="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-lg">${p.category || 'Uncategorized'}</span></td>
-      <td class="px-4 sm:px-6 py-3 text-sm font-bold text-indigo-600 dark:text-indigo-400">$${parseFloat(p.price || 0).toFixed(2)}</td>
+      <td class="px-4 sm:px-6 py-3 text-sm font-bold text-indigo-600 dark:text-indigo-400">₦${parseFloat(p.price || 0).toLocaleString()}</td>
       <td class="px-4 sm:px-6 py-3">${stockBadge(p.stock || 0)}</td>
       <td class="px-4 sm:px-6 py-3 text-right">
         <button onclick="window.editProduct('${id}')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors mr-1"><i class="fas fa-edit text-sm"></i></button>
@@ -322,3 +322,5 @@ onAuthStateChanged(auth, async user => {
   await loadProducts();
 });
 document.getElementById('logoutBtn')?.addEventListener('click', async () => { await signOut(auth); window.location.href = '../Pages/login.html'; });
+
+

@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -806,3 +806,4 @@ window.logout = window.logout;
 window.resendVerificationEmail = window.resendVerificationEmail;
 window.toggleProfileMenu = window.toggleProfileMenu;
 window.forgotPassword = window.forgotPassword;
+

@@ -1,4 +1,4 @@
-import { updateCartCount } from './main.js';
+﻿import { updateCartCount } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -122,13 +122,13 @@ function displayOrderSummary() {
         <p class="font-semibold text-sm line-clamp-1">${displayTitle}</p>
         <p class="text-xs text-gray-500 dark:text-gray-400">Qty: ${quantity}</p>
       </div>
-      <p class="font-semibold text-indigo-600 dark:text-indigo-400">$${(displayPrice * quantity).toFixed(2)}</p>
+      <p class="font-semibold text-indigo-600 dark:text-indigo-400">₦${(displayPrice * quantity).toLocaleString()}</p>
     </div>
   `}).join('');
 
-  if (shippingSubtotal) shippingSubtotal.textContent = `$${checkoutData.subtotal.toFixed(2)}`;
-  if (shippingTax) shippingTax.textContent = `$${checkoutData.tax.toFixed(2)}`;
-  if (shippingTotal) shippingTotal.textContent = `$${checkoutData.total.toFixed(2)}`;
+  if (shippingSubtotal) shippingSubtotal.textContent = `₦${checkoutData.subtotal.toLocaleString()}`;
+  if (shippingTax) shippingTax.textContent = `₦${checkoutData.tax.toLocaleString()}`;
+  if (shippingTotal) shippingTotal.textContent = `₦${checkoutData.total.toLocaleString()}`;
 }
 
 function calculateTotalWithShipping() {
@@ -136,8 +136,8 @@ function calculateTotalWithShipping() {
   const shippingCost = selectedShipping ? parseFloat(selectedShipping.value) : 0;
   const total = checkoutData.total + shippingCost;
   
-  document.getElementById('shippingCost').textContent = `$${shippingCost.toFixed(2)}`;
-  document.getElementById('finalTotal').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('shippingCost').textContent = `₦${shippingCost.toLocaleString()}`;
+  document.getElementById('finalTotal').textContent = `₦${total.toLocaleString()}`;
   
   return { shippingCost, total };
 }
@@ -221,3 +221,4 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuthAndLoadData();
   updateCartCount();
 });
+

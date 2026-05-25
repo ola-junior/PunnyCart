@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { addToCart } from './main.js';
@@ -97,7 +97,7 @@ function displayWishlist() {
       <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover rounded-lg mb-4">
       <h3 class="font-semibold mb-2">${item.title}</h3>
       <div class="flex items-center justify-between">
-        <span class="text-lg font-bold text-deep-blue">$${item.price.toFixed(2)}</span>
+        <span class="text-lg font-bold text-deep-blue">₦${item.price.toLocaleString()}</span>
         <button onclick="addToCartFromWishlist(${item.id})" class="bg-bright-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm transition-colors">
           <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
         </button>
@@ -186,3 +186,4 @@ onAuthStateChanged(auth, async (user) => {
 
 window.removeFromWishlist = removeFromWishlist;
 window.addToCartFromWishlist = addToCartFromWishlist;
+

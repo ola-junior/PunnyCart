@@ -1,4 +1,4 @@
-
+﻿
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -95,7 +95,7 @@ function renderCoupons(coupons) {
         const isActive = expiryDate > now && coupon.status !== 'expired';
         const statusColor = isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
         const statusText = isActive ? 'Active' : 'Expired';
-        const discountValue = coupon.discountType === 'percentage' ? `${coupon.discountValue}%` : `$${coupon.discountValue}`;
+        const discountValue = coupon.discountType === 'percentage' ? `${coupon.discountValue}%` : `₦${coupon.discountValue}`;
         const usedCount = coupon.usedCount || 0;
         const usageLeft = coupon.usageLimit ? coupon.usageLimit - usedCount : 'Unlimited';
 
@@ -113,7 +113,7 @@ function renderCoupons(coupons) {
         <div class="p-4 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">${discountValue} OFF</span>
-            ${coupon.minPurchase ? `<span class="text-xs text-gray-500">Min: $${coupon.minPurchase}</span>` : ''}
+            ${coupon.minPurchase ? `<span class="text-xs text-gray-500">Min: ₦${coupon.minPurchase}</span>` : ''}
           </div>
           <div class="grid grid-cols-2 gap-2 text-xs">
             <div class="flex items-center gap-1 text-gray-500"><i class="fas fa-calendar-alt w-3"></i> Expires: ${expiryDate.toLocaleDateString()}</div>
@@ -338,3 +338,5 @@ document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
     window.location.href = '../Pages/login.html';
 });
+
+

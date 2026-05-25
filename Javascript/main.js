@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where, doc, getDoc, setDoc, updateDoc, addDoc, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -21,8 +21,8 @@ export const products = [
   {
     id: 1,
     title: "Sony WH-1000XM4 Wireless Headphones",
-    price: 349.99,
-    originalPrice: 399.99,
+    price: 420000,
+    originalPrice: 480000,
     discountPercentage: 12,
     category: "Electronics",
     subCategory: "Audio",
@@ -40,8 +40,8 @@ export const products = [
   {
     id: 2,
     title: "Apple Watch Series 9 GPS 41mm",
-    price: 429.00,
-    originalPrice: 499.00,
+    price: 750000,
+    originalPrice: 850000,
     discountPercentage: 14,
     category: "Wearables",
     subCategory: "Smart Watches",
@@ -59,8 +59,8 @@ export const products = [
   {
     id: 3,
     title: "MacBook Pro 14-inch M3 Pro",
-    price: 1999.00,
-    originalPrice: 2199.00,
+    price: 1400000,
+    originalPrice: 1500000,
     discountPercentage: 9,
     category: "Electronics",
     subCategory: "Laptops",
@@ -78,8 +78,8 @@ export const products = [
   {
     id: 4,
     title: "iPad Pro 12.9-inch M2",
-    price: 1099.00,
-    originalPrice: 1199.00,
+    price: 1950000,
+    originalPrice: 2200000,
     discountPercentage: 8,
     category: "Electronics",
     subCategory: "Tablets",
@@ -99,8 +99,8 @@ export const products = [
   {
     id: 5,
     title: "The North Face Borealis Backpack",
-    price: 89.99,
-    originalPrice: 109.99,
+    price: 85000,
+    originalPrice: 100000,
     discountPercentage: 18,
     category: "Accessories",
     subCategory: "Bags",
@@ -118,8 +118,8 @@ export const products = [
   {
     id: 6,
     title: "Nike Air Zoom Pegasus 40",
-    price: 129.99,
-    originalPrice: 149.99,
+    price: 45000,
+    originalPrice: 115000,
     discountPercentage: 13,
     category: "Footwear",
     subCategory: "Running Shoes",
@@ -137,8 +137,8 @@ export const products = [
   {
     id: 7,
     title: "Ray-Ban Aviator Classic",
-    price: 153.00,
-    originalPrice: 179.00,
+    price: 120000,
+    originalPrice: 145000,
     discountPercentage: 15,
     category: "Wearables",
     subCategory: "Sunglasses",
@@ -156,8 +156,8 @@ export const products = [
   {
     id: 8,
     title: "Casio G-Shock Digital Watch",
-    price: 99.99,
-    originalPrice: 129.99,
+    price: 75000,
+    originalPrice: 90000,
     discountPercentage: 23,
     category: "Wearables",
     subCategory: "Watches",
@@ -177,8 +177,8 @@ export const products = [
   {
     id: 9,
     title: "Instant Pot Duo 7-in-1",
-    price: 89.99,
-    originalPrice: 119.99,
+    price: 85000,
+    originalPrice: 191000,
     discountPercentage: 25,
     category: "Home",
     subCategory: "Kitchen Appliances",
@@ -196,8 +196,8 @@ export const products = [
   {
     id: 10,
     title: "Dyson V15 Detect Vacuum",
-    price: 699.99,
-    originalPrice: 749.99,
+    price: 1200000,
+    originalPrice: 1350000,
     discountPercentage: 7,
     category: "Home",
     subCategory: "Cleaning",
@@ -215,8 +215,8 @@ export const products = [
   {
     id: 11,
     title: "Sonos One SL Speaker",
-    price: 199.00,
-    originalPrice: 229.00,
+    price: 280000,
+    originalPrice: 320000,
     discountPercentage: 13,
     category: "Electronics",
     subCategory: "Speakers",
@@ -234,8 +234,8 @@ export const products = [
   {
     id: 12,
     title: "Kindle Paperwhite",
-    price: 139.99,
-    originalPrice: 159.99,
+    price: 45000,
+    originalPrice: 115000,
     discountPercentage: 12,
     category: "Electronics",
     subCategory: "E-Readers",
@@ -255,8 +255,8 @@ export const products = [
   {
     id: 13,
     title: "Samsung 32\" Smart Monitor",
-    price: 279.99,
-    originalPrice: 329.99,
+    price: 380000,
+    originalPrice: 430000,
     discountPercentage: 15,
     category: "Electronics",
     subCategory: "Monitors",
@@ -274,8 +274,8 @@ export const products = [
   {
     id: 14,
     title: "Canon EOS R6 Mark II",
-    price: 2499.00,
-    originalPrice: 2699.00,
+    price: 4500000,
+    originalPrice: 5000000,
     discountPercentage: 7,
     category: "Electronics",
     subCategory: "Cameras",
@@ -293,8 +293,8 @@ export const products = [
   {
     id: 15,
     title: "Bose QuietComfort Earbuds II",
-    price: 279.00,
-    originalPrice: 299.00,
+    price: 380000,
+    originalPrice: 430000,
     discountPercentage: 7,
     category: "Electronics",
     subCategory: "Earbuds",
@@ -312,8 +312,8 @@ export const products = [
   {
     id: 16,
     title: "GoPro HERO12 Black",
-    price: 399.99,
-    originalPrice: 449.99,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 11,
     category: "Electronics",
     subCategory: "Cameras",
@@ -333,8 +333,8 @@ export const products = [
   {
     id: 17,
     title: "Levi's 501 Original Jeans",
-    price: 79.99,
-    originalPrice: 98.00,
+    price: 65000,
+    originalPrice: 80000,
     discountPercentage: 18,
     category: "Fashion",
     subCategory: "Jeans",
@@ -352,8 +352,8 @@ export const products = [
   {
     id: 18,
     title: "Patagonia Better Sweater",
-    price: 139.00,
-    originalPrice: 159.00,
+    price: 110000,
+    originalPrice: 130000,
     discountPercentage: 13,
     category: "Fashion",
     subCategory: "Sweaters",
@@ -371,8 +371,8 @@ export const products = [
   {
     id: 19,
     title: "Timberland Premium Boots",
-    price: 198.00,
-    originalPrice: 228.00,
+    price: 180000,
+    originalPrice: 210000,
     discountPercentage: 13,
     category: "Footwear",
     subCategory: "Boots",
@@ -390,8 +390,8 @@ export const products = [
   {
     id: 20,
     title: "Adidas Ultraboost 23",
-    price: 189.99,
-    originalPrice: 219.99,
+    price: 48000,
+    originalPrice: 200000,
     discountPercentage: 14,
     category: "Footwear",
     subCategory: "Running Shoes",
@@ -411,8 +411,8 @@ export const products = [
   {
     id: 21,
     title: "Bellroy Note Sleeve Wallet",
-    price: 89.00,
-    originalPrice: 99.00,
+    price: 28000,
+    originalPrice: 65000,
     discountPercentage: 10,
     category: "Accessories",
     subCategory: "Wallets",
@@ -430,8 +430,8 @@ export const products = [
   {
     id: 22,
     title: "Herschel Supply Co. Novel Duffle",
-    price: 79.99,
-    originalPrice: 99.99,
+    price: 65000,
+    originalPrice: 159000,
     discountPercentage: 20,
     category: "Accessories",
     subCategory: "Bags",
@@ -449,8 +449,8 @@ export const products = [
   {
     id: 23,
     title: "Fjällräven Kånken Laptop 15\"",
-    price: 99.00,
-    originalPrice: 115.00,
+    price: 70000,
+    originalPrice: 85000,
     discountPercentage: 14,
     category: "Accessories",
     subCategory: "Bags",
@@ -468,8 +468,8 @@ export const products = [
   {
     id: 24,
     title: "Bellroy Classic Backpack",
-    price: 149.00,
-    originalPrice: 169.00,
+    price: 120000,
+    originalPrice: 140000,
     discountPercentage: 12,
     category: "Accessories",
     subCategory: "Bags",
@@ -489,8 +489,8 @@ export const products = [
   {
     id: 25,
     title: "KitchenAid Stand Mixer",
-    price: 399.99,
-    originalPrice: 449.99,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 11,
     category: "Home",
     subCategory: "Kitchen Appliances",
@@ -508,8 +508,8 @@ export const products = [
   {
     id: 26,
     title: "Le Creuset Dutch Oven",
-    price: 349.00,
-    originalPrice: 379.00,
+    price: 480000,
+    originalPrice: 550000,
     discountPercentage: 8,
     category: "Home",
     subCategory: "Cookware",
@@ -527,8 +527,8 @@ export const products = [
   {
     id: 27,
     title: "Nespresso Vertuo Coffee Maker",
-    price: 169.99,
-    originalPrice: 199.99,
+    price: 145000,
+    originalPrice: 170000,
     discountPercentage: 15,
     category: "Home",
     subCategory: "Coffee Makers",
@@ -546,8 +546,8 @@ export const products = [
   {
     id: 28,
     title: "Ninja Foodi Pressure Cooker",
-    price: 179.99,
-    originalPrice: 219.99,
+    price: 155000,
+    originalPrice: 200000,
     discountPercentage: 18,
     category: "Home",
     subCategory: "Kitchen Appliances",
@@ -567,8 +567,8 @@ export const products = [
   {
     id: 29,
     title: "Peloton Bike+",
-    price: 2495.00,
-    originalPrice: 2695.00,
+    price: 4200000,
+    originalPrice: 4800000,
     discountPercentage: 7,
     category: "Fitness",
     subCategory: "Exercise Bikes",
@@ -586,8 +586,8 @@ export const products = [
   {
     id: 30,
     title: "Yeti Tundra 45 Cooler",
-    price: 299.99,
-    originalPrice: 329.99,
+    price: 140000,
+    originalPrice: 430000,
     discountPercentage: 9,
     category: "Outdoors",
     subCategory: "Coolers",
@@ -605,8 +605,8 @@ export const products = [
   {
     id: 31,
     title: "Hydro Flask 32oz Water Bottle",
-    price: 44.95,
-    originalPrice: 49.95,
+    price: 14000,
+    originalPrice: 42000,
     discountPercentage: 10,
     category: "Accessories",
     subCategory: "Water Bottles",
@@ -624,8 +624,8 @@ export const products = [
   {
     id: 32,
     title: "Lululemon The Mat 5mm",
-    price: 68.00,
-    originalPrice: 78.00,
+    price: 28000,
+    originalPrice: 65000,
     discountPercentage: 13,
     category: "Fitness",
     subCategory: "Yoga Mats",
@@ -645,8 +645,8 @@ export const products = [
   {
     id: 33,
     title: "Dyson Airwrap Complete",
-    price: 599.99,
-    originalPrice: 649.99,
+    price: 450000,
+    originalPrice: 1100000,
     discountPercentage: 8,
     category: "Beauty",
     subCategory: "Hair Styling",
@@ -664,8 +664,8 @@ export const products = [
   {
     id: 34,
     title: "Philips Sonicare DiamondClean",
-    price: 199.99,
-    originalPrice: 229.99,
+    price: 185000,
+    originalPrice: 215000,
     discountPercentage: 13,
     category: "Personal Care",
     subCategory: "Oral Care",
@@ -683,8 +683,8 @@ export const products = [
   {
     id: 35,
     title: "The Ordinary Skincare Set",
-    price: 49.99,
-    originalPrice: 69.99,
+    price: 38000,
+    originalPrice: 48000,
     discountPercentage: 29,
     category: "Beauty",
     subCategory: "Skincare",
@@ -702,8 +702,8 @@ export const products = [
   {
     id: 36,
     title: "GHD Platinum+ Styler",
-    price: 249.00,
-    originalPrice: 279.00,
+    price: 320000,
+    originalPrice: 370000,
     discountPercentage: 11,
     category: "Beauty",
     subCategory: "Hair Styling",
@@ -723,7 +723,7 @@ export const products = [
   {
     id: 37,
     title: "PlayStation 5 Console",
-    price: 499.99,
+    price: 850000,
     originalPrice: 549.99,
     discountPercentage: 9,
     category: "Gaming",
@@ -742,8 +742,8 @@ export const products = [
   {
     id: 38,
     title: "Xbox Series X",
-    price: 499.99,
-    originalPrice: 529.99,
+    price: 850000,
+    originalPrice: 950000,
     discountPercentage: 6,
     category: "Gaming",
     subCategory: "Consoles",
@@ -761,8 +761,8 @@ export const products = [
   {
     id: 39,
     title: "Nintendo Switch OLED",
-    price: 349.99,
-    originalPrice: 379.99,
+    price: 420000,
+    originalPrice: 480000,
     discountPercentage: 8,
     category: "Gaming",
     subCategory: "Consoles",
@@ -780,8 +780,8 @@ export const products = [
   {
     id: 40,
     title: "Logitech G502 X Plus",
-    price: 159.99,
-    originalPrice: 179.99,
+    price: 145000,
+    originalPrice: 170000,
     discountPercentage: 11,
     category: "Gaming",
     subCategory: "Accessories",
@@ -801,8 +801,8 @@ export const products = [
   {
     id: 41,
     title: "Atomic Habits by James Clear",
-    price: 16.99,
-    originalPrice: 24.99,
+    price: 12000,
+    originalPrice: 15000,
     discountPercentage: 32,
     category: "Books",
     subCategory: "Self-Help",
@@ -820,8 +820,8 @@ export const products = [
   {
     id: 42,
     title: "The Creative Act by Rick Rubin",
-    price: 21.99,
-    originalPrice: 29.99,
+    price: 14000,
+    originalPrice: 18000,
     discountPercentage: 27,
     category: "Books",
     subCategory: "Creativity",
@@ -839,8 +839,8 @@ export const products = [
   {
     id: 43,
     title: "AirPods Max",
-    price: 549.00,
-    originalPrice: 599.00,
+    price: 850000,
+    originalPrice: 950000,
     discountPercentage: 8,
     category: "Audio",
     subCategory: "Headphones",
@@ -858,8 +858,8 @@ export const products = [
   {
     id: 44,
     title: "Samsung Galaxy S23 Ultra",
-    price: 1199.99,
-    originalPrice: 1299.99,
+    price: 2100000,
+    originalPrice: 2400000,
     discountPercentage: 8,
     category: "Electronics",
     subCategory: "Smartphones",
@@ -879,8 +879,8 @@ export const products = [
   {
     id: 45,
     title: "DJI Mini 3 Pro Drone",
-    price: 669.00,
-    originalPrice: 719.00,
+    price: 1150000,
+    originalPrice: 1300000,
     discountPercentage: 7,
     category: "Electronics",
     subCategory: "Drones",
@@ -898,8 +898,8 @@ export const products = [
   {
     id: 46,
     title: "Breville Barista Express",
-    price: 649.99,
-    originalPrice: 699.99,
+    price: 1100000,
+    originalPrice: 1250000,
     discountPercentage: 7,
     category: "Home",
     subCategory: "Coffee Makers",
@@ -917,8 +917,8 @@ export const products = [
   {
     id: 47,
     title: "Marshall Stanmore II Speaker",
-    price: 299.99,
-    originalPrice: 349.99,
+    price: 140000,
+    originalPrice: 559000,
     discountPercentage: 14,
     category: "Audio",
     subCategory: "Speakers",
@@ -936,8 +936,8 @@ export const products = [
   {
     id: 48,
     title: "Shure SM7B Microphone",
-    price: 399.00,
-    originalPrice: 429.00,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 7,
     category: "Audio",
     subCategory: "Microphones",
@@ -955,8 +955,8 @@ export const products = [
   {
     id: 49,
     title: "Ralph Lauren Polo Shirt",
-    price: 89.99,
-    originalPrice: 105.00,
+    price: 85000,
+    originalPrice: 168000,
     discountPercentage: 14,
     category: "Fashion",
     subCategory: "Clothing",
@@ -974,8 +974,8 @@ export const products = [
   {
     id: 50,
     title: "Herman Miller Aeron Chair",
-    price: 1495.00,
-    originalPrice: 1695.00,
+    price: 2800000,
+    originalPrice: 3200000,
     discountPercentage: 12,
     category: "Office",
     subCategory: "Furniture",
@@ -994,8 +994,8 @@ export const products = [
   {
     id: 51,
     title: "Google Nest Hub Max",
-    price: 229.99,
-    originalPrice: 249.99,
+    price: 320000,
+    originalPrice: 370000,
     discountPercentage: 8,
     category: "Smart Home",
     subCategory: "Smart Displays",
@@ -1013,8 +1013,8 @@ export const products = [
   {
     id: 52,
     title: "Ring Video Doorbell Pro 2",
-    price: 249.99,
-    originalPrice: 279.99,
+    price: 140000,
+    originalPrice: 400000,
     discountPercentage: 11,
     category: "Smart Home",
     subCategory: "Security",
@@ -1032,8 +1032,8 @@ export const products = [
   {
     id: 53,
     title: "Philips Hue White & Color Ambiance",
-    price: 79.99,
-    originalPrice: 99.99,
+    price: 65000,
+    originalPrice: 159000,
     discountPercentage: 20,
     category: "Smart Home",
     subCategory: "Lighting",
@@ -1051,8 +1051,8 @@ export const products = [
   {
     id: 54,
     title: "August Wi-Fi Smart Lock",
-    price: 199.99,
-    originalPrice: 229.99,
+    price: 185000,
+    originalPrice: 215000,
     discountPercentage: 13,
     category: "Smart Home",
     subCategory: "Security",
@@ -1070,8 +1070,8 @@ export const products = [
   {
     id: 55,
     title: "Arlo Pro 4 Spotlight Camera",
-    price: 199.99,
-    originalPrice: 229.99,
+    price: 185000,
+    originalPrice: 215000,
     discountPercentage: 13,
     category: "Smart Home",
     subCategory: "Security",
@@ -1089,8 +1089,8 @@ export const products = [
   {
     id: 56,
     title: "Ecobee SmartThermostat",
-    price: 249.99,
-    originalPrice: 279.99,
+    price: 140000,
+    originalPrice: 400000,
     discountPercentage: 11,
     category: "Smart Home",
     subCategory: "Climate",
@@ -1110,8 +1110,8 @@ export const products = [
   {
     id: 57,
     title: "Furbo 360° Dog Camera",
-    price: 249.99,
-    originalPrice: 299.99,
+    price: 140000,
+    originalPrice: 400000,
     discountPercentage: 17,
     category: "Pets",
     subCategory: "Cameras",
@@ -1129,8 +1129,8 @@ export const products = [
   {
     id: 58,
     title: "Litter-Robot 4",
-    price: 699.00,
-    originalPrice: 749.00,
+    price: 1200000,
+    originalPrice: 1350000,
     discountPercentage: 7,
     category: "Pets",
     subCategory: "Litter Boxes",
@@ -1148,8 +1148,8 @@ export const products = [
   {
     id: 59,
     title: "PetSafe Automatic Feeder",
-    price: 89.99,
-    originalPrice: 109.99,
+    price: 85000,
+    originalPrice: 100000,
     discountPercentage: 18,
     category: "Pets",
     subCategory: "Feeders",
@@ -1167,8 +1167,8 @@ export const products = [
   {
     id: 60,
     title: "Furhaven Pet Bed",
-    price: 49.99,
-    originalPrice: 69.99,
+    price: 38000,
+    originalPrice: 48000,
     discountPercentage: 29,
     category: "Pets",
     subCategory: "Beds",
@@ -1186,8 +1186,8 @@ export const products = [
   {
     id: 61,
     title: "Outward Hound Life Jacket",
-    price: 34.99,
-    originalPrice: 44.99,
+    price: 28000,
+    originalPrice: 35000,
     discountPercentage: 22,
     category: "Pets",
     subCategory: "Safety",
@@ -1205,8 +1205,8 @@ export const products = [
   {
     id: 62,
     title: "Catit Pixi Fountain",
-    price: 39.99,
-    originalPrice: 49.99,
+    price: 30000,
+    originalPrice: 42000,
     discountPercentage: 20,
     category: "Pets",
     subCategory: "Water Fountains",
@@ -1226,8 +1226,8 @@ export const products = [
   {
     id: 63,
     title: "DeWalt 20V Drill Combo Kit",
-    price: 199.99,
-    originalPrice: 249.99,
+    price: 185000,
+    originalPrice: 370000,
     discountPercentage: 20,
     category: "Tools",
     subCategory: "Power Tools",
@@ -1245,8 +1245,8 @@ export const products = [
   {
     id: 64,
     title: "Bosch Laser Distance Measurer",
-    price: 129.99,
-    originalPrice: 159.99,
+    price: 45000,
+    originalPrice: 115000,
     discountPercentage: 19,
     category: "Tools",
     subCategory: "Measuring",
@@ -1264,8 +1264,8 @@ export const products = [
   {
     id: 65,
     title: "Milwaukee M18 Sawzall",
-    price: 179.99,
-    originalPrice: 199.99,
+    price: 155000,
+    originalPrice: 170000,
     discountPercentage: 10,
     category: "Tools",
     subCategory: "Power Tools",
@@ -1283,8 +1283,8 @@ export const products = [
   {
     id: 66,
     title: "Stanley Tool Set",
-    price: 89.99,
-    originalPrice: 119.99,
+    price: 85000,
+    originalPrice: 191000,
     discountPercentage: 25,
     category: "Tools",
     subCategory: "Hand Tools",
@@ -1302,8 +1302,8 @@ export const products = [
   {
     id: 67,
     title: "Ryobi 18V Leaf Blower",
-    price: 99.99,
-    originalPrice: 129.99,
+    price: 75000,
+    originalPrice: 90000,
     discountPercentage: 23,
     category: "Outdoor",
     subCategory: "Lawn Care",
@@ -1321,8 +1321,8 @@ export const products = [
   {
     id: 68,
     title: "Black+Decker Hedge Trimmer",
-    price: 79.99,
-    originalPrice: 99.99,
+    price: 65000,
+    originalPrice: 159000,
     discountPercentage: 20,
     category: "Outdoor",
     subCategory: "Lawn Care",
@@ -1342,8 +1342,8 @@ export const products = [
   {
     id: 69,
     title: "Dash Cam 4K",
-    price: 129.99,
-    originalPrice: 169.99,
+    price: 45000,
+    originalPrice: 271000,
     discountPercentage: 24,
     category: "Automotive",
     subCategory: "Electronics",
@@ -1361,8 +1361,8 @@ export const products = [
   {
     id: 70,
     title: "NOCO Boost Plus Jump Starter",
-    price: 99.99,
-    originalPrice: 129.99,
+    price: 75000,
+    originalPrice: 90000,
     discountPercentage: 23,
     category: "Automotive",
     subCategory: "Emergency",
@@ -1380,8 +1380,8 @@ export const products = [
   {
     id: 71,
     title: "Michelin Wiper Blades",
-    price: 29.99,
-    originalPrice: 39.99,
+    price: 22000,
+    originalPrice: 28000,
     discountPercentage: 25,
     category: "Automotive",
     subCategory: "Maintenance",
@@ -1399,8 +1399,8 @@ export const products = [
   {
     id: 72,
     title: "Car Vacuum Cleaner",
-    price: 49.99,
-    originalPrice: 69.99,
+    price: 38000,
+    originalPrice: 48000,
     discountPercentage: 29,
     category: "Automotive",
     subCategory: "Cleaning",
@@ -1418,8 +1418,8 @@ export const products = [
   {
     id: 73,
     title: "Tire Inflator Portable",
-    price: 59.99,
-    originalPrice: 79.99,
+    price: 45000,
+    originalPrice: 55000,
     discountPercentage: 25,
     category: "Automotive",
     subCategory: "Emergency",
@@ -1437,8 +1437,8 @@ export const products = [
   {
     id: 74,
     title: "Car Cover Waterproof",
-    price: 89.99,
-    originalPrice: 119.99,
+    price: 85000,
+    originalPrice: 191000,
     discountPercentage: 25,
     category: "Automotive",
     subCategory: "Protection",
@@ -1458,8 +1458,8 @@ export const products = [
   {
     id: 75,
     title: "UPPAbaby Vista V2 Stroller",
-    price: 999.99,
-    originalPrice: 1099.99,
+    price: 1800000,
+    originalPrice: 2000000,
     discountPercentage: 9,
     category: "Baby",
     subCategory: "Strollers",
@@ -1477,8 +1477,8 @@ export const products = [
   {
     id: 76,
     title: "Baby Brezza Formula Pro",
-    price: 199.99,
-    originalPrice: 229.99,
+    price: 185000,
+    originalPrice: 215000,
     discountPercentage: 13,
     category: "Baby",
     subCategory: "Feeding",
@@ -1496,8 +1496,8 @@ export const products = [
   {
     id: 77,
     title: "Graco 4Ever Car Seat",
-    price: 299.99,
-    originalPrice: 349.99,
+    price: 140000,
+    originalPrice: 559000,
     discountPercentage: 14,
     category: "Baby",
     subCategory: "Car Seats",
@@ -1515,8 +1515,8 @@ export const products = [
   {
     id: 78,
     title: "Owlet Smart Sock 3",
-    price: 299.99,
-    originalPrice: 329.99,
+    price: 140000,
+    originalPrice: 430000,
     discountPercentage: 9,
     category: "Baby",
     subCategory: "Monitoring",
@@ -1534,8 +1534,8 @@ export const products = [
   {
     id: 79,
     title: "Hatch Baby Rest Sound Machine",
-    price: 69.99,
-    originalPrice: 89.99,
+    price: 55000,
+    originalPrice: 68000,
     discountPercentage: 22,
     category: "Baby",
     subCategory: "Sleep",
@@ -1553,8 +1553,8 @@ export const products = [
   {
     id: 80,
     title: "Joolz Aer Stroller",
-    price: 449.99,
-    originalPrice: 499.99,
+    price: 650000,
+    originalPrice: 750000,
     discountPercentage: 10,
     category: "Baby",
     subCategory: "Strollers",
@@ -1574,8 +1574,8 @@ export const products = [
   {
     id: 81,
     title: "Theragun Elite",
-    price: 399.99,
-    originalPrice: 449.99,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 11,
     category: "Health",
     subCategory: "Massage",
@@ -1593,8 +1593,8 @@ export const products = [
   {
     id: 82,
     title: "Fitbit Charge 6",
-    price: 159.99,
-    originalPrice: 179.99,
+    price: 145000,
+    originalPrice: 170000,
     discountPercentage: 11,
     category: "Health",
     subCategory: "Fitness Trackers",
@@ -1612,8 +1612,8 @@ export const products = [
   {
     id: 83,
     title: "Omron Blood Pressure Monitor",
-    price: 69.99,
-    originalPrice: 89.99,
+    price: 55000,
+    originalPrice: 68000,
     discountPercentage: 22,
     category: "Health",
     subCategory: "Monitoring",
@@ -1631,8 +1631,8 @@ export const products = [
   {
     id: 84,
     title: "Weighted Blanket",
-    price: 89.99,
-    originalPrice: 119.99,
+    price: 85000,
+    originalPrice: 191000,
     discountPercentage: 25,
     category: "Health",
     subCategory: "Sleep",
@@ -1650,8 +1650,8 @@ export const products = [
   {
     id: 85,
     title: "TheraFace Pro",
-    price: 399.99,
-    originalPrice: 449.99,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 11,
     category: "Beauty",
     subCategory: "Skincare Tools",
@@ -1669,8 +1669,8 @@ export const products = [
   {
     id: 86,
     title: "Meditation Cushion Set",
-    price: 59.99,
-    originalPrice: 79.99,
+    price: 45000,
+    originalPrice: 55000,
     discountPercentage: 25,
     category: "Health",
     subCategory: "Meditation",
@@ -1690,8 +1690,8 @@ export const products = [
   {
     id: 87,
     title: "Secretlab Titan Evo",
-    price: 549.99,
-    originalPrice: 599.99,
+    price: 850000,
+    originalPrice: 980000,
     discountPercentage: 8,
     category: "Office",
     subCategory: "Chairs",
@@ -1709,8 +1709,8 @@ export const products = [
   {
     id: 88,
     title: "Fully Jarvis Standing Desk",
-    price: 599.99,
-    originalPrice: 699.99,
+    price: 450000,
+    originalPrice: 1250000,
     discountPercentage: 14,
     category: "Office",
     subCategory: "Desks",
@@ -1728,8 +1728,8 @@ export const products = [
   {
     id: 89,
     title: "Logitech MX Master 3S",
-    price: 99.99,
-    originalPrice: 129.99,
+    price: 75000,
+    originalPrice: 90000,
     discountPercentage: 23,
     category: "Electronics",
     subCategory: "Mice",
@@ -1747,8 +1747,8 @@ export const products = [
   {
     id: 90,
     title: "Keychron Q1 Pro",
-    price: 199.99,
-    originalPrice: 229.99,
+    price: 185000,
+    originalPrice: 215000,
     discountPercentage: 13,
     category: "Electronics",
     subCategory: "Keyboards",
@@ -1766,8 +1766,8 @@ export const products = [
   {
     id: 91,
     title: "BenQ ScreenBar Plus",
-    price: 109.99,
-    originalPrice: 129.99,
+    price: 48000,
+    originalPrice: 90000,
     discountPercentage: 15,
     category: "Office",
     subCategory: "Lighting",
@@ -1785,8 +1785,8 @@ export const products = [
   {
     id: 92,
     title: "Rocketbook Fusion",
-    price: 29.99,
-    originalPrice: 39.99,
+    price: 22000,
+    originalPrice: 28000,
     discountPercentage: 25,
     category: "Office",
     subCategory: "Notebooks",
@@ -1805,8 +1805,8 @@ export const products = [
   {
     id: 93,
     title: "Yamaha P-125 Digital Piano",
-    price: 699.99,
-    originalPrice: 799.99,
+    price: 1200000,
+    originalPrice: 1400000,
     discountPercentage: 12,
     category: "Musical Instruments",
     subCategory: "Pianos",
@@ -1824,8 +1824,8 @@ export const products = [
   {
     id: 94,
     title: "Fender Player Stratocaster",
-    price: 799.99,
-    originalPrice: 899.99,
+    price: 1400000,
+    originalPrice: 1600000,
     discountPercentage: 11,
     category: "Musical Instruments",
     subCategory: "Guitars",
@@ -1843,8 +1843,8 @@ export const products = [
   {
     id: 95,
     title: "Focusrite Scarlett 2i2",
-    price: 169.99,
-    originalPrice: 199.99,
+    price: 145000,
+    originalPrice: 170000,
     discountPercentage: 15,
     category: "Musical Instruments",
     subCategory: "Audio Interfaces",
@@ -1862,8 +1862,8 @@ export const products = [
   {
     id: 96,
     title: "Roland TD-07KV V-Drums",
-    price: 899.99,
-    originalPrice: 999.99,
+    price: 1600000,
+    originalPrice: 1800000,
     discountPercentage: 10,
     category: "Musical Instruments",
     subCategory: "Drums",
@@ -1881,8 +1881,8 @@ export const products = [
   {
     id: 97,
     title: "Shure SM58-LC",
-    price: 99.99,
-    originalPrice: 129.99,
+    price: 75000,
+    originalPrice: 90000,
     discountPercentage: 23,
     category: "Musical Instruments",
     subCategory: "Microphones",
@@ -1900,8 +1900,8 @@ export const products = [
   {
     id: 98,
     title: "Korg Minilogue XD",
-    price: 649.99,
-    originalPrice: 699.99,
+    price: 1100000,
+    originalPrice: 1250000,
     discountPercentage: 7,
     category: "Musical Instruments",
     subCategory: "Synthesizers",
@@ -1921,8 +1921,8 @@ export const products = [
   {
     id: 99,
     title: "Cricut Maker 3",
-    price: 399.99,
-    originalPrice: 449.99,
+    price: 580000,
+    originalPrice: 650000,
     discountPercentage: 11,
     category: "Crafts",
     subCategory: "Cutting Machines",
@@ -1940,8 +1940,8 @@ export const products = [
   {
     id: 100,
     title: "Wacom Intuos Pro Medium",
-    price: 349.99,
-    originalPrice: 399.99,
+    price: 420000,
+    originalPrice: 480000,
     discountPercentage: 12,
     category: "Electronics",
     subCategory: "Drawing Tablets",
@@ -1960,170 +1960,170 @@ export const products = [
 
   // Smart Home & Security
   {
-    id: 101, title: "Google Nest Hub Max", price: 229.99, originalPrice: 249.99, discountPercentage: 8, category: "Electronics", subCategory: "Smart Home", description: "10-inch smart display with Google Assistant, video calling, and motion sense.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=300&auto=format", badge: "Smart Choice", stock: 34, brand: "Google", colors: ["Chalk", "Charcoal"], features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
+    id: 101, title: "Google Nest Hub Max", price: 320000, originalPrice: 370000, discountPercentage: 8, category: "Electronics", subCategory: "Smart Home", description: "10-inch smart display with Google Assistant, video calling, and motion sense.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?w=300&auto=format", badge: "Smart Choice", stock: 34, brand: "Google", colors: ["Chalk", "Charcoal"], features: ["Google Assistant", "10-inch Display", "Video Calling", "Motion Sense"]
   },
   {
-    id: 102, title: "Ring Video Doorbell Pro 2", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Electronics", subCategory: "Smart Home", description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Security", stock: 23, brand: "Ring", colors: ["Satin Nickel", "Venetian Bronze"], features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
+    id: 102, title: "Ring Video Doorbell Pro 2", price: 140000, originalPrice: 400000, discountPercentage: 11, category: "Electronics", subCategory: "Smart Home", description: "Smart video doorbell with 3D motion detection, head-to-toe video, and Alexa greetings.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Security", stock: 23, brand: "Ring", colors: ["Satin Nickel", "Venetian Bronze"], features: ["3D Motion Detection", "Head-to-Toe Video", "Alexa Greetings", "Night Vision"]
   },
   {
-    id: 103, title: "Philips Hue Starter Kit", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Smart Lighting", description: "Smart lighting starter kit with bridge and 4 color ambiance bulbs.", rating: 4.8, reviews: 5678, image: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=300&auto=format", badge: "Smart Home", stock: 56, brand: "Philips", colors: ["White"], features: ["16 Million Colors", "Voice Control", "Schedules", "Bridge Included"]
+    id: 103, title: "Philips Hue Starter Kit", price: 185000, originalPrice: 215000, discountPercentage: 13, category: "Home", subCategory: "Smart Lighting", description: "Smart lighting starter kit with bridge and 4 color ambiance bulbs.", rating: 4.8, reviews: 5678, image: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=300&auto=format", badge: "Smart Home", stock: 56, brand: "Philips", colors: ["White"], features: ["16 Million Colors", "Voice Control", "Schedules", "Bridge Included"]
   },
   {
-    id: 104, title: "August Wi-Fi Smart Lock", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Home", subCategory: "Security", description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control.", rating: 4.6, reviews: 1987, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Smart Security", stock: 34, brand: "August", colors: ["Silver", "Dark Gray"], features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
+    id: 104, title: "August Wi-Fi Smart Lock", price: 185000, originalPrice: 215000, discountPercentage: 13, category: "Home", subCategory: "Security", description: "Smart lock with built-in Wi-Fi, auto-lock/unlock, and voice control.", rating: 4.6, reviews: 1987, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Smart Security", stock: 34, brand: "August", colors: ["Silver", "Dark Gray"], features: ["Built-in Wi-Fi", "Auto-Lock/Unlock", "Voice Control", "Remote Access"]
   },
   {
-    id: 105, title: "Arlo Pro 4 Spotlight Camera", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Security", description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight.", rating: 4.8, reviews: 3245, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Rated", stock: 28, brand: "Arlo", colors: ["White"], features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
+    id: 105, title: "Arlo Pro 4 Spotlight Camera", price: 185000, originalPrice: 215000, discountPercentage: 13, category: "Electronics", subCategory: "Security", description: "Wireless security camera with 2K HDR, color night vision, and built-in spotlight.", rating: 4.8, reviews: 3245, image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=300&auto=format", badge: "Top Rated", stock: 28, brand: "Arlo", colors: ["White"], features: ["2K HDR", "Color Night Vision", "Built-in Spotlight", "Wireless"]
   },
   {
-    id: 106, title: "Ecobee SmartThermostat", price: 249.99, originalPrice: 279.99, discountPercentage: 11, category: "Home", subCategory: "Climate", description: "Smart thermostat with built-in Alexa, voice control, and room sensors.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format", badge: "Energy Saver", stock: 31, brand: "Ecobee", colors: ["Black"], features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
+    id: 106, title: "Ecobee SmartThermostat", price: 140000, originalPrice: 400000, discountPercentage: 11, category: "Home", subCategory: "Climate", description: "Smart thermostat with built-in Alexa, voice control, and room sensors.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567924015112-1238cb5d3f3f?w=300&auto=format", badge: "Energy Saver", stock: 31, brand: "Ecobee", colors: ["Black"], features: ["Built-in Alexa", "Room Sensors", "Voice Control", "Energy Reports"]
   },
 
   // Pet Supplies
   {
-    id: 107, title: "Furbo Dog Camera", price: 249.99, originalPrice: 299.99, discountPercentage: 17, category: "Accessories", subCategory: "Pet", description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts.", rating: 4.7, reviews: 2876, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Pet Favorite", stock: 23, brand: "Furbo", colors: ["White"], features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
+    id: 107, title: "Furbo Dog Camera", price: 140000, originalPrice: 400000, discountPercentage: 17, category: "Accessories", subCategory: "Pet", description: "360° rotating dog camera with treat tossing, 2-way audio, and barking alerts.", rating: 4.7, reviews: 2876, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Pet Favorite", stock: 23, brand: "Furbo", colors: ["White"], features: ["360° Rotation", "Treat Tossing", "2-Way Audio", "Barking Alerts"]
   },
   {
-    id: 108, title: "Litter-Robot 4", price: 699.00, originalPrice: 749.00, discountPercentage: 7, category: "Home", subCategory: "Pet", description: "Automatic self-cleaning litter box with odor control and waste drawer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Innovation", stock: 12, brand: "Whisker", colors: ["White", "Black"], features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
+    id: 108, title: "Litter-Robot 4", price: 1200000, originalPrice: 1350000, discountPercentage: 7, category: "Home", subCategory: "Pet", description: "Automatic self-cleaning litter box with odor control and waste drawer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Innovation", stock: 12, brand: "Whisker", colors: ["White", "Black"], features: ["Self-Cleaning", "Odor Control", "App Monitoring", "Large Waste Drawer"]
   },
   {
-    id: 109, title: "PetSafe Automatic Feeder", price: 89.99, originalPrice: 109.99, discountPercentage: 18, category: "Accessories", subCategory: "Pet", description: "Programmable automatic pet feeder with portion control and up to 6 meals per day.", rating: 4.6, reviews: 5432, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Best Seller", stock: 78, brand: "PetSafe", colors: ["Gray"], features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
+    id: 109, title: "PetSafe Automatic Feeder", price: 85000, originalPrice: 100000, discountPercentage: 18, category: "Accessories", subCategory: "Pet", description: "Programmable automatic pet feeder with portion control and up to 6 meals per day.", rating: 4.6, reviews: 5432, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Best Seller", stock: 78, brand: "PetSafe", colors: ["Gray"], features: ["6 Meals/Day", "Portion Control", "Battery Backup", "Easy Clean"]
   },
   {
-    id: 110, title: "Furhaven Pet Bed", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Pet", description: "Orthopedic foam pet bed with removable, machine-washable cover.", rating: 4.8, reviews: 8765, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Comfort", stock: 145, brand: "Furhaven", colors: ["Gray", "Brown", "Blue"], features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
+    id: 110, title: "Furhaven Pet Bed", price: 38000, originalPrice: 48000, discountPercentage: 29, category: "Home", subCategory: "Pet", description: "Orthopedic foam pet bed with removable, machine-washable cover.", rating: 4.8, reviews: 8765, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Comfort", stock: 145, brand: "Furhaven", colors: ["Gray", "Brown", "Blue"], features: ["Orthopedic Foam", "Machine Washable", "Non-Skid Bottom", "Waterproof Liner"]
   },
   {
-    id: 111, title: "Outward Hound Life Jacket", price: 34.99, originalPrice: 44.99, discountPercentage: 22, category: "Accessories", subCategory: "Pet", description: "Dog life jacket with rescue handle, bright colors, and adjustable straps.", rating: 4.7, reviews: 3210, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Safety First", stock: 67, brand: "Outward Hound", colors: ["Orange", "Red", "Blue"], features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
+    id: 111, title: "Outward Hound Life Jacket", price: 28000, originalPrice: 35000, discountPercentage: 22, category: "Accessories", subCategory: "Pet", description: "Dog life jacket with rescue handle, bright colors, and adjustable straps.", rating: 4.7, reviews: 3210, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Safety First", stock: 67, brand: "Outward Hound", colors: ["Orange", "Red", "Blue"], features: ["Rescue Handle", "High Visibility", "Adjustable Straps", "Floatation"]
   },
   {
-    id: 112, title: "Catit Pixi Fountain", price: 39.99, originalPrice: 49.99, discountPercentage: 20, category: "Accessories", subCategory: "Pet", description: "Stainless steel water fountain with triple-action filtration and LED light.", rating: 4.7, reviews: 2341, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Hydration", stock: 54, brand: "Catit", colors: ["White"], features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
+    id: 112, title: "Catit Pixi Fountain", price: 30000, originalPrice: 42000, discountPercentage: 20, category: "Accessories", subCategory: "Pet", description: "Stainless steel water fountain with triple-action filtration and LED light.", rating: 4.7, reviews: 2341, image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&auto=format", badge: "Hydration", stock: 54, brand: "Catit", colors: ["White"], features: ["Triple Filtration", "LED Light", "Stainless Steel", "Quiet Pump"]
   },
 
   // Tools & Home Improvement
   {
-    id: 113, title: "DeWalt 20V Drill Combo", price: 199.99, originalPrice: 249.99, discountPercentage: 20, category: "Home", subCategory: "Tools", description: "20V cordless drill and impact driver combo kit with batteries and charger.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Pro Choice", stock: 34, brand: "DeWalt", colors: ["Yellow/Black"], features: ["20V Max", "2-Tool Kit", "Brushless Motor", "LED Light"]
+    id: 113, title: "DeWalt 20V Drill Combo", price: 185000, originalPrice: 370000, discountPercentage: 20, category: "Home", subCategory: "Tools", description: "20V cordless drill and impact driver combo kit with batteries and charger.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Pro Choice", stock: 34, brand: "DeWalt", colors: ["Yellow/Black"], features: ["20V Max", "2-Tool Kit", "Brushless Motor", "LED Light"]
   },
   {
-    id: 114, title: "Bosch Laser Distance Measurer", price: 129.99, originalPrice: 159.99, discountPercentage: 19, category: "Home", subCategory: "Tools", description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes.", rating: 4.8, reviews: 1876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Precision", stock: 42, brand: "Bosch", colors: ["Blue"], features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
+    id: 114, title: "Bosch Laser Distance Measurer", price: 45000, originalPrice: 115000, discountPercentage: 19, category: "Home", subCategory: "Tools", description: "Laser distance measurer with 165ft range, digital display, and multiple measurement modes.", rating: 4.8, reviews: 1876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Precision", stock: 42, brand: "Bosch", colors: ["Blue"], features: ["165ft Range", "1/16 inch Accuracy", "Multiple Modes", "Backlit Display"]
   },
   {
-    id: 115, title: "Milwaukee M18 Sawzall", price: 179.99, originalPrice: 199.99, discountPercentage: 10, category: "Home", subCategory: "Tools", description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.", rating: 4.9, reviews: 2987, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Heavy Duty", stock: 21, brand: "Milwaukee", colors: ["Red/Black"], features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
+    id: 115, title: "Milwaukee M18 Sawzall", price: 155000, originalPrice: 170000, discountPercentage: 10, category: "Home", subCategory: "Tools", description: "M18 FUEL reciprocating saw with Redlink intelligence, variable speed, and tool-free blade change.", rating: 4.9, reviews: 2987, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Heavy Duty", stock: 21, brand: "Milwaukee", colors: ["Red/Black"], features: ["M18 FUEL", "Redlink Intelligence", "Tool-Free Blade Change", "Variable Speed"]
   },
   {
-    id: 116, title: "Stanley Tool Set", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Tools", description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Complete Set", stock: 67, brand: "Stanley", colors: ["Black/Yellow"], features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
+    id: 116, title: "Stanley Tool Set", price: 85000, originalPrice: 191000, discountPercentage: 25, category: "Home", subCategory: "Tools", description: "85-piece home repair tool set with hammer, pliers, screwdrivers, wrenches, and sockets.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Complete Set", stock: 67, brand: "Stanley", colors: ["Black/Yellow"], features: ["85 Pieces", "Organized Case", "Chrome Vanadium", "Lifetime Warranty"]
   },
   {
-    id: 117, title: "Ryobi Leaf Blower", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Home", subCategory: "Outdoor", description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed.", rating: 4.6, reviews: 2876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Yard Essential", stock: 45, brand: "Ryobi", colors: ["Green"], features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
+    id: 117, title: "Ryobi Leaf Blower", price: 75000, originalPrice: 90000, discountPercentage: 23, category: "Home", subCategory: "Outdoor", description: "Cordless leaf blower with 18V battery, variable speed trigger, and 100+ mph airspeed.", rating: 4.6, reviews: 2876, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Yard Essential", stock: 45, brand: "Ryobi", colors: ["Green"], features: ["100+ mph", "Variable Speed", "Lightweight", "Battery Included"]
   },
   {
-    id: 118, title: "Black+Decker Hedge Trimmer", price: 79.99, originalPrice: 99.99, discountPercentage: 20, category: "Home", subCategory: "Outdoor", description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip.", rating: 4.6, reviews: 2341, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Garden Tool", stock: 38, brand: "Black+Decker", colors: ["Orange"], features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
+    id: 118, title: "Black+Decker Hedge Trimmer", price: 65000, originalPrice: 159000, discountPercentage: 20, category: "Home", subCategory: "Outdoor", description: "Corded electric hedge trimmer with 22-inch dual-action blades and ergonomic grip.", rating: 4.6, reviews: 2341, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&auto=format", badge: "Garden Tool", stock: 38, brand: "Black+Decker", colors: ["Orange"], features: ["22-inch Blades", "Dual-Action", "Electric", "Ergonomic Grip"]
   },
 
   // Automotive
   {
-    id: 119, title: "Dash Cam 4K", price: 129.99, originalPrice: 169.99, discountPercentage: 24, category: "Electronics", subCategory: "Automotive", description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Safety", stock: 52, brand: "Vantrue", colors: ["Black"], features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
+    id: 119, title: "Dash Cam 4K", price: 45000, originalPrice: 271000, discountPercentage: 24, category: "Electronics", subCategory: "Automotive", description: "4K UHD dash cam with night vision, WiFi, GPS, and loop recording.", rating: 4.7, reviews: 3456, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Safety", stock: 52, brand: "Vantrue", colors: ["Black"], features: ["4K Recording", "Night Vision", "WiFi & GPS", "Loop Recording"]
   },
   {
-    id: 120, title: "NOCO Boost Jump Starter", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Automotive", description: "1000-amp portable jump starter for gas and diesel engines.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Essential", stock: 87, brand: "NOCO", colors: ["Red/Black"], features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
+    id: 120, title: "NOCO Boost Jump Starter", price: 75000, originalPrice: 90000, discountPercentage: 23, category: "Electronics", subCategory: "Automotive", description: "1000-amp portable jump starter for gas and diesel engines.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Essential", stock: 87, brand: "NOCO", colors: ["Red/Black"], features: ["1000 Amps", "USB Charging", "LED Light", "Spark-Proof"]
   },
   {
-    id: 121, title: "Michelin Wiper Blades", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "Premium beam wiper blades with built-in wear indicator and weather shield.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Visibility", stock: 134, brand: "Michelin", colors: ["Black"], features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
+    id: 121, title: "Michelin Wiper Blades", price: 22000, originalPrice: 28000, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "Premium beam wiper blades with built-in wear indicator and weather shield.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Visibility", stock: 134, brand: "Michelin", colors: ["Black"], features: ["All-Season", "Wear Indicator", "Weather Shield", "Easy Install"]
   },
   {
-    id: 122, title: "Car Vacuum Cleaner", price: 49.99, originalPrice: 69.99, discountPercentage: 29, category: "Home", subCategory: "Automotive", description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord.", rating: 4.6, reviews: 3210, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Clean Machine", stock: 65, brand: "Armor All", colors: ["Black"], features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
+    id: 122, title: "Car Vacuum Cleaner", price: 38000, originalPrice: 48000, discountPercentage: 29, category: "Home", subCategory: "Automotive", description: "High-power handheld car vacuum with HEPA filter, crevice tools, and 16ft cord.", rating: 4.6, reviews: 3210, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Clean Machine", stock: 65, brand: "Armor All", colors: ["Black"], features: ["HEPA Filter", "16ft Cord", "Crevice Tools", "Washable Filter"]
   },
   {
-    id: 123, title: "Tire Inflator Portable", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Electronics", subCategory: "Automotive", description: "12V DC portable air compressor with digital display, auto shut-off, and LED light.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Road Trip", stock: 73, brand: "EPAuto", colors: ["Black"], features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
+    id: 123, title: "Tire Inflator Portable", price: 45000, originalPrice: 55000, discountPercentage: 25, category: "Electronics", subCategory: "Automotive", description: "12V DC portable air compressor with digital display, auto shut-off, and LED light.", rating: 4.7, reviews: 4321, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Road Trip", stock: 73, brand: "EPAuto", colors: ["Black"], features: ["Digital Display", "Auto Shut-Off", "LED Light", "Multiple Nozzles"]
   },
   {
-    id: 124, title: "Car Cover Waterproof", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag.", rating: 4.6, reviews: 1876, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Protection", stock: 42, brand: "Kayme", colors: ["Silver"], features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
+    id: 124, title: "Car Cover Waterproof", price: 85000, originalPrice: 191000, discountPercentage: 25, category: "Accessories", subCategory: "Automotive", description: "All-weather car cover with 6-layer protection, windproof straps, and storage bag.", rating: 4.6, reviews: 1876, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&auto=format", badge: "Protection", stock: 42, brand: "Kayme", colors: ["Silver"], features: ["6-Layer Protection", "Waterproof", "Windproof Straps", "Storage Bag"]
   },
 
   // Baby & Kids
   {
-    id: 125, title: "UPPAbaby Vista Stroller", price: 999.99, originalPrice: 1099.99, discountPercentage: 9, category: "Baby", subCategory: "Strollers", description: "Premium modular stroller that converts from single to double.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Luxury", stock: 8, brand: "UPPAbaby", colors: ["Jake", "Gwen", "Cruz"], features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
+    id: 125, title: "UPPAbaby Vista Stroller", price: 1800000, originalPrice: 2000000, discountPercentage: 9, category: "Baby", subCategory: "Strollers", description: "Premium modular stroller that converts from single to double.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Luxury", stock: 8, brand: "UPPAbaby", colors: ["Jake", "Gwen", "Cruz"], features: ["Converts to Double", "Includes Bassinet", "Large Storage", "All-Wheel Suspension"]
   },
   {
-    id: 126, title: "Baby Brezza Formula Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Baby", subCategory: "Feeding", description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Parent Saver", stock: 23, brand: "Baby Brezza", colors: ["White"], features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
+    id: 126, title: "Baby Brezza Formula Pro", price: 185000, originalPrice: 215000, discountPercentage: 13, category: "Baby", subCategory: "Feeding", description: "Automatic formula dispenser that mixes and warms bottles at the touch of a button.", rating: 4.8, reviews: 4321, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Parent Saver", stock: 23, brand: "Baby Brezza", colors: ["White"], features: ["Automatic Mixing", "Warms Formula", "10 Temperature Settings", "Easy Clean"]
   },
   {
-    id: 127, title: "Graco 4Ever Car Seat", price: 299.99, originalPrice: 349.99, discountPercentage: 14, category: "Baby", subCategory: "Car Seats", description: "4-in-1 convertible car seat grows from infant to booster.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Grows with Baby", stock: 31, brand: "Graco", colors: ["Gotham", "Carlson"], features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
+    id: 127, title: "Graco 4Ever Car Seat", price: 140000, originalPrice: 559000, discountPercentage: 14, category: "Baby", subCategory: "Car Seats", description: "4-in-1 convertible car seat grows from infant to booster.", rating: 4.9, reviews: 6543, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Grows with Baby", stock: 31, brand: "Graco", colors: ["Gotham", "Carlson"], features: ["4-in-1 Design", "10-Position Headrest", "SafeAdjust Harness", "Steel Frame"]
   },
   {
-    id: 128, title: "Owlet Smart Sock 3", price: 299.99, originalPrice: 329.99, discountPercentage: 9, category: "Baby", subCategory: "Monitoring", description: "Smart baby monitor that tracks heart rate and oxygen levels.", rating: 4.7, reviews: 2987, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Peace of Mind", stock: 17, brand: "Owlet", colors: ["Gray"], features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
+    id: 128, title: "Owlet Smart Sock 3", price: 140000, originalPrice: 430000, discountPercentage: 9, category: "Baby", subCategory: "Monitoring", description: "Smart baby monitor that tracks heart rate and oxygen levels.", rating: 4.7, reviews: 2987, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Peace of Mind", stock: 17, brand: "Owlet", colors: ["Gray"], features: ["Heart Rate Tracking", "Oxygen Monitoring", "Base Station", "App Alerts"]
   },
   {
-    id: 129, title: "Hatch Baby Rest Sound Machine", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Baby", subCategory: "Sleep", description: "Sound machine, night light, and time-to-rise alert in one.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Sleep Helper", stock: 87, brand: "Hatch", colors: ["White", "Gray", "Pink", "Blue"], features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
+    id: 129, title: "Hatch Baby Rest Sound Machine", price: 55000, originalPrice: 68000, discountPercentage: 22, category: "Baby", subCategory: "Sleep", description: "Sound machine, night light, and time-to-rise alert in one.", rating: 4.8, reviews: 5432, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Sleep Helper", stock: 87, brand: "Hatch", colors: ["White", "Gray", "Pink", "Blue"], features: ["Sound Machine", "Night Light", "Time-to-Rise", "App Control"]
   },
   {
-    id: 130, title: "Joolz Aer Stroller", price: 449.99, originalPrice: 499.99, discountPercentage: 10, category: "Baby", subCategory: "Strollers", description: "Ultra-compact travel stroller with one-hand fold and carry strap.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Travel Ready", stock: 19, brand: "Joolz", colors: ["Black", "Olive"], features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
+    id: 130, title: "Joolz Aer Stroller", price: 650000, originalPrice: 750000, discountPercentage: 10, category: "Baby", subCategory: "Strollers", description: "Ultra-compact travel stroller with one-hand fold and carry strap.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1593510987040-123d9d9a2a4b?w=300&auto=format", badge: "Travel Ready", stock: 19, brand: "Joolz", colors: ["Black", "Olive"], features: ["One-Hand Fold", "Carry Strap", "FAA Approved", "Extendable Canopy"]
   },
 
   // Health & Wellness
   {
-    id: 131, title: "Theragun Elite", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Health", subCategory: "Massage", description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Recovery", stock: 23, brand: "Therabody", colors: ["Black", "White"], features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
+    id: 131, title: "Theragun Elite", price: 580000, originalPrice: 650000, discountPercentage: 11, category: "Health", subCategory: "Massage", description: "Advanced percussion massage device with OLED screen, Bluetooth, and guided routines.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Recovery", stock: 23, brand: "Therabody", colors: ["Black", "White"], features: ["OLED Screen", "Bluetooth", "Guided Routines", "QuietForce Technology"]
   },
   {
-    id: 132, title: "Fitbit Charge 6", price: 159.99, originalPrice: 179.99, discountPercentage: 11, category: "Health", subCategory: "Fitness", description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery.", rating: 4.7, reviews: 5678, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Fitness", stock: 54, brand: "Fitbit", colors: ["Black", "Blue", "Pink"], features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
+    id: 132, title: "Fitbit Charge 6", price: 145000, originalPrice: 170000, discountPercentage: 11, category: "Health", subCategory: "Fitness", description: "Advanced fitness tracker with heart rate monitoring, GPS, and 7-day battery.", rating: 4.7, reviews: 5678, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Fitness", stock: 54, brand: "Fitbit", colors: ["Black", "Blue", "Pink"], features: ["Heart Rate", "Built-in GPS", "Sleep Tracking", "7-Day Battery"]
   },
   {
-    id: 133, title: "Omron Blood Pressure Monitor", price: 69.99, originalPrice: 89.99, discountPercentage: 22, category: "Health", subCategory: "Monitoring", description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Health Essential", stock: 98, brand: "Omron", colors: ["White"], features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
+    id: 133, title: "Omron Blood Pressure Monitor", price: 55000, originalPrice: 68000, discountPercentage: 22, category: "Health", subCategory: "Monitoring", description: "Upper arm blood pressure monitor with advanced accuracy and irregular heartbeat detection.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Health Essential", stock: 98, brand: "Omron", colors: ["White"], features: ["Advanced Accuracy", "Irregular Heartbeat", "100 Readings", "Cuff Included"]
   },
   {
-    id: 134, title: "Weighted Blanket", price: 89.99, originalPrice: 119.99, discountPercentage: 25, category: "Home", subCategory: "Sleep", description: "15lb weighted blanket with glass beads and bamboo cover.", rating: 4.8, reviews: 6543, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Calm Sleep", stock: 67, brand: "YnM", colors: ["Gray", "Blue", "Green"], features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
+    id: 134, title: "Weighted Blanket", price: 85000, originalPrice: 191000, discountPercentage: 25, category: "Home", subCategory: "Sleep", description: "15lb weighted blanket with glass beads and bamboo cover.", rating: 4.8, reviews: 6543, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Calm Sleep", stock: 67, brand: "YnM", colors: ["Gray", "Blue", "Green"], features: ["15lb Weight", "Glass Beads", "Removable Cover", "Breathable Fabric"]
   },
   {
-    id: 135, title: "TheraFace Pro", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Beauty", subCategory: "Skincare", description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage.", rating: 4.7, reviews: 1876, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Skincare", stock: 14, brand: "Therabody", colors: ["White"], features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
+    id: 135, title: "TheraFace Pro", price: 580000, originalPrice: 650000, discountPercentage: 11, category: "Beauty", subCategory: "Skincare", description: "4-in-1 facial treatment device with microcurrent, LED light therapy, and percussion massage.", rating: 4.7, reviews: 1876, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Skincare", stock: 14, brand: "Therabody", colors: ["White"], features: ["Microcurrent", "LED Light Therapy", "Percussion", "Interchangeable Heads"]
   },
   {
-    id: 136, title: "Meditation Cushion Set", price: 59.99, originalPrice: 79.99, discountPercentage: 25, category: "Home", subCategory: "Wellness", description: "Set of meditation cushions including zafu and zabuton with buckwheat hull filling.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Mindfulness", stock: 45, brand: "Florensi", colors: ["Purple", "Blue", "Gray"], features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
+    id: 136, title: "Meditation Cushion Set", price: 45000, originalPrice: 55000, discountPercentage: 25, category: "Home", subCategory: "Wellness", description: "Set of meditation cushions including zafu and zabuton with buckwheat hull filling.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1624726175511-19b9bafb4b8d?w=300&auto=format", badge: "Mindfulness", stock: 45, brand: "Florensi", colors: ["Purple", "Blue", "Gray"], features: ["Zafu & Zabuton", "Buckwheat Hull", "Removable Cover", "Handmade"]
   },
 
   // Office & Desk Accessories
   {
-    id: 137, title: "Secretlab Titan Evo", price: 549.99, originalPrice: 599.99, discountPercentage: 8, category: "Furniture", subCategory: "Chairs", description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Ergonomic", stock: 18, brand: "Secretlab", colors: ["Black", "Stealth", "Cookies & Cream"], features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
+    id: 137, title: "Secretlab Titan Evo", price: 850000, originalPrice: 980000, discountPercentage: 8, category: "Furniture", subCategory: "Chairs", description: "Premium ergonomic gaming chair with 4-way adjustable lumbar support.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Ergonomic", stock: 18, brand: "Secretlab", colors: ["Black", "Stealth", "Cookies & Cream"], features: ["4-Way Lumbar", "Magnetic Pillow", "Multi-Tilt Mechanism", "Pebble Leather"]
   },
   {
-    id: 138, title: "Fully Jarvis Standing Desk", price: 599.99, originalPrice: 699.99, discountPercentage: 14, category: "Furniture", subCategory: "Desks", description: "Electric height-adjustable standing desk with programmable presets.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Stand Up", stock: 12, brand: "Fully", colors: ["Bamboo"], features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
+    id: 138, title: "Fully Jarvis Standing Desk", price: 450000, originalPrice: 1250000, discountPercentage: 14, category: "Furniture", subCategory: "Desks", description: "Electric height-adjustable standing desk with programmable presets.", rating: 4.8, reviews: 2876, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Stand Up", stock: 12, brand: "Fully", colors: ["Bamboo"], features: ["Electric Lift", "Programmable", "Bamboo Top", "Sturdy Frame"]
   },
   {
-    id: 139, title: "Logitech MX Master 3S", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Electronics", subCategory: "Mice", description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Productivity", stock: 67, brand: "Logitech", colors: ["Graphite", "Pale Gray"], features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
+    id: 139, title: "Logitech MX Master 3S", price: 75000, originalPrice: 90000, discountPercentage: 23, category: "Electronics", subCategory: "Mice", description: "Advanced wireless mouse with 8K DPI, quiet clicks, and MagSpeed scrolling.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Productivity", stock: 67, brand: "Logitech", colors: ["Graphite", "Pale Gray"], features: ["8K DPI", "Quiet Clicks", "MagSpeed Scroll", "Multi-Device"]
   },
   {
-    id: 140, title: "Keychron Q1 Pro", price: 199.99, originalPrice: 229.99, discountPercentage: 13, category: "Electronics", subCategory: "Keyboards", description: "Wireless mechanical keyboard with QMK/VIA support and premium aluminum case.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Mechanical", stock: 32, brand: "Keychron", colors: ["Carbon Black", "Silver Gray"], features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
+    id: 140, title: "Keychron Q1 Pro", price: 185000, originalPrice: 215000, discountPercentage: 13, category: "Electronics", subCategory: "Keyboards", description: "Wireless mechanical keyboard with QMK/VIA support and premium aluminum case.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Mechanical", stock: 32, brand: "Keychron", colors: ["Carbon Black", "Silver Gray"], features: ["Wireless", "QMK/VIA", "Hot-Swappable", "Aluminum Case"]
   },
   {
-    id: 141, title: "BenQ ScreenBar Plus", price: 109.99, originalPrice: 129.99, discountPercentage: 15, category: "Electronics", subCategory: "Lighting", description: "Monitor-mounted LED lamp with auto-dimming and desktop controller.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eye Care", stock: 43, brand: "BenQ", colors: ["Black"], features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
+    id: 141, title: "BenQ ScreenBar Plus", price: 48000, originalPrice: 90000, discountPercentage: 15, category: "Electronics", subCategory: "Lighting", description: "Monitor-mounted LED lamp with auto-dimming and desktop controller.", rating: 4.8, reviews: 3456, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eye Care", stock: 43, brand: "BenQ", colors: ["Black"], features: ["Auto-Dimming", "Desktop Controller", "Monitor Mount", "Eye-Care Technology"]
   },
   {
-    id: 142, title: "Rocketbook Fusion", price: 29.99, originalPrice: 39.99, discountPercentage: 25, category: "Office", subCategory: "Notebooks", description: "Reusable smart notebook with 42 pages and cloud integration.", rating: 4.7, reviews: 6543, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eco-Friendly", stock: 98, brand: "Rocketbook", colors: ["Black", "Blue", "Green"], features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
+    id: 142, title: "Rocketbook Fusion", price: 22000, originalPrice: 28000, discountPercentage: 25, category: "Office", subCategory: "Notebooks", description: "Reusable smart notebook with 42 pages and cloud integration.", rating: 4.7, reviews: 6543, image: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=300&auto=format", badge: "Eco-Friendly", stock: 98, brand: "Rocketbook", colors: ["Black", "Blue", "Green"], features: ["Reusable", "Cloud Integration", "42 Pages", "Pen Included"]
   },
 
   // Musical Instruments
   {
-    id: 143, title: "Yamaha P-125 Digital Piano", price: 699.99, originalPrice: 799.99, discountPercentage: 12, category: "Music", subCategory: "Pianos", description: "88-key weighted action digital piano with PureCF sound engine.", rating: 4.9, reviews: 1876, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Musician", stock: 14, brand: "Yamaha", colors: ["Black"], features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
+    id: 143, title: "Yamaha P-125 Digital Piano", price: 1200000, originalPrice: 1400000, discountPercentage: 12, category: "Music", subCategory: "Pianos", description: "88-key weighted action digital piano with PureCF sound engine.", rating: 4.9, reviews: 1876, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Musician", stock: 14, brand: "Yamaha", colors: ["Black"], features: ["88 Weighted Keys", "PureCF Sound", "Built-in Speakers", "USB to Host"]
   },
   {
-    id: 144, title: "Fender Player Stratocaster", price: 799.99, originalPrice: 899.99, discountPercentage: 11, category: "Music", subCategory: "Guitars", description: "Electric guitar with alder body, maple neck, and Player Series pickups.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Classic", stock: 9, brand: "Fender", colors: ["Black", "Sunburst", "Polar White"], features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
+    id: 144, title: "Fender Player Stratocaster", price: 1400000, originalPrice: 1600000, discountPercentage: 11, category: "Music", subCategory: "Guitars", description: "Electric guitar with alder body, maple neck, and Player Series pickups.", rating: 4.8, reviews: 2341, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Classic", stock: 9, brand: "Fender", colors: ["Black", "Sunburst", "Polar White"], features: ["Alder Body", "Maple Neck", "Player Pickups", "2-Point Tremolo"]
   },
   {
-    id: 145, title: "Focusrite Scarlett 2i2", price: 169.99, originalPrice: 199.99, discountPercentage: 15, category: "Music", subCategory: "Audio Interfaces", description: "USB audio interface with two mic preamps and high-quality converters.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Studio", stock: 38, brand: "Focusrite", colors: ["Red"], features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
+    id: 145, title: "Focusrite Scarlett 2i2", price: 145000, originalPrice: 170000, discountPercentage: 15, category: "Music", subCategory: "Audio Interfaces", description: "USB audio interface with two mic preamps and high-quality converters.", rating: 4.9, reviews: 4321, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Studio", stock: 38, brand: "Focusrite", colors: ["Red"], features: ["2 Mic Preamps", "24-bit/192kHz", "Direct Monitoring", "Bundled Software"]
   },
   {
-    id: 146, title: "Roland TD-07KV V-Drums", price: 899.99, originalPrice: 999.99, discountPercentage: 10, category: "Music", subCategory: "Drums", description: "Compact electronic drum kit with mesh heads and Bluetooth connectivity.", rating: 4.8, reviews: 1234, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Practice", stock: 7, brand: "Roland", colors: ["Black"], features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
+    id: 146, title: "Roland TD-07KV V-Drums", price: 1600000, originalPrice: 1800000, discountPercentage: 10, category: "Music", subCategory: "Drums", description: "Compact electronic drum kit with mesh heads and Bluetooth connectivity.", rating: 4.8, reviews: 1234, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Practice", stock: 7, brand: "Roland", colors: ["Black"], features: ["Mesh Heads", "25 Kits", "Bluetooth", "Built-in Coach"]
   },
   {
-    id: 147, title: "Shure SM58-LC", price: 99.99, originalPrice: 129.99, discountPercentage: 23, category: "Music", subCategory: "Microphones", description: "Professional vocal microphone with cardioid pattern and tailored frequency response.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Legendary", stock: 87, brand: "Shure", colors: ["Silver"], features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
+    id: 147, title: "Shure SM58-LC", price: 75000, originalPrice: 90000, discountPercentage: 23, category: "Music", subCategory: "Microphones", description: "Professional vocal microphone with cardioid pattern and tailored frequency response.", rating: 4.9, reviews: 8765, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Legendary", stock: 87, brand: "Shure", colors: ["Silver"], features: ["Cardioid Pattern", "Frequency Tailored", "Pneumatic Shock Mount", "Built-in Pop Filter"]
   },
   {
-    id: 148, title: "Korg Minilogue XD", price: 649.99, originalPrice: 699.99, discountPercentage: 7, category: "Music", subCategory: "Synthesizers", description: "Polyphonic analog synthesizer with digital effects and sequencer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Synth", stock: 13, brand: "Korg", colors: ["Black", "Silver"], features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
+    id: 148, title: "Korg Minilogue XD", price: 1100000, originalPrice: 1250000, discountPercentage: 7, category: "Music", subCategory: "Synthesizers", description: "Polyphonic analog synthesizer with digital effects and sequencer.", rating: 4.8, reviews: 1654, image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300&auto=format", badge: "Synth", stock: 13, brand: "Korg", colors: ["Black", "Silver"], features: ["4-Voice Poly", "Digital Effects", "Sequencer", "User Oscillator"]
   },
 
   // Art & Craft
   {
-    id: 149, title: "Cricut Maker 3", price: 399.99, originalPrice: 449.99, discountPercentage: 11, category: "Crafts", subCategory: "Cutting", description: "Smart cutting machine that cuts 300+ materials without a mat.", rating: 4.8, reviews: 3210, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Creative", stock: 19, brand: "Cricut", colors: ["Blue"], features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
+    id: 149, title: "Cricut Maker 3", price: 580000, originalPrice: 650000, discountPercentage: 11, category: "Crafts", subCategory: "Cutting", description: "Smart cutting machine that cuts 300+ materials without a mat.", rating: 4.8, reviews: 3210, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Creative", stock: 19, brand: "Cricut", colors: ["Blue"], features: ["Cuts 300+ Materials", "No Mat Needed", "Bluetooth", "Double Cut"]
   },
   {
-    id: 150, title: "Wacom Intuos Pro Medium", price: 349.99, originalPrice: 399.99, discountPercentage: 12, category: "Electronics", subCategory: "Drawing", description: "Professional pen tablet with 8192 pressure sensitivity and multi-touch.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Artist Choice", stock: 22, brand: "Wacom", colors: ["Black"], features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
+    id: 150, title: "Wacom Intuos Pro Medium", price: 420000, originalPrice: 480000, discountPercentage: 12, category: "Electronics", subCategory: "Drawing", description: "Professional pen tablet with 8192 pressure sensitivity and multi-touch.", rating: 4.9, reviews: 2341, image: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=600&auto=format", thumbnail: "https://images.unsplash.com/photo-1567721913486-6585f069b332?w=300&auto=format", badge: "Artist Choice", stock: 22, brand: "Wacom", colors: ["Black"], features: ["8192 Pressure", "Multi-Touch", "ExpressKeys", "Bluetooth"]
   }
 ];
 
@@ -2426,8 +2426,10 @@ function createAnnouncementBar(data) {
 
   const isCoupon = data.linkType === 'coupon' && data.couponCode;
 
-  // Use updatedAt as a unique key for this announcement version
-  const announcementKey = data.updatedAt ? (data.updatedAt.seconds || data.updatedAt.toString()) : 'default';
+  // Use updatedAt + countdownHours as a unique key for this announcement version
+  const announcementKey = data.updatedAt 
+    ? ((data.updatedAt.seconds || data.updatedAt.toString()) + '_' + (data.countdownHours || 24))
+    : ('default_' + (data.countdownHours || 24));
   const storageKey = `announcementEndTime_${announcementKey}`;
   const expiredKey = `announcementExpired_${announcementKey}`;
 
@@ -2900,8 +2902,8 @@ function displayFeaturedProducts() {
                             <span class="text-xs text-gray-500">(${product.reviews.toLocaleString()})</span>
                         </div>
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${product.price.toFixed(2)}</span>
-                            ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">$${product.originalPrice.toFixed(2)}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
+                            <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">₦${product.price.toLocaleString()}</span>
+                            ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">₦${product.originalPrice.toLocaleString()}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
                         </div>
                     </div>
                     <div class="px-4 pb-4">
@@ -2943,7 +2945,7 @@ export function openModal(product) {
   document.getElementById('modalTitle').textContent = product.title;
   document.getElementById('modalDescription').textContent = product.description;
   document.getElementById('modalCategory').textContent = product.category;
-  document.getElementById('modalPrice').textContent = `$${product.price.toFixed(2)}`;
+  document.getElementById('modalPrice').textContent = `₦${product.price.toLocaleString()}`;
 
   const rating = product.rating;
   const fullStars = Math.floor(rating);
@@ -2956,7 +2958,7 @@ export function openModal(product) {
   document.getElementById('modalReviewCount').textContent = `(${product.reviews.toLocaleString()} reviews)`;
 
   if (product.discountPercentage) {
-    document.getElementById('modalOriginalPrice').textContent = `$${product.originalPrice.toFixed(2)}`;
+    document.getElementById('modalOriginalPrice').textContent = `₦${product.originalPrice.toLocaleString()}`;
     document.getElementById('modalOriginalPrice').classList.remove('hidden');
     document.getElementById('modalDiscountPercent').textContent = `-${product.discountPercentage}%`;
     document.getElementById('modalDiscountPercent').classList.remove('hidden');
@@ -3094,3 +3096,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.openModal = openModal;
   window.closeModal = closeModal;
 });
+

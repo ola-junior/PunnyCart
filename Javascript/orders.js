@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, query, where, orderBy, getDocs, doc, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { openModal, closeModal, addToCart, updateCartCount } from './main.js';
@@ -143,10 +143,10 @@ async function displayOrders(orders) {
           <img src="${itemImage}" class="w-16 h-16 object-cover rounded-xl shadow-sm flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&auto=format'">
           <div class="flex-1">
             <h3 class="font-semibold text-gray-900 dark:text-white text-base">${itemTitle}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Quantity: ${itemQuantity} × $${itemPrice.toFixed(2)}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Quantity: ${itemQuantity} × ₦${itemPrice.toLocaleString()}</p>
           </div>
           <div class="text-right">
-            <span class="font-bold text-indigo-600 dark:text-indigo-400 text-lg">$${(itemPrice * itemQuantity).toFixed(2)}</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 text-lg">₦${(itemPrice * itemQuantity).toLocaleString()}</span>
             ${order.status?.toLowerCase() === 'delivered' && !hasReviewed ? `
               <button onclick='openReviewModalForItem(${JSON.stringify(item).replace(/'/g, "\\'")})' 
                       class="block text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 mt-2 transition-colors">
@@ -187,7 +187,7 @@ async function displayOrders(orders) {
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-500 dark:text-gray-400">Total Amount:</span>
-              <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">$${orderTotal.toFixed(2)}</span>
+              <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">₦${orderTotal.toLocaleString()}</span>
             </div>
             <button onclick="viewOrderDetails('${orderId}')" 
                     class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-xl font-medium text-sm transition-all duration-200">
@@ -319,10 +319,10 @@ window.viewOrderDetails = async function(orderId) {
           <img src="${itemImage}" class="w-16 h-16 object-cover rounded-xl shadow-sm flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&auto=format'">
           <div class="flex-1">
             <h4 class="font-semibold text-gray-900 dark:text-white">${itemTitle}</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Quantity: ${itemQuantity} × $${itemPrice.toFixed(2)}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Quantity: ${itemQuantity} × ₦${itemPrice.toLocaleString()}</p>
           </div>
           <div class="text-right">
-            <span class="font-bold text-indigo-600 dark:text-indigo-400">$${(itemPrice * itemQuantity).toFixed(2)}</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400">₦${(itemPrice * itemQuantity).toLocaleString()}</span>
           </div>
         </div>
       `;
@@ -351,7 +351,7 @@ window.viewOrderDetails = async function(orderId) {
               </div>
               <div>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Order Total</p>
-                <p class="text-sm font-bold text-indigo-600 dark:text-indigo-400">$${total.toFixed(2)}</p>
+                <p class="text-sm font-bold text-indigo-600 dark:text-indigo-400">₦${total.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -394,26 +394,26 @@ window.viewOrderDetails = async function(orderId) {
             <div class="space-y-2">
               <div class="flex justify-between text-sm">
                 <span class="text-gray-600 dark:text-gray-400">Subtotal</span>
-                <span class="font-medium text-gray-900 dark:text-white">$${subtotal.toFixed(2)}</span>
+                <span class="font-medium text-gray-900 dark:text-white">₦${subtotal.toLocaleString()}</span>
               </div>
               <div class="flex justify-between text-sm">
                 <span class="text-gray-600 dark:text-gray-400">Shipping</span>
-                <span class="font-medium text-gray-900 dark:text-white">$${shippingCost.toFixed(2)}</span>
+                <span class="font-medium text-gray-900 dark:text-white">₦${shippingCost.toLocaleString()}</span>
               </div>
               <div class="flex justify-between text-sm">
                 <span class="text-gray-600 dark:text-gray-400">Tax (10%)</span>
-                <span class="font-medium text-gray-900 dark:text-white">$${tax.toFixed(2)}</span>
+                <span class="font-medium text-gray-900 dark:text-white">₦${tax.toLocaleString()}</span>
               </div>
               ${order.discount ? `
                 <div class="flex justify-between text-sm">
                   <span class="text-gray-600 dark:text-gray-400">Discount</span>
-                  <span class="font-medium text-green-600">-$${order.discount.toFixed(2)}</span>
+                  <span class="font-medium text-green-600">-₦${order.discount.toLocaleString()}</span>
                 </div>
               ` : ''}
               <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                 <div class="flex justify-between">
                   <span class="font-semibold text-gray-900 dark:text-white">Total</span>
-                  <span class="font-bold text-indigo-600 dark:text-indigo-400 text-lg">$${total.toFixed(2)}</span>
+                  <span class="font-bold text-indigo-600 dark:text-indigo-400 text-lg">₦${total.toLocaleString()}</span>
                 </div>
               </div>
             </div>
@@ -449,3 +449,4 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
   initStarRating();
 });
+

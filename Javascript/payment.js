@@ -1,4 +1,4 @@
-import { updateCartCount } from './main.js';
+﻿import { updateCartCount } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -106,7 +106,7 @@ function displayShippingMethod() {
       <h3 class="font-semibold mb-2">Shipping Method</h3>
       <p class="text-gray-600 dark:text-gray-300">
         <strong>${paymentData.shippingMethod}</strong><br>
-        <span class="text-sm">$${paymentData.shippingCost.toFixed(2)}</span>
+        <span class="text-sm">₦${paymentData.shippingCost.toLocaleString()}</span>
       </p>
     </div>
   `;
@@ -133,14 +133,14 @@ function displayOrderSummary() {
         <p class="font-semibold text-sm line-clamp-1">${displayTitle}</p>
         <p class="text-xs text-gray-500 dark:text-gray-400">Qty: ${quantity}</p>
       </div>
-      <p class="font-semibold text-indigo-600 dark:text-indigo-400">$${(displayPrice * quantity).toFixed(2)}</p>
+      <p class="font-semibold text-indigo-600 dark:text-indigo-400">₦${(displayPrice * quantity).toLocaleString()}</p>
     </div>
   `}).join('');
 
-  if (paymentSubtotal) paymentSubtotal.textContent = `$${paymentData.subtotal.toFixed(2)}`;
-  if (paymentTax) paymentTax.textContent = `$${paymentData.tax.toFixed(2)}`;
-  if (paymentShipping) paymentShipping.textContent = `$${paymentData.shippingCost.toFixed(2)}`;
-  if (paymentTotal) paymentTotal.textContent = `$${paymentData.totalWithShipping.toFixed(2)}`;
+  if (paymentSubtotal) paymentSubtotal.textContent = `₦${paymentData.subtotal.toLocaleString()}`;
+  if (paymentTax) paymentTax.textContent = `₦${paymentData.tax.toLocaleString()}`;
+  if (paymentShipping) paymentShipping.textContent = `₦${paymentData.shippingCost.toLocaleString()}`;
+  if (paymentTotal) paymentTotal.textContent = `₦${paymentData.totalWithShipping.toLocaleString()}`;
 }
 
 function checkAuthAndLoadData() {
@@ -309,7 +309,7 @@ async function saveOrderToFirebase() {
     sessionStorage.removeItem('checkoutData');
     sessionStorage.removeItem('paymentData');
     sessionStorage.setItem('lastOrderId', docRef.id);
-    sessionStorage.setItem('orderTotal', order.total.toFixed(2));
+    sessionStorage.setItem('orderTotal', order.total.toLocaleString());
 
     return true;
   } catch (error) {
@@ -339,3 +339,4 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuthAndLoadData();
   updateCartCount();
 });
+

@@ -1,4 +1,4 @@
-import { updateCartCount } from './main.js';
+﻿import { updateCartCount } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, query, where, getDocs, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -115,13 +115,13 @@ function calculateTotals() {
 
   if (checkoutSubtotal) {
     if (discountAmount > 0) {
-      checkoutSubtotal.innerHTML = `<span class="line-through text-gray-400 mr-2">$${subtotal.toFixed(2)}</span>$${discountedSubtotal.toFixed(2)}`;
+      checkoutSubtotal.innerHTML = `<span class="line-through text-gray-400 mr-2">₦${subtotal.toLocaleString()}</span>₦${discountedSubtotal.toLocaleString()}`;
     } else {
-      checkoutSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+      checkoutSubtotal.textContent = `₦${subtotal.toLocaleString()}`;
     }
   }
-  if (checkoutTax) checkoutTax.textContent = `$${tax.toFixed(2)}`;
-  if (checkoutTotal) checkoutTotal.textContent = `$${total.toFixed(2)}`;
+  if (checkoutTax) checkoutTax.textContent = `₦${tax.toLocaleString()}`;
+  if (checkoutTotal) checkoutTotal.textContent = `₦${total.toLocaleString()}`;
 
   return { subtotal: discountedSubtotal, tax, total, originalSubtotal: subtotal };
 }
@@ -158,7 +158,7 @@ function displayCheckoutItems() {
         <p class="font-semibold text-sm line-clamp-1">${displayTitle}</p>
         <p class="text-xs text-gray-500 dark:text-gray-400">Qty: ${quantity}</p>
       </div>
-      <p class="font-semibold text-indigo-600 dark:text-indigo-400">$${(displayPrice * quantity).toFixed(2)}</p>
+      <p class="font-semibold text-indigo-600 dark:text-indigo-400">₦${(displayPrice * quantity).toLocaleString()}</p>
     </div>
   `}).join('');
 
@@ -217,7 +217,7 @@ async function applyCoupon() {
     
     // Check minimum purchase
     if (coupon.minPurchase && subtotal < coupon.minPurchase) {
-      showCouponMessage(`Minimum purchase of $${coupon.minPurchase.toFixed(2)} required`, 'error');
+      showCouponMessage(`Minimum purchase of ₦${coupon.minPurchase.toLocaleString()} required`, 'error');
       return;
     }
     
@@ -235,7 +235,7 @@ async function applyCoupon() {
     // Update totals with discount
     calculateTotals();
     
-    showCouponMessage(`Coupon applied! You saved $${discountAmount.toFixed(2)}`, 'success');
+    showCouponMessage(`Coupon applied! You saved ₦${discountAmount.toLocaleString()}`, 'success');
     codeInput.disabled = true;
     const applyBtn = document.getElementById('applyCouponBtn');
     applyBtn.textContent = 'Applied ✓';
@@ -428,3 +428,4 @@ document.addEventListener('DOMContentLoaded', () => {
     applyBtn.addEventListener('click', applyCoupon);
   }
 });
+

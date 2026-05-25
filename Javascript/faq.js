@@ -1,4 +1,4 @@
-import { updateCartCount } from './main.js';
+﻿import { updateCartCount } from './main.js';
 
 const darkToggle = document.getElementById('darkToggle');
 const themeIcon = document.getElementById('themeIcon');
@@ -142,3 +142,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoryFilter();
   updateCartCount();
 });
+

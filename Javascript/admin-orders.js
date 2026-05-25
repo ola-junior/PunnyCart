@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, query, orderBy, getDocs, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -117,14 +117,14 @@ function renderOrders(orders) {
                             <img src="${img}" alt="${name}" class="w-9 h-9 rounded-lg object-cover border border-gray-100 dark:border-gray-700 flex-shrink-0" onerror="this.src='https://via.placeholder.com/36'">
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs font-medium text-gray-700 dark:text-gray-200 truncate">${name}</p>
-                                <p class="text-[11px] text-gray-400">x${qty} · $${price.toFixed(2)} each</p>
+                                <p class="text-[11px] text-gray-400">x${qty} · ₦${price.toLocaleString()} each</p>
                             </div>
-                            <span class="text-xs font-bold text-gray-700 dark:text-gray-200 ml-2">$${(price * qty).toFixed(2)}</span>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-200 ml-2">₦${(price * qty).toLocaleString()}</span>
                         </div>`;
                     }).join('')}
                 </div>
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">
-                    <span class="text-base font-bold text-indigo-600 dark:text-indigo-400">Total: $${total.toFixed(2)}</span>
+                    <span class="text-base font-bold text-indigo-600 dark:text-indigo-400">Total: ₦${total.toLocaleString()}</span>
                     <div class="flex flex-wrap items-center gap-2">
                         <select onchange="window.updateOrderStatus('${order.id}',this.value)" class="px-3 py-2 text-xs rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option value="">Update Status</option>
@@ -200,7 +200,7 @@ window.viewOrderDetails = async (orderId) => {
                     <div class="grid grid-cols-2 gap-3 bg-indigo-50 dark:bg-gray-800 rounded-xl p-4">
                         <div><p class="text-[11px] text-gray-500">Date</p><p class="text-sm font-semibold">${new Date(o.orderDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p></div>
                         <div><p class="text-[11px] text-gray-500">Status</p><span class="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${sc}">${o.status || 'Pending'}</span></div>
-                        <div><p class="text-[11px] text-gray-500">Total</p><p class="text-sm font-bold text-indigo-600">$${(o.total || 0).toFixed(2)}</p></div>
+                        <div><p class="text-[11px] text-gray-500">Total</p><p class="text-sm font-bold text-indigo-600">₦${(o.total || 0).toLocaleString()}</p></div>
                         <div><p class="text-[11px] text-gray-500">Items</p><p class="text-sm font-semibold">${items.length}</p></div>
                     </div>
                     <div><p class="text-xs font-bold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1 text-indigo-400"></i>Customer</p>
@@ -215,8 +215,8 @@ window.viewOrderDetails = async (orderId) => {
                             const img = item.image || item.images?.[0] || 'https://via.placeholder.com/40';
                             return `<div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-2">
                                 <img src="${img}" class="w-10 h-10 rounded-lg object-cover" onerror="this.src='https://via.placeholder.com/40'">
-                                <div class="flex-1 min-w-0"><p class="text-xs font-semibold truncate">${n}</p><p class="text-[11px] text-gray-500">x${qty} · $${price.toFixed(2)}</p></div>
-                                <span class="text-xs font-bold text-indigo-600">$${(price * qty).toFixed(2)}</span>
+                                <div class="flex-1 min-w-0"><p class="text-xs font-semibold truncate">${n}</p><p class="text-[11px] text-gray-500">x${qty} · ₦${price.toLocaleString()}</p></div>
+                                <span class="text-xs font-bold text-indigo-600">₦${(price * qty).toLocaleString()}</span>
                             </div>`;
                         }).join('')}</div>
                     </div>
@@ -261,3 +261,5 @@ document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
     window.location.href = '../Pages/login.html';
 });
+
+

@@ -1,4 +1,4 @@
-import { openModal, closeModal, addToCart, updateCartCount, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
+﻿import { openModal, closeModal, addToCart, updateCartCount, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -436,9 +436,9 @@ function displayProducts() {
           ` : ''}
 
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${productPrice.toFixed(2)}</span>
+            <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">₦${productPrice.toLocaleString()}</span>
             ${productOriginalPrice ? `
-              <span class="text-sm text-gray-500 line-through">$${productOriginalPrice.toFixed(2)}</span>
+              <span class="text-sm text-gray-500 line-through">₦${productOriginalPrice.toLocaleString()}</span>
               <span class="text-xs text-green-600 dark:text-green-400 font-semibold">-${productDiscount}%</span>
             ` : ''}
           </div>
@@ -494,6 +494,9 @@ async function loadProductsFromFirebase() {
     allProducts = [];
     querySnapshot.forEach(doc => {
       const data = doc.data();
+      // Prices are already in Naira - no conversion needed
+      const price = data.price || 0;
+      const originalPrice = data.originalPrice || 0;
       allProducts.push({ 
         id: doc.id, 
         ...data,
@@ -501,7 +504,8 @@ async function loadProductsFromFirebase() {
         title: data.title || data.name,
         image: data.image || data.thumbnail,
         thumbnail: data.thumbnail || data.image,
-        price: data.price || 0,
+        price,
+        originalPrice,
         stock: data.stock || 0,
         rating: data.rating || 0,
         reviews: data.reviews || 0,
@@ -636,3 +640,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.openModal = openModal;
   window.closeModal = closeModal;
 });
+

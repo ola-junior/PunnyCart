@@ -1,4 +1,4 @@
-import { products, showToast, getUserCart, updateCartItemQuantity, removeFromCart, updateCartCount } from './main.js';
+﻿import { products, showToast, getUserCart, updateCartItemQuantity, removeFromCart, updateCartCount } from './main.js';
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
@@ -160,19 +160,19 @@ function restoreCartContent() {
           <div class="space-y-4 mb-6">
             <div class="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Subtotal</span>
-              <span id="subtotal">$0.00</span>
+              <span id="subtotal">₦0.00</span>
             </div>
             <div class="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Shipping</span>
-              <span id="shipping">$5.99</span>
+              <span id="shipping">₦9500</span>
             </div>
             <div class="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Tax (10%)</span>
-              <span id="tax">$0.00</span>
+              <span id="tax">₦0.00</span>
             </div>
             <div class="flex justify-between font-bold text-lg pt-4 border-t border-gray-200 dark:border-gray-700">
               <span>Total</span>
-              <span id="total">$0.00</span>
+              <span id="total">₦0.00</span>
             </div>
           </div>
 
@@ -279,12 +279,12 @@ async function removeItem(productId) {
 function calculateTotals() {
   const subtotal = cart.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || 1)), 0);
   const tax = subtotal * 0.10;
-  const shipping = subtotal > 0 ? 5.99 : 0;
+  const shipping = subtotal > 0 ? 9500 : 0;
   const total = subtotal + tax + shipping;
 
-  if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-  if (taxEl) taxEl.textContent = `$${tax.toFixed(2)}`;
-  if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
+  if (subtotalEl) subtotalEl.textContent = `₦${subtotal.toLocaleString()}`;
+  if (taxEl) taxEl.textContent = `₦${tax.toLocaleString()}`;
+  if (totalEl) totalEl.textContent = `₦${total.toLocaleString()}`;
 
   return { subtotal, tax, shipping, total };
 }
@@ -330,7 +330,7 @@ function displayCartItems() {
             <h3 class="font-semibold text-gray-900 dark:text-white mb-1">${displayTitle}</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">${displayBrand}</p>
           </div>
-          <p class="text-lg font-bold text-indigo-600 dark:text-indigo-400">$${(displayPrice * quantity).toFixed(2)}</p>
+          <p class="text-lg font-bold text-indigo-600 dark:text-indigo-400">₦${(displayPrice * quantity).toLocaleString()}</p>
         </div>
 
         <div class="flex items-center justify-between mt-4">
@@ -384,7 +384,7 @@ function displayRecommendedProducts() {
       </div>
       <div class="p-4">
         <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1">${product.title}</h3>
-        <p class="text-lg font-bold text-indigo-600 dark:text-indigo-400">$${product.price.toFixed(2)}</p>
+        <p class="text-lg font-bold text-indigo-600 dark:text-indigo-400">₦${product.price.toLocaleString()}</p>
       </div>
     </div>
   `).join('');
@@ -397,3 +397,4 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Cart page initialized');
   checkAuthAndProtect();
 });
+

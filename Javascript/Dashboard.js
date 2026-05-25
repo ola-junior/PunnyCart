@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, query, orderBy, getDocs, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -132,7 +132,7 @@ function buildSalesChart() {
           ticks: {
             color: isDark ? '#9ca3af' : '#6b7280',
             font: { size: 11 },
-            callback: v => '$' + v.toLocaleString()
+            callback: v => '₦' + v.toLocaleString()
           }
         }
       }
@@ -221,7 +221,7 @@ window.loadDashboardData = async function() {
     });
 
     // Update stats with safe checks
-    safeSetTextContent('totalRevenue', '$' + totalRevenue.toFixed(2));
+    safeSetTextContent('totalRevenue', '₦' + totalRevenue.toLocaleString());
     safeSetTextContent('totalOrders', total);
     safeSetTextContent('pendingOrders', counts.pending);
     safeSetTextContent('cancelledOrders', counts.cancelled);
@@ -251,7 +251,7 @@ window.loadDashboardData = async function() {
             <td class="px-4 sm:px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">${name}</td>
             <td class="px-4 sm:px-6 py-3 text-xs text-gray-500 dark:text-gray-400">${date}</td>
             <td class="px-4 sm:px-6 py-3">${statusBadge(o.status)}</td>
-            <td class="px-4 sm:px-6 py-3 text-sm font-bold text-right text-indigo-600 dark:text-indigo-400">$${(o.total || 0).toFixed(2)}</td>
+            <td class="px-4 sm:px-6 py-3 text-sm font-bold text-right text-indigo-600 dark:text-indigo-400">₦${(o.total || 0).toLocaleString()}</td>
           </tr>
         `;
       });
@@ -285,3 +285,4 @@ if (logoutBtn) {
     window.location.href = '../Pages/login.html';
   });
 }
+

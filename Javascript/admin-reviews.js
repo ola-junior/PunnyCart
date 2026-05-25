@@ -1,4 +1,4 @@
-
+﻿
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -335,3 +335,5 @@ document.getElementById('logoutBtn')?.addEventListener('click', async () => {
     await signOut(auth);
     window.location.href = '../Pages/login.html';
 });
+
+

@@ -1,4 +1,4 @@
-import { products, openModal, closeModal, addToCart, updateCartCount, cart, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
+﻿import { products, openModal, closeModal, addToCart, updateCartCount, cart, toggleWishlist, isInWishlist, getUserWishlist, loadUserWishlist } from './main.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -260,19 +260,30 @@ function createAnnouncementBar(data) {
 
     const isCoupon = data.linkType === 'coupon' && data.couponCode;
 
+    // Use updatedAt + countdownHours as a unique key for this announcement version
+    const announcementKey = data.updatedAt
+        ? ((data.updatedAt.seconds || data.updatedAt.toString()) + '_' + (data.countdownHours || 24))
+        : ('default_' + (data.countdownHours || 24));
+    const storageKey = `announcementEndTime_${announcementKey}`;
+    const expiredKey = `announcementExpired_${announcementKey}`;
+
+    // If this specific announcement has already expired, never show it again
+    if (localStorage.getItem(expiredKey) === 'true') return;
+
     let endTime;
-    const savedEndTime = localStorage.getItem('announcementEndTime');
+    const savedEndTime = localStorage.getItem(storageKey);
     const currentTime = new Date().getTime();
 
     if (savedEndTime && parseInt(savedEndTime) > currentTime) {
         endTime = parseInt(savedEndTime);
     } else if (savedEndTime && parseInt(savedEndTime) <= currentTime) {
-        localStorage.removeItem('announcementEndTime');
-        localStorage.removeItem('announcementClosed');
+        // Timer expired — mark permanently expired and never show again
+        localStorage.setItem(expiredKey, 'true');
+        localStorage.removeItem(storageKey);
         return;
     } else {
         endTime = currentTime + (data.countdownHours || 24) * 60 * 60 * 1000;
-        localStorage.setItem('announcementEndTime', endTime);
+        localStorage.setItem(storageKey, endTime);
     }
 
     const announcementHTML = `
@@ -312,7 +323,7 @@ function createAnnouncementBar(data) {
     `;
 
     announcementPlaceholder.innerHTML = announcementHTML;
-    startAnnouncementCountdown(endTime);
+    startAnnouncementCountdown(endTime, expiredKey, storageKey);
 
     if (isCoupon && data.couponCode) {
         const couponBadge = document.querySelector('#announcementBarContainer .bg-gradient-to-r.from-yellow-400, #announcementBarContainer [class*="from-yellow-400"]');
@@ -347,17 +358,17 @@ function createAnnouncementBar(data) {
             if (container) {
                 container.style.display = 'none';
             }
-            localStorage.setItem('announcementClosed', 'true');
+            localStorage.setItem(`announcementClosed_${announcementKey}`, 'true');
         });
     }
 
-    if (localStorage.getItem('announcementClosed') === 'true') {
+    if (localStorage.getItem(`announcementClosed_${announcementKey}`) === 'true') {
         const container = document.getElementById('announcementBarContainer');
         if (container) container.style.display = 'none';
     }
 }
 
-function startAnnouncementCountdown(endTime) {
+function startAnnouncementCountdown(endTime, expiredKey, storageKey) {
     const announcementBar = document.getElementById('announcementBarContainer');
 
     function updateCountdown() {
@@ -374,8 +385,9 @@ function startAnnouncementCountdown(endTime) {
             hoursEl.textContent = '00';
             minutesEl.textContent = '00';
             secondsEl.textContent = '00';
-            localStorage.removeItem('announcementEndTime');
-            localStorage.removeItem('announcementClosed');
+            // Mark permanently expired — never show again until admin saves a new one
+            localStorage.setItem(expiredKey, 'true');
+            localStorage.removeItem(storageKey);
 
             if (announcementBar) {
                 announcementBar.style.display = 'none';
@@ -551,8 +563,8 @@ function displayFeaturedProducts() {
                         <span class="text-xs text-gray-500">(${product.reviews.toLocaleString()})</span>
                     </div>
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">$${product.price.toFixed(2)}</span>
-                        ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">$${product.originalPrice.toFixed(2)}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
+                        <span class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">₦${product.price.toLocaleString()}</span>
+                        ${product.discountPercentage ? `<span class="text-sm text-gray-500 line-through">₦${product.originalPrice.toLocaleString()}</span><span class="text-xs text-green-600 font-semibold">-${product.discountPercentage}%</span>` : ''}
                     </div>
                 </div>
                 <div class="px-4 pb-4">
@@ -601,3 +613,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Export for use in other files if needed
 export { fetchBanners, banners, updateBannerSlider, stopBannerSlider, startBannerSlider, loadAnnouncementBar };
+
